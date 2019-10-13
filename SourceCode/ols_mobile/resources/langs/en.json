@@ -1,0 +1,235 @@
+{
+  "title": "Hello",
+  "homePage": {
+    "discover": "Hot deals",
+    "balance": "Balance",
+    "scan": "Scan",
+    "linkCard": "Link card",
+    "gift": "Redeem gifts",
+    "hot": "Hot",
+    "newest": "Newest",
+    "category": "Category",
+    "interesting": "Interesting",
+    "soon": "Expiring soon",
+    "near": "Recently viewed",
+    "seeAll": "See all",
+    "store": "Favorite stores",
+    "noItem": "Any item that you’ve recently saved or purchased will appear here."
+  },
+  "languageSettingPage": {
+    "pageTitle": "Language Settings",
+    "messageSuccess": "Language changed successfully",
+    "buttonTitle": "Update"
+  },
+  "loginPage": {
+    "phone": "Phone number",
+    "pass": "Password",
+    "login": "Login",
+    "forgetPass": "Forgot password?",
+    "touchId": "Sign in with Touch ID",
+    "notMember": "Not a member yet?",
+    "createAccount": "Create an account",
+    "phoneEmpty": "Phone number can't be empty",
+    "passEmpty": "Password can't be empty"
+  },
+  "mainPage": {
+    "home": "Home",
+    "search": "Browser",
+    "wallet": "Wallet",
+    "store": "Store",
+    "profile": "Profile"
+  },
+  "registrationPage": {
+    "createAccount": "Create account",
+    "createPassword": "Create password",
+    "name": "Your name",
+    "phone": "Phone number",
+    "continue": "Next",
+    "pass": "Password",
+    "rePass": "Re-enter password",
+    "done": "Confirm",
+    "terms": "By clicking 'Confirm' you accept our Terms & Condition and Privacy Policy",
+    "nameRequire": "Please enter your name",
+    "100Char": "Please enter no more than 100 characters",
+    "phoneUsed": "Phone number already in use",
+    "passNotMatch": "Password does not match",
+    "rePassRequire": "Please re-enter password",
+    "passLeast": "Password must be at least 8 characters",
+    "createSuccess": "Account successfully created"
+  },
+  "profilePage": {
+    "updateAccount": "Profile",
+    "balance": "Balance",
+    "transaction": "Transaction history",
+    "memberCode": "Member code",
+    "notification": "Notification",
+    "accountLinked": "Partner linked",
+    "cardLinked": "Card linked",
+    "setting": "Settings",
+    "support": "Support center",
+    "logout": "Log out"
+  },
+  "cardLinked": {
+    "associateWithTheBank": "Link bank account",
+    "associateWithTheBankForEasy": "Link bank account for easy deposit",
+    "linkNow": "Link now >>>",
+    "addNewCard": "Add a new card"
+  },
+  "accountLinked": {
+    "header": "Affiliate account",
+    "add": "More",
+    "unLink": "Unlink"
+  },
+  "addAccountLinked": {
+    "header": "Add affiliate account",
+    "selectPartner": "Select an affiliate partner",
+    "enterId": "Enter ID number",
+    "continue": "Continue"
+  },
+  "profileEditPage": {
+    "updateAccount": "Update account",
+    "save": "Done",
+    "name": "Name",
+    "phone": "Phone number",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "referralCode": "Referral code",
+    "share": "Share",
+    "updateSuccess": "Account updated successfully",
+    "updateFail": "Update failed",
+    "avatarSuccess": "Account updated successfully",
+    "avatarFail": "Update failed",
+    "changeAvatar": "Change avatar",
+    "camera": "Camera",
+    "gallery": "Gallery",
+    "cancel": "Cancel",
+    "sure": "Are you sure you want to change your avatar?"
+  },
+  "supportCenter": {
+    "aboutMbf": "About MobiLoyalty",
+    "tac": "Term And Condition",
+    "faq": "Frequently Asked Questions(FAQs)",
+    "sendFeedback": "Send feedback"
+  },
+  "transactionHistoryPage": {
+    "to" : "to",
+    "transactionHistory": "Transaction History",
+    "gift": "Gift history",
+    "point": "Point history",
+    "noTransaction": "No transactions found",
+    "time": "Time"
+  },
+  "sendFeedBack": {
+    "chooseTheme": "Choose a topic",
+    "billNumber": "Code bills",
+    "content": "Content"
+  },
+  "chooseBank": {
+    "chooseBank": "Choose a bank",
+    "bankLink": "Bank link",
+    "internationalPaymentCards": "International payment cards",
+    "searchBank": "Find a bank",
+    "continue": "Continue"
+  },
+  "associateCondition": {
+    "associateCondition": "Linking conditions",
+    "header": "In order for the link to succeed, your card must meet the following conditions:",
+    "condition_1": "{name} online payment function is enabled",
+    "condition_2": "Phone number xxxx-xxx-xxx has been registered at {name} and has matching information",
+    "linkNow": "Link now"
+  },
+  "memberCodePage": {
+    "memberCode": "Member code",
+    "text": "Please give this code to the staff when checkout"
+  },
+  "notificationPage": {
+    "noti": "Notification",
+    "noNoti": "No notification found",
+    "delete": "Delete notification",
+    "deleteNoti": "Delete all notification",
+    "sure": "Are you sure you want to delete all notifications?",
+    "restore": "You cannot recover deleted notifications",
+    "no": "No",
+    "yes": "Yes, delete all",
+    "yes1": "Delete"
+  },
+  "infoCard": {
+    "infoCard": "Card information",
+    "numberCard": "Card number",
+    "deadlineCard": "Expiration date",
+    "nameCard": "Account name",
+    "linkCard": "Link"
+  },
+  "cardAuthentication": {
+    "header": "Card authentication",
+    "title": "Please enter the one-time password (OTP) that has been sent to phone number {phone}",
+    "enterOTP": "Enter the OTP code",
+    "resendCode": "Resend code",
+    "requestNewOTP": "You can request a new code after ",
+    "incorrectOTPCode": "Incorrect OTP code"
+  },
+  "detailCardLink": {
+    "header": "Card Information",
+    "cardType": "Card type",
+    "numberCard": "Card number",
+    "status": "Status",
+    "unLink": "Unlink",
+    "headerModal": "Unlink this card?",
+    "titleModal": "Are you sure you want to delete this card link?",
+    "yes": "Yes, cancel now",
+    "no": "No"
+  },
+  "walletDeals": {
+    "header": "Wallet deals",
+    "myOffer": "My offer",
+    "favoriteDeals": "Favorite deals"
+  },
+  "coupon_card": {
+    "useNow": "Use now",
+    "daysLeft": "{days} days left",
+    "expired": "Expired",
+    "delete": "Delete"
+  },
+  "wallet_balance": {
+    "header": "Wallet balance",
+    "goldClass": "Gold class",
+    "title": "You need to accumulate another {points} points in the month to maintain the gold level",
+    "footer": "{points} points are about to expire this month",
+    "bonusPoints": "Bonus points"
+  },
+  "bonusPoints": {
+    "header": "Bonus points",
+    "recipientPhoneNumber": "Recipient's phone number",
+    "pointsDonate": "Number of points to donate",
+    "mess": "Message",
+    "next": "Next"
+  },
+  "itemDetailPage": {
+    "use": "Conditions of use",
+    "place": "Place of application",
+    "about": "About",
+    "add": "Add to cart",
+    "map": "Map",
+    "call": "Call",
+    "success": "Item has been added to your wallet",
+    "redeem": "Use now!"
+  },
+  "browser": {
+    "seeAll": "See all"
+  },
+  "search_header": {
+    "hint": "Enter the brand and service you seek"
+  },
+  "cart_page": {
+    "header": "Cart",
+    "offersSelected": "{offers} offers selected",
+    "redeemGifts" : "Redeem gifts",
+    "delete": "Delete",
+    "exchangeGiftWith": "You are about to exchange gifts with",
+    "currentBalance": "Current balance: ",
+    "remainingBalance": "The remaining balance: ",
+    "cancel": "Cancel",
+    "continue": "Continue"
+  }
+}

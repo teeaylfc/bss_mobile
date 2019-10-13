@@ -1,0 +1,235 @@
+{
+  "title": "Xin chào",
+  "homePage": {
+    "discover": "Ưu đãi Hot",
+    "balance": "Số dư ví",
+    "scan": "Quét mã",
+    "linkCard": "Liên kết thẻ",
+    "gift": "Đổi quà",
+    "hot": "Ưu đãi hot",
+    "newest": "Mới nhất",
+    "category": "Danh mục ưu đãi",
+    "interesting": "Ưu đãi hấp dẫn",
+    "soon": "Sắp hết hạn",
+    "near": "Xem gần đây",
+    "seeAll": "Xem tất cả",
+    "store": "Thương hiệu yêu thích",
+    "noItem": "Những ưu đãi bạn đã xem gần đây sẽ được hiển thị tại đây"
+  },
+  "languageSettingPage": {
+    "pageTitle": "Cài đặt ngôn ngữ",
+    "messageSuccess": "Đổi ngôn ngữ thành công",
+    "buttonTitle": "Thay đổi"
+  },
+  "loginPage": {
+    "phone": "Số điện thoại",
+    "pass": "Mật khẩu",
+    "login": "Đăng nhập",
+    "forgetPass": "Quên mật khẩu",
+    "touchId": "Đăng nhập với TouchID",
+    "notMember": "Bạn chưa phải là thành viên?",
+    "createAccount": "Đăng kí ngay",
+    "phoneEmpty": "Số điện thoại không được để trống",
+    "passEmpty": "Mật khẩu không được để trống"
+  },
+  "mainPage": {
+    "home": "Trang chủ",
+    "search": "Tìm kiếm",
+    "wallet": "Ví ưu đãi",
+    "store": "Cửa hàng",
+    "profile": "Tài khoản"
+  },
+  "registrationPage": {
+    "createAccount": "Tạo tài khoản",
+    "createPassword": "Tạo mật khẩu",
+    "name": "Tên của bạn",
+    "phone": "Số điện thoại",
+    "continue": "Tiếp tục",
+    "pass": "Mật khẩu",
+    "rePass": "Nhập lại mật khẩu",
+    "done": "Xác nhận",
+    "terms": "Bằng việc nhấn 'Xác nhận', bạn đồng ý với Điều khoản & Điều kiện của chúng tôi",
+    "nameRequire": "Tên của bạn không được để trống",
+    "100Char": "Tên của bạn không được quá 100 kí tự",
+    "phoneUsed": "Số điện thoại đã được sử dụng",
+    "passNotMatch": "Mật khẩu không trùng khớp, vui lòng thử lại!",
+    "rePassRequire": "Yêu cầu nhập lại mật khẩu",
+    "passLeast": "Mật khẩu tối thiểu 8 kí tự",
+    "createSuccess": "Bạn đã đăng kí tài khoản thành công"
+  },
+  "profilePage": {
+    "updateAccount": "Thông tin tài khoản",
+    "balance": "Ví điểm thưởng",
+    "transaction": "Lịch sử giao dịch",
+    "memberCode": "Mã thành viên",
+    "notification": "Thông báo",
+    "accountLinked": "Đối tác liên kết",
+    "cardLinked": "Liên kết thẻ",
+    "setting": "Cài đặt",
+    "support": "Trung tâm trợ giúp",
+    "logout": "Đăng xuất"
+  },
+  "cardLinked": {
+    "associateWithTheBank": "Liên kết với ngân hàng",
+    "associateWithTheBankForEasy": "Liên kết với ngân hàng để nạp tiền dễ dàng",
+    "linkNow": "Liên kết ngay >>>",
+    "addNewCard": "Thêm thẻ mới"
+  },
+  "accountLinked": {
+    "header": "Tài khoản liên kết",
+    "add": "Thêm",
+    "unLink": "Unlink"
+  },
+  "addAccountLinked": {
+    "header": "Thêm tài khoản liên kết",
+    "selectPartner": "Chọn đối tác liên kết",
+    "enterId": "Nhập số ID",
+    "continue": "Tiếp tục"
+  },
+  "profileEditPage": {
+    "updateAccount": "Cập nhật tài khoản",
+    "save": "Lưu",
+    "name": "Tên",
+    "phone": "Số điện thoại",
+    "gender": "Giới tính",
+    "male": "Nam",
+    "female": "Nữ",
+    "referralCode": "Mã giới thiệu",
+    "share": "Chia sẻ",
+    "updateSuccess": "Cập nhật tài khoản thành công",
+    "updateFail": "Cập nhật tài khoản thất bại",
+    "avatarSuccess": "Cập nhật ảnh đại diện thành công",
+    "avatarFail": "Cập nhật ảnh đại diện thất bại",
+    "changeAvatar": "Thay đổi ảnh đại diện",
+    "camera": "Chụp ảnh",
+    "gallery": "Thư viện",
+    "cancel": "Hủy",
+    "sure": "Bạn có chắc muốn thay đổi ảnh đại diện?"
+  },
+  "supportCenter": {
+    "aboutMbf": "Giới thiệu về MobiLoyalty",
+    "tac": "Điều khoản sử dụng",
+    "faq": "Câu hỏi thường gặp(FAQs)",
+    "sendFeedback": "Gửi phản hồi"
+  },
+  "transactionHistoryPage": {
+    "to" : "đến",
+    "transactionHistory": "Lịch sử giao dịch",
+    "gift": "Lịch sử đổi quà",
+    "point": "Lịch sử điểm",
+    "noTransaction": "Không tìm thấy giao dịch nào",
+    "time": "Thời gian"
+  },
+  "sendFeedBack": {
+    "chooseTheme": "Chọn chủ đề",
+    "billNumber": "Số hóa đơn",
+    "content": "Nội dung"
+  },
+  "chooseBank": {
+    "chooseBank": "Chọn ngân hàng",
+    "bankLink": "Liên kết ngân hàng",
+    "internationalPaymentCards": "Thẻ thanh toán quốc tế",
+    "searchBank": "Tìm ngân hàng",
+    "continue": "Tiếp tục"
+  },
+  "associateCondition": {
+    "associateCondition": "Điều kiện liên kết",
+    "header": "Để liên kết thành công, thẻ của bạn phải đáp ứng các điều kiện sau:",
+    "condition_1": "Đã bật chức năng thanh toán trực tuyến của {name}",
+    "condition_2": "Số điện thoại xxxx-xxx-xxx đã được đăng ký tại {name} và có thông tin trùng khớp",
+    "linkNow": "Liên kết ngay"
+  },
+  "memberCodePage": {
+    "memberCode": "Mã thành viên",
+    "text": "Vui lòng đưa mã này cho nhân viên khi thanh toán"
+  },
+  "notificationPage": {
+    "noti": "Thông báo",
+    "noNoti": "Không có thông báo nào",
+    "delete": "Xóa thông báo",
+    "deleteNoti": "Xóa tất cả thông báo",
+    "sure": "Bạn chắc chắn muốn xóa thông báo?",
+    "restore": "Bạn sẽ không thể phục hồi thông báo đã bị xóa",
+    "no": "Không",
+    "yes": "Có, xóa tất cả",
+    "yes1": "Xóa"
+  },
+  "infoCard": {
+    "infoCard": "Thông tin thẻ",
+    "numberCard": "Số thẻ",
+    "deadlineCard": "Ngày hết hạn",
+    "nameCard": "Tên chủ thẻ",
+    "linkCard": "Liên kết"
+  },
+  "cardAuthentication": {
+    "header": "Xác thực thẻ",
+    "title": "Vui lòng nhập mật khẩu một lần (OTP) đã được gửi tới số điện thoại {phone}",
+    "enterOTP": "Nhập mã OTP",
+    "resendCode": "Gửi lại mã",
+    "requestNewOTP": "Bạn có thể yêu cầu mã mới sau ",
+    "incorrectOTPCode": "OTP không chính xác"
+  },
+  "detailCardLink": {
+    "header": "Thông tin thẻ",
+    "cardType": "Loại thẻ",
+    "numberCard": "Số thẻ",
+    "status": "Trạng thái",
+    "unLink": "Hủy liên kết",
+    "headerModal": "Hủy liên kết thẻ này?",
+    "titleModal": "Bạn có chắc muốn xóa liên kết thẻ này?",
+    "yes": "Có, hủy ngay",
+    "no": "Không"
+  },
+  "walletDeals": {
+    "header": "Ví ưu đãi",
+    "myOffer": "Ưu đãi của tôi",
+    "favoriteDeals": "Ưu đãi yêu thích"
+  },
+  "coupon_card": {
+    "useNow": "Dùng ngay",
+    "daysLeft": "Còn lại {days} ngày",
+    "expired": "Đã hết hạn",
+    "delete": "Xóa"
+  },
+  "wallet_balance": {
+    "header": "Số dư ví",
+    "goldClass": "Hạng vàng",
+    "title": "Bạn cần tích thêm {points} trong tháng để duy trì hạng vàng",
+    "footer": "{points} điểm sắp hết hàng trong tháng này",
+    "bonusPoints": "Tặng điểm thưởng"
+  },
+  "bonusPoints": {
+    "header": "Tặng điểm thưởng",
+    "recipientPhoneNumber": "Số điện thoại người nhận",
+    "pointsDonate": "Số điểm cần tặng",
+    "mess": "Lời nhắn",
+    "next": "Tiếp tục"
+  },
+  "itemDetailPage": {
+    "use": "Điều kiện sử dụng",
+    "place": "Địa điểm áp dụng",
+    "about": "Về",
+    "add": "Thêm vào giỏ hàng",
+    "map": "Chỉ đường",
+    "call": "Gọi điện",
+    "success": "Ưu đãi đã được thêm vào giỏ hàng",
+    "redeem": "Đổi quà ngay!"
+  },
+  "browser": {
+    "seeAll": "Xem tất cả"
+  },
+  "search_header": {
+    "hint": "Nhập thương hiệu và dịch vụ bạn tìm kiếm"
+  },
+  "cart_page": {
+    "header": "Giỏ hàng",
+    "offersSelected": "Đã chọn {offers} ưu đãi",
+    "redeemGifts": "Đổi quà",
+    "delete": "Xóa",
+    "exchangeGiftWith": "Bạn sắp đổi quà với",
+    "currentBalance": "Số dư hiện tại: ",
+    "remainingBalance": "Số dư còn lại: ",
+    "cancel": "Hủy",
+    "continue": "Tiếp tục"
+  }
+}
