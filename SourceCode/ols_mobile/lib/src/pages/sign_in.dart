@@ -303,8 +303,8 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
             authBloc.login(_emailController.text, _passwordController.text);
           }
 
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => MainPage()));
+//           Navigator.push(
+//               context, MaterialPageRoute(builder: (context) => MainPage()));
         });
   }
 

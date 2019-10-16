@@ -59,9 +59,9 @@
   },
   "profilePage": {
     "updateAccount": "Thông tin tài khoản",
-    "balance": "Ví điểm thưởng",
+    "balance": "Số dư ngân sách",
     "transaction": "Lịch sử giao dịch",
-    "memberCode": "Mã thành viên",
+    "memberCode": "Đối tác triển vọng",
     "notification": "Thông báo",
     "accountLinked": "Đối tác liên kết",
     "cardLinked": "Liên kết thẻ",
@@ -107,7 +107,7 @@
     "sure": "Bạn có chắc muốn thay đổi ảnh đại diện?"
   },
   "supportCenter": {
-    "aboutMbf": "Giới thiệu về MobiLoyalty",
+    "aboutMbf": "Giới thiệu về BSS",
     "tac": "Điều khoản sử dụng",
     "faq": "Câu hỏi thường gặp(FAQs)",
     "sendFeedback": "Gửi phản hồi"

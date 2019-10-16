@@ -15,7 +15,7 @@
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/launcher_icon"
-        android:label="ols_mobile">
+        android:label="bss_mobile">
 
            <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBvNXmEHb3daqNjMIBhKbKEUobtGyM7HTA"/>

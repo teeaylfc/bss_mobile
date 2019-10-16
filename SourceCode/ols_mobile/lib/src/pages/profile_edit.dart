@@ -54,9 +54,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   AuthService authService = AuthService();
   AccountInfo accountInfo;
-  TextEditingController _emailController = TextEditingController(text: '');
-  TextEditingController _nameController = TextEditingController(text: '');
-  TextEditingController _phoneController = TextEditingController(text: '');
+  TextEditingController _emailController = TextEditingController(text: 'taaaa');
+  TextEditingController _nameController = TextEditingController(text: 'teee');
+  TextEditingController _phoneController = TextEditingController(text: '21783291371289');
 
   bool connectedFacebook = false;
   bool connectedGoogle = false;
@@ -66,55 +66,48 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   int idImgUpload;
   bool _autoValidate = true;
   bool checked = false;
-  bool _isFirstPassword = false;
-  Future<bool> _isFirstPasswordFuture;
   bool loading = false;
   bool facebookLoading = false;
   bool googleLoading = false;
   String avatarUrl;
-  String _countryCode;
-  Future<AccountInfo> _getAccountInfoFuture;
 
   @override
   void initState() {
     super.initState();
-    _isFirstPasswordFuture = dataService.isFirstPassword();
     applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-    getAccountInfo();
-    _getAccountInfoFuture = authService.getAccountInfo();
   }
 
-  getAccountInfo() async {
-    try {
-      final res = await authService.getAccountInfo();
-      if (res != null) {
-        setState(() {
-          accountInfo = res;
-          _nameController.text = accountInfo.fullName;
-          _emailController.text = accountInfo.email;
-          _phoneController.text = accountInfo.phone;
-          gender = accountInfo.gender;
-          if (accountInfo.urlAvatar != null) {
-            imageUrl = accountInfo.urlAvatar;
-          } else if (accountInfo.image != null) {
-            imageUrl = fileApiUrl + accountInfo.image.toString();
-          }
-          connectedFacebook = accountInfo.connectedFacebook;
-          connectedGoogle = accountInfo.connectedGoogle;
-        });
-      }
-    } catch (error) {
-      _showMessageDialog(false, error.message);
-
-      if (error.action == HttpActionError.LOGIN) {
-        Navigator.of(context).push(new MaterialPageRoute<Null>(
-            builder: (BuildContext context) {
-              return new LogInPage();
-            },
-            fullscreenDialog: true));
-      }
-    }
-  }
+//  getAccountInfo() async {
+//    try {
+//      final res = await authService.getAccountInfo();
+//      if (res != null) {
+//        setState(() {
+//          accountInfo = res;
+//          _nameController.text = accountInfo.fullName;
+//          _emailController.text = accountInfo.email;
+//          _phoneController.text = accountInfo.phone;
+//          gender = accountInfo.gender;
+//          if (accountInfo.urlAvatar != null) {
+//            imageUrl = accountInfo.urlAvatar;
+//          } else if (accountInfo.image != null) {
+//            imageUrl = fileApiUrl + accountInfo.image.toString();
+//          }
+//          connectedFacebook = accountInfo.connectedFacebook;
+//          connectedGoogle = accountInfo.connectedGoogle;
+//        });
+//      }
+//    } catch (error) {
+//      _showMessageDialog(false, error.message);
+//
+//      if (error.action == HttpActionError.LOGIN) {
+//        Navigator.of(context).push(new MaterialPageRoute<Null>(
+//            builder: (BuildContext context) {
+//              return new LogInPage();
+//            },
+//            fullscreenDialog: true));
+//      }
+//    }
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -437,11 +430,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           width: ScreenUtil().setSp(67),
           height: ScreenUtil().setSp(28),
           onPressed: () async {
-            if (_nameController.text.length != 0) {
-              SystemChannels.textInput.invokeMethod('TextInput.hide');
-              updateAccountInfo(context);
+//            if (_nameController.text.length != 0) {
+//              SystemChannels.textInput.invokeMethod('TextInput.hide');
+//              updateAccountInfo(context);
               Navigator.pop(context);
-            }
+//            }
           }),
     );
   }

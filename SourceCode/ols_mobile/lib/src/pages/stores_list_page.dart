@@ -92,45 +92,45 @@ class _StoreListPageState extends PageState<StoreListPage>
     });
   }
 
-  @override
-  void initState() {
-    applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-    authStatus = applicationBloc.getAuthStatus.value
-        ? AuthenticationState.signedIn
-        : AuthenticationState.notSignedIn;
-
-    applicationBloc.authenticationStatus.listen((data) {
-      authStatus = applicationBloc.getAuthStatus.value
-          ? AuthenticationState.signedIn
-          : AuthenticationState.notSignedIn;
-    });
-    getAllStore();
-    getFavoriteStore();
-    _tabController = new TabController(vsync: this, length: tabs.length);
-
-    _tabController.addListener(() {
-      print("indexIsChanging: ${_tabController.indexIsChanging}");
-      if (!_tabController.indexIsChanging) {
-        if (_tabController.index == 0) {
-          favorites = false;
-        } else if (_tabController.index == 1) {
-          print("index: ${_tabController.index}");
-          if (authStatus == AuthenticationState.notSignedIn) {
-//          _tabController.index = 0;
-            var route =
-                new MaterialPageRoute(builder: (context) => SignInPage());
-            Navigator.push(context, route);
-          }
-          favorites = true;
-        }
-      }
-//      refreshData();
-    });
-    super.initState();
-    _controller = ScrollController();
-    _controller.addListener(_scrollListener);
-//    refreshData();
-  }
+//  @override
+//  void initState() {
+//    applicationBloc = BlocProvider.of<ApplicationBloc>(context);
+//    authStatus = applicationBloc.getAuthStatus.value
+//        ? AuthenticationState.signedIn
+//        : AuthenticationState.notSignedIn;
+//
+//    applicationBloc.authenticationStatus.listen((data) {
+//      authStatus = applicationBloc.getAuthStatus.value
+//          ? AuthenticationState.signedIn
+//          : AuthenticationState.notSignedIn;
+//    });
+//    getAllStore();
+//    getFavoriteStore();
+//    _tabController = new TabController(vsync: this, length: tabs.length);
+//
+//    _tabController.addListener(() {
+//      print("indexIsChanging: ${_tabController.indexIsChanging}");
+//      if (!_tabController.indexIsChanging) {
+//        if (_tabController.index == 0) {
+//          favorites = false;
+//        } else if (_tabController.index == 1) {
+//          print("index: ${_tabController.index}");
+//          if (authStatus == AuthenticationState.notSignedIn) {
+////          _tabController.index = 0;
+//            var route =
+//                new MaterialPageRoute(builder: (context) => SignInPage());
+//            Navigator.push(context, route);
+//          }
+//          favorites = true;
+//        }
+//      }
+////      refreshData();
+//    });
+//    super.initState();
+//    _controller = ScrollController();
+//    _controller.addListener(_scrollListener);
+////    refreshData();
+//  }
 
   @override
   void didChangeDependencies() {
@@ -194,119 +194,10 @@ class _StoreListPageState extends PageState<StoreListPage>
         body: GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
         color: Colors.white,
-        child: CustomScrollView(
-          primary: false,
-          controller: _controller,
-          slivers: <Widget>[
-            SliverAppBar(
-              iconTheme: IconThemeData(color: Colors.black),
-              expandedHeight: ScreenUtil().setSp(155),
-//              elevation: 0,
-              floating: true,
-              pinned: true,
-              snap: false,
-              backgroundColor: Colors.white,
-              title: Opacity(
-                  opacity: opacityHeader,
-                  child: Text(
-                    'Cửa hàng',
-                    style: TextStyle(color: Colors.black),
-                  )),
-              centerTitle: true,
-              actions: <Widget>[
-                GestureDetector(
-                  child: Container(
-                    padding: EdgeInsets.only(right: ScreenUtil().setSp(12)),
-                    child: Opacity(
-                        opacity: opacityHeader,
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.black,
-                          size: 26,
-                        )),
-                  ),
-                )
-              ],
-              flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                padding: EdgeInsets.only(
-                  bottom: 0,
-                  top: ScreenUtil().setSp(45),
-                  left: ScreenUtil().setSp(15),
-                  right: ScreenUtil().setSp(15),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              color: Color(0xffE7E7E7),
-                              width: ScreenUtil().setSp(1)))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text('Cửa hàng',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: ScreenUtil().setSp(26))),
-                      Container(
-                        width: width,
-                        margin: EdgeInsets.only(top: ScreenUtil().setSp(10)),
-                        padding: EdgeInsets.only(left: 10, right: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: Color(0xffF4F4F4)),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              child: Icon(
-                                Icons.search,
-                                color: Color(0xffBDBDBD),
-                              ),
-                              margin: EdgeInsets.only(right: 10),
-                            ),
-                            Expanded(
-                              child: TextField(
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: ScreenUtil().setSp(13)),
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Nhập tên cửa hàng bạn tìm kiếm',
-                                    hintStyle: TextStyle(
-                                        fontSize: ScreenUtil().setSp(12))),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TabBar(
-                          controller: _tabController,
-                          isScrollable: true,
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14),
-                          unselectedLabelStyle: TextStyle(
-                              fontWeight: FontWeight.normal, fontSize: 13),
-                          labelColor: Color(0xff0F84FE),
-                          unselectedLabelColor: Color(0xff9B9B9B),
-                          tabs: tabs),
-                    ],
-                  ),
-                ),
-              )),
-            ),
-            SliverFillRemaining(
-                child: TabBarView(
-              controller: _tabController,
-              children: <Widget>[
-                _gridViewStore(TypeStore.ALL_STORE),
-                _gridViewStore(TypeStore.FAVORITE_STORE)
-              ],
-            ))
-          ],
-        ),
+        child: Center(child: Text("Quản lý ca đặt")),
       ),
     ));
   }
