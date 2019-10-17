@@ -48,8 +48,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   DataService dataService = DataService();
 
   final List genderMaps = [
-    {'key': 'M', 'value': 'Male'},
-    {'key': 'F', 'value': 'Female'}
+    {'key': 'nam', 'value': 'Nam'},
+    {'key': 'nu', 'value': 'Nữ'}
   ];
 
   AuthService authService = AuthService();
@@ -75,39 +75,38 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   void initState() {
     super.initState();
     applicationBloc = BlocProvider.of<ApplicationBloc>(context);
+    getAccountInfo();
   }
 
-//  getAccountInfo() async {
-//    try {
-//      final res = await authService.getAccountInfo();
-//      if (res != null) {
-//        setState(() {
-//          accountInfo = res;
-//          _nameController.text = accountInfo.fullName;
-//          _emailController.text = accountInfo.email;
-//          _phoneController.text = accountInfo.phone;
-//          gender = accountInfo.gender;
-//          if (accountInfo.urlAvatar != null) {
-//            imageUrl = accountInfo.urlAvatar;
-//          } else if (accountInfo.image != null) {
-//            imageUrl = fileApiUrl + accountInfo.image.toString();
-//          }
-//          connectedFacebook = accountInfo.connectedFacebook;
-//          connectedGoogle = accountInfo.connectedGoogle;
-//        });
-//      }
-//    } catch (error) {
-//      _showMessageDialog(false, error.message);
-//
-//      if (error.action == HttpActionError.LOGIN) {
-//        Navigator.of(context).push(new MaterialPageRoute<Null>(
-//            builder: (BuildContext context) {
-//              return new LogInPage();
-//            },
-//            fullscreenDialog: true));
-//      }
-//    }
-//  }
+  getAccountInfo() async {
+    try {
+      final res = await authService.getAccountInfo();
+      if (res != null) {
+        setState(() {
+          accountInfo = res;
+          _nameController.text = accountInfo.fullName;
+          _emailController.text = accountInfo.email;
+          _phoneController.text = accountInfo.phone;
+          gender = accountInfo.gender;
+          if (accountInfo.urlAvatar != null) {
+            imageUrl = accountInfo.urlAvatar;
+          } else if (accountInfo.image != null) {
+            imageUrl = fileApiUrl + accountInfo.image.toString();
+          }
+        });
+      }
+    } catch (error) {
+      _showMessageDialog(false, error.message);
+
+      if (error.action == HttpActionError.LOGIN) {
+        Navigator.of(context).push(new MaterialPageRoute<Null>(
+            builder: (BuildContext context) {
+              return new LogInPage();
+            },
+            fullscreenDialog: true));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

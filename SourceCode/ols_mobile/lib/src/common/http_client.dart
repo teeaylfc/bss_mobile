@@ -20,6 +20,7 @@ class HttpManager {
   }
 
   requestHttp(url, params, Map<String, dynamic> header, Options option) async {
+    print("-------------request");
     Map<String, dynamic> headers = new HashMap();
     if (header != null) {
       headers.addAll(header);
@@ -85,6 +86,7 @@ class HttpManager {
   _handleError(DioError error) {
     String errorDescription = "";
     if (error is DioError) {
+
       switch (error.type) {
         case DioErrorType.CANCEL:
           errorDescription = "Request to server was cancelled";

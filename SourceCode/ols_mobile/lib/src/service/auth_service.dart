@@ -14,6 +14,7 @@ class AuthService {
   final String _loginUrl = baseApiUrl;
   final String _cywEndpoint = cywApiUrl;
   final String _mbfEndpoint = mbfApiUrl;
+  final String _baseApiBss = baseApiBss;
 
   DataService dataService = DataService();
 
@@ -21,13 +22,15 @@ class AuthService {
 
   Future<dynamic> login(username, password) async {
     try {
-      var response = await httpManager.post(mbfApiUrl + '/authenticate', {
+      var body =  {
         'username': username,
         'password': password,
-        'rememberMe': true,
-      });
-      await _storage.write(key: Config.TOKEN_KEY, value: response['id_token']);
-      AccountInfo accountInfo = await getAccountInfo();
+      };
+      var rs = await httpManager.post(_baseApiBss + 'users/login',body);
+      var response = rs['data'];
+      print(response['idToken']);
+      await _storage.write(key: Config.TOKEN_KEY, value: response['idToken']);
+      AccountInfo accountInfo = AccountInfo.fromJson(response);
       _saveUserDetailsToPreference(accountInfo);
       return accountInfo;
     } on DioError catch (error) {

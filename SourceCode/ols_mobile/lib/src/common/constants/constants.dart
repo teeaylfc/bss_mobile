@@ -13,6 +13,7 @@
  const String fileApiUrl = 'http://192.168.99.21:9090/api/files/';
  const String fileApiUpload = 'http://192.168.99.21:9090/api/files';
  const String baseApiUrl = 'http://192.168.99.21:9090/';
+ const String baseApiBss = 'vuonxa.com:9090/';
 
 // PUBLIC SERVER
 //import 'package:flutter/material.dart';
