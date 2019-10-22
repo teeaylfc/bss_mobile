@@ -88,8 +88,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           _emailController.text = accountInfo.email;
           _phoneController.text = accountInfo.phone;
           gender = accountInfo.gender;
-          if (accountInfo.urlAvatar != null) {
-            imageUrl = accountInfo.urlAvatar;
+          if (accountInfo.imageURL != null) {
+            imageUrl = accountInfo.imageURL;
           } else if (accountInfo.image != null) {
             imageUrl = fileApiUrl + accountInfo.image.toString();
           }

@@ -29,17 +29,17 @@ class DataService {
   final String _apiUpload = fileApiUpload;
   final String _mbfEndpoint = mbfApiUrl;
   final String _baseApiBss = baseApiBss;
-
+  
   final size = Config.PAGE_SIZE;
 
 
-  Future<AccountInfo> register()async{
+  Future<AccountInfo> register(email,fullName,phone,gender,password )async{
     final body = {
-      "email":"sdsd@gmail.com",
-      "fullName":"teee",
-      "phone":"095452099",
-      "gender":"nam",
-      "password":"123"
+      "email":email,
+      "fullName":fullName,
+      "phone":phone,
+      "gender":gender,
+      "password": password
     };
     final response = await httpManager.post('$_baseApiBss'+'users/register', body);
     return AccountInfo.fromJson(response['data']);

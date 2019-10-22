@@ -19,6 +19,7 @@ import 'package:ols_mobile/src/models/item_model.dart';
 import 'package:ols_mobile/src/models/user_modal.dart';
 import 'package:ols_mobile/src/pages/main.dart';
 import 'package:ols_mobile/src/pages/password-reset.dart';
+import 'package:ols_mobile/src/pages/profile.dart';
 import 'package:ols_mobile/src/pages/registration.dart';
 import 'package:ols_mobile/src/service/auth_service.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
@@ -51,7 +52,7 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
 
   //phuonglh9293@gmail.com/Oeoe999
   TextEditingController _emailController =
-      TextEditingController(text: 'hoangnt@gmail.com');
+      TextEditingController(text: 'ta@gmail.com');
   TextEditingController _passwordController =
       TextEditingController(text: '123');
 
@@ -295,13 +296,12 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
               ),
         gradient: CommonColor.commonButtonColor,
         height: ScreenUtil().setSp(40),
-        onPressed: () {
-          SystemChannels.textInput.invokeMethod('TextInput.hide');
+        onPressed: () async{
           if (!loading && !loadingBiometric) {
             setState(() {
               loading = true;
             });
-            authBloc.login(_emailController.text, _passwordController.text);
+          authBloc.login(_emailController.text, _passwordController.text);
           }
            Navigator.push(
                context, MaterialPageRoute(builder: (context) => MainPage()));

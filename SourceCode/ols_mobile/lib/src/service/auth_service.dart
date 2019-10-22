@@ -29,8 +29,8 @@ class AuthService {
       var rs = await httpManager.post(_baseApiBss + 'users/login',body);
       var response = rs['data'];
       await _storage.write(key: Config.TOKEN_KEY, value: response['idToken']);
-      AccountInfo accountInfo = AccountInfo.fromJson(response);
-      await _storage.write(key: Config.USER_ID, value: accountInfo.id.toString());
+      AccountInfo accountInfo = AccountInfo.fromJson(response["accountInfo"]);
+        await _storage.write(key: Config.USER_ID, value: accountInfo.id.toString());
       _saveUserDetailsToPreference(accountInfo);
       return accountInfo;
     } on DioError catch (error) {
@@ -158,7 +158,6 @@ class AuthService {
   _saveUserDetailsToPreference(AccountInfo res) async {
     await _storage.write(key: Config.USER_FULLNAME, value: res.fullName);
     await _storage.write(key: Config.USER_EMAIL, value: res.email);
-    await _storage.write(key: Config.CSN, value: res.csn);
 
     // if (res['data']['biometricClientSecret'] != null) {
     //   await _storage.write(key: Config.BIOMETRIC_CLIENT_SECRET, value: res['data']['biometricClientSecret']);

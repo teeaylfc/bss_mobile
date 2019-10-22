@@ -86,10 +86,10 @@ class ApplicationBloc extends BlocBase {
 //    print('2222');
     if (token != null) {
       _authenticationStatusController.sink.add(true);
-      getOrderCount();
+      // getOrderCount();
       changeCurrentUser(User(username: email, fullName: userFullname, imageURL: imageURL));
     } else {
-      getLocalOrderCount();
+      // getLocalOrderCount();
     }
   }
 
@@ -140,6 +140,7 @@ class ApplicationBloc extends BlocBase {
   }
 
   _clearUserData() async {
+    print("2222222222222222222222222222222222222222");
     _authenticationStatusController.sink.add(false);
     changeCurrentUser(null);
     changeOrderCount(null);

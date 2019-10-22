@@ -11,31 +11,23 @@ AccountInfo _$AccountInfoFromJson(Map<String, dynamic> json) {
       json['id'] as int,
       json['email'] as String,
       json['fullName'] as String,
-      json['mobilePhone'] as String,
+      json['phone'] as String,
       json['image'] as int,
-      json['birthday'] as String,
       json['gender'] as String,
-      json['countryCode'] as String,
       json['connectedFacebook'] as bool,
       json['connectedGoogle'] as bool,
-      json['urlAvatar'] as String,
-      json['csn'] as String,
-      (json['balance'] as num)?.toDouble(),
-      json['unReadNotificationCount'] as int);
+      json['imageURL'] as String,
+      (json['balance'] as num)?.toDouble());
 }
 
 Map<String, dynamic> _$AccountInfoToJson(AccountInfo instance) =>
     <String, dynamic>{
       'id': instance.id,
       'email': instance.email,
-      'csn': instance.csn,
       'fullName': instance.fullName,
-      'unReadNotificationCount': instance.unReadNotificationCount,
-      'mobilePhone': instance.phone,
+      'phone': instance.phone,
       'image': instance.image,
-      'urlAvatar': instance.urlAvatar,
-      'countryCode': instance.countryCode,
-      'birthday': instance.birthday,
+      'imageURL': instance.imageURL,
       'connectedFacebook': instance.connectedFacebook,
       'connectedGoogle': instance.connectedGoogle,
       'gender': instance.gender,

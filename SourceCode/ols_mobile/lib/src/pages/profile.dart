@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:ols_mobile/src/blocs/application_bloc.dart';
 import 'package:ols_mobile/src/blocs/bloc_provider.dart';
@@ -45,6 +46,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final _storage = new FlutterSecureStorage();
+  
   final formatCurrency = NumberFormat.compactCurrency(symbol: '');
   AuthService _authService = AuthService();
 
@@ -82,8 +85,6 @@ class _ProfilePageState extends State<ProfilePage> {
       currentName = currentUser.fullName;
     }
   }
-
-
   @override
   Widget build(BuildContext context) {
     ContextProfile.context = context;
@@ -210,7 +211,9 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () {
+                onTap: () async{
+                  String s = await _storage.read(key: Config.USER_ID);
+                   print(s);
                   Navigator.of(context).push(new MaterialPageRoute<Null>(
                       builder: (BuildContext context) {
                         return ProfileEditPage();
@@ -416,8 +419,10 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () {
+                onTap: () async{
                   _logout();
+                   String s = await _storage.read(key: Config.TOKEN_KEY);
+                   print(s);
                 },
                 child: Container(
                   color: Colors.white,
@@ -517,7 +522,6 @@ class _ProfilePageState extends State<ProfilePage> {
   void _logout() async {
     applicationBloc.changeOrderCount(0);
     applicationBloc.logout().then((data) {
-      googleSignIn.disconnect();
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => MainPage()),
