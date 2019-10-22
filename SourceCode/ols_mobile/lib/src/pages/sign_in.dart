@@ -296,20 +296,16 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
         gradient: CommonColor.commonButtonColor,
         height: ScreenUtil().setSp(40),
         onPressed: () {
-//          SystemChannels.textInput.invokeMethod('TextInput.hide');
-//          if (!loading && !loadingBiometric) {
-//            setState(() {
-//              loading = true;
-//            });
-//            authBloc.login(_emailController.text, _passwordController.text);
-//          }
-//           Navigator.push(
-//               context, MaterialPageRoute(builder: (context) => MainPage()));
+          SystemChannels.textInput.invokeMethod('TextInput.hide');
+          if (!loading && !loadingBiometric) {
+            setState(() {
+              loading = true;
+            });
+            authBloc.login(_emailController.text, _passwordController.text);
+          }
+           Navigator.push(
+               context, MaterialPageRoute(builder: (context) => MainPage()));
 
-          dataService.register().then((data){
-            AccountInfo accountInfo = data;
-            print(accountInfo.fullName);
-          });
         });
   }
 

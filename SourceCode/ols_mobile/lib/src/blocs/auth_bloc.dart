@@ -23,7 +23,6 @@ class AuthBloc extends BlocBase {
 
   login(username, password) async {
     _startAuthProcess(() {
-      print(username + password);
       return authService.login(username, password);
     });
   }

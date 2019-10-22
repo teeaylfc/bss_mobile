@@ -13,7 +13,6 @@ class TokenInterceptor extends InterceptorsWrapper {
     String _token = await getToken();
     if (_token != null) {
       options.headers['Authorization'] = 'Bearer ' + _token;
-//      print("+++++++++++++++++"+_token.toString());
     }
     return options;
   }

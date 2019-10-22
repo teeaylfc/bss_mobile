@@ -13,7 +13,7 @@
  const String fileApiUrl = 'http://192.168.99.21:9090/api/files/';
  const String fileApiUpload = 'http://192.168.99.21:9090/api/files';
  const String baseApiUrl = 'http://192.168.99.21:9090/';
- const String baseApiBss = 'vuonxa.com:9090/';
+ const String baseApiBss = 'http://vuonxa.com:9090/';
 
 // PUBLIC SERVER
 //import 'package:flutter/material.dart';
@@ -40,6 +40,9 @@ class Config {
   static const BIOMETRIC_CLIENT_SECRET = "biometric-client-secret";
 
   static const TOKEN_KEY = "jwt-token";
+  static const USER_ID = "id";
+
+
   static const USER_INFO = "user-info";
   static const USER_FULLNAME = "user-fullname";
   static const IMAGE_URL = "image-url";

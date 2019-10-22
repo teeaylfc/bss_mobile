@@ -54,9 +54,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   AuthService authService = AuthService();
   AccountInfo accountInfo;
-  TextEditingController _emailController = TextEditingController(text: 'taaaa');
-  TextEditingController _nameController = TextEditingController(text: 'teee');
-  TextEditingController _phoneController = TextEditingController(text: '21783291371289');
+  TextEditingController _emailController = TextEditingController(text: '');
+  TextEditingController _nameController = TextEditingController(text: '');
+  TextEditingController _phoneController = TextEditingController(text: '');
 
   bool connectedFacebook = false;
   bool connectedGoogle = false;
@@ -97,14 +97,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       }
     } catch (error) {
       _showMessageDialog(false, error.message);
-
-      if (error.action == HttpActionError.LOGIN) {
-        Navigator.of(context).push(new MaterialPageRoute<Null>(
-            builder: (BuildContext context) {
-              return new LogInPage();
-            },
-            fullscreenDialog: true));
-      }
     }
   }
 

@@ -28,9 +28,9 @@ class AuthService {
       };
       var rs = await httpManager.post(_baseApiBss + 'users/login',body);
       var response = rs['data'];
-      print(response['idToken']);
       await _storage.write(key: Config.TOKEN_KEY, value: response['idToken']);
       AccountInfo accountInfo = AccountInfo.fromJson(response);
+      await _storage.write(key: Config.USER_ID, value: accountInfo.id.toString());
       _saveUserDetailsToPreference(accountInfo);
       return accountInfo;
     } on DioError catch (error) {
