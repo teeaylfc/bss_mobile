@@ -48,8 +48,8 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   DataService dataService = DataService();
 
   final List genderMaps = [
-    {'key': 'M', 'value': 'Male'},
-    {'key': 'F', 'value': 'Female'}
+    {'key': 'nam', 'value': 'Nam'},
+    {'key': 'nu', 'value': 'Nữ'}
   ];
 
   AuthService authService = AuthService();
@@ -66,22 +66,16 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
   int idImgUpload;
   bool _autoValidate = true;
   bool checked = false;
-  bool _isFirstPassword = false;
-  Future<bool> _isFirstPasswordFuture;
   bool loading = false;
   bool facebookLoading = false;
   bool googleLoading = false;
   String avatarUrl;
-  String _countryCode;
-  Future<AccountInfo> _getAccountInfoFuture;
 
   @override
   void initState() {
     super.initState();
-    _isFirstPasswordFuture = dataService.isFirstPassword();
     applicationBloc = BlocProvider.of<ApplicationBloc>(context);
     getAccountInfo();
-    _getAccountInfoFuture = authService.getAccountInfo();
   }
 
   getAccountInfo() async {
@@ -99,20 +93,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           } else if (accountInfo.image != null) {
             imageUrl = fileApiUrl + accountInfo.image.toString();
           }
-          connectedFacebook = accountInfo.connectedFacebook;
-          connectedGoogle = accountInfo.connectedGoogle;
         });
       }
     } catch (error) {
       _showMessageDialog(false, error.message);
-
-      if (error.action == HttpActionError.LOGIN) {
-        Navigator.of(context).push(new MaterialPageRoute<Null>(
-            builder: (BuildContext context) {
-              return new LogInPage();
-            },
-            fullscreenDialog: true));
-      }
     }
   }
 
@@ -437,11 +421,11 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           width: ScreenUtil().setSp(67),
           height: ScreenUtil().setSp(28),
           onPressed: () async {
-            if (_nameController.text.length != 0) {
-              SystemChannels.textInput.invokeMethod('TextInput.hide');
-              updateAccountInfo(context);
+//            if (_nameController.text.length != 0) {
+//              SystemChannels.textInput.invokeMethod('TextInput.hide');
+//              updateAccountInfo(context);
               Navigator.pop(context);
-            }
+//            }
           }),
     );
   }

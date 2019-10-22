@@ -99,43 +99,43 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    _initScrollController();
-    _geolocator = Geolocator();
-    applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-
-    // sroll to top page
-    applicationBloc.notifyEvent.listen((onData) {
-      if (AppEvent.SCROLL_HOME == onData) {
-        if (_scrollController.hasClients &&
-            _scrollController.position.pixels > 0.0) {
-          _scrollController.animateTo(0.0,
-              curve: Curves.easeOut,
-              duration: const Duration(milliseconds: 500));
-        }
-      }
-    });
-
-    applicationBloc.currentUserValue.listen((user) {
-      if (user != null) {
-        fullName = user.fullName;
-        imageUrl = user.getImageUrl();
-        getViewNearlyItem(0);
-        // balance = user.balance;
-        getBalance();
-      } else {
-        fullName = null;
-        imageUrl = null;
-        balance = '0.0';
-      }
-    });
-
-    // ///
-    // applicationBloc.orderCount.listen((count) {
-    //   orderCount = count;
-    // });
-
-    _initData();
-    checkLocaltionPermission();
+//    _initScrollController();
+//    _geolocator = Geolocator();
+//    applicationBloc = BlocProvider.of<ApplicationBloc>(context);
+//
+//    // sroll to top page
+//    applicationBloc.notifyEvent.listen((onData) {
+//      if (AppEvent.SCROLL_HOME == onData) {
+//        if (_scrollController.hasClients &&
+//            _scrollController.position.pixels > 0.0) {
+//          _scrollController.animateTo(0.0,
+//              curve: Curves.easeOut,
+//              duration: const Duration(milliseconds: 500));
+//        }
+//      }
+//    });
+//
+//    applicationBloc.currentUserValue.listen((user) {
+//      if (user != null) {
+//        fullName = user.fullName;
+//        imageUrl = user.getImageUrl();
+//        getViewNearlyItem(0);
+//        // balance = user.balance;
+//        getBalance();
+//      } else {
+//        fullName = null;
+//        imageUrl = null;
+//        balance = '0.0';
+//      }
+//    });
+//
+//    // ///
+//    // applicationBloc.orderCount.listen((count) {
+//    //   orderCount = count;
+//    // });
+//
+//    _initData();
+//    checkLocaltionPermission();
   }
 
   _initScrollController(){
@@ -225,330 +225,7 @@ class _HomePageState extends State<HomePage>
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       color: Colors.white,
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SmartRefresher(
-          controller: _refreshController,
-          onRefresh: _initData,
-          header: CustomHeader(
-            refreshStyle: RefreshStyle.Behind,
-            builder: (c, m) {
-              return Container(
-                padding: EdgeInsets.only(
-                  top: 40,
-                ),
-                decoration: BoxDecoration(
-                    border: Border.all(style: BorderStyle.none),
-                    color: CommonColor.backgroundColor),
-                alignment: Alignment.bottomCenter,
-                child: SpinKitFadingCircle(
-                  color: Colors.grey,
-                  size: ScreenUtil().setSp(25),
-                ),
-              );
-            },
-          ),
-          child: ListView(
-              key: PageStorageKey('parentList'),
-              controller: _scrollController,
-              children: <Widget>[
-                _buildHeader(),
-                _buildBanner(),
-                /////////////
-                InkWell(
-                    child: Container(
-                  padding: EdgeInsets.fromLTRB(18, 27, 0, 0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        FlutterI18n.translate(context, 'homePage.hot'),
-                        style: TextStyle(
-                          fontSize: ScreenUtil().setSp(20),
-                          fontWeight: FontWeight.bold,
-                          color: CommonColor.textBlack,
-                        ),
-                      ),
-                    ],
-                  ),
-                )),
-                Padding(
-                  padding: EdgeInsets.only(top: 12),
-                  child: SizedBox(
-                    height: ScreenUtil().setHeight(214),
-                    child: _buildListHorizotal3(hotItemFuture, 343.0, 214.0,
-                        FontWeight.bold, 'hotItemList', _listScroll[1]),
-                  ),
-                ),
-
-                ////////
-                SectionTitle(
-                    FlutterI18n.translate(context, 'homePage.newest'),
-                    GestureDetector(
-                        onTap: () {
-                          bottomNavBarBloc.pickItem(PageIndex.COUPON_LIST,
-                              {'previousPage': 'HOME', 'type': 'NEWEST'});
-                        },
-                        child: Text(
-                          FlutterI18n.translate(context, 'homePage.seeAll'),
-                          style: Styles.seeAllTextStyle,
-                        ))),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: 12,
-                    left: _listPadding[2],
-                  ),
-                  child: _buildListItemsSmall(newestItemFuture, false,
-                      'newestItemList', _listScroll[2]),
-                ),
-                ////////
-                SectionTitle(
-                    FlutterI18n.translate(context, 'homePage.category'),
-                    GestureDetector(
-                        onTap: () => {
-                              bottomNavBarBloc.pickItem(PageIndex.CATEGORY_LIST)
-                            },
-                        child: Text(
-                          FlutterI18n.translate(context, 'homePage.seeAll'),
-                          style: Styles.seeAllTextStyle,
-                        ))),
-                Padding(
-                    padding: EdgeInsets.fromLTRB(_listPadding[3], 12, 0, 0),
-                    child: SizedBox(
-                        height: ScreenUtil().setSp(120),
-                        child: _buildListCategory(
-                            categoryListFuture, _listScroll[3]))
-                    ///////
-                    ),
-                ////////
-                SectionTitle(
-                    FlutterI18n.translate(context, 'homePage.interesting'),
-                    GestureDetector(
-                        onTap: () {
-                          bottomNavBarBloc.pickItem(PageIndex.COUPON_LIST,
-                              {'previousPage': 'HOME', 'type': 'INTERESTING'});
-                        },
-                        child: Text(
-                          FlutterI18n.translate(context, 'homePage.seeAll'),
-                          style: Styles.seeAllTextStyle,
-                        ))),
-
-                Padding(
-                  padding: EdgeInsets.fromLTRB(_listPadding[4], 12, 0, 0),
-                  child: SizedBox(
-                    height: ScreenUtil().setHeight(156),
-                    child: _buildListHorizotal(
-                        interestingItemFuture,
-                        234.0,
-                        156.0,
-                        FontWeight.w500,
-                        'interestingItemList',
-                        _listScroll[4]),
-                  ),
-                ),
-                ////////
-                GestureDetector(
-                  onTap: () {},
-                  child: SectionTitle(
-                    FlutterI18n.translate(context, 'homePage.soon'),
-                    GestureDetector(
-                      onTap: () {
-                        bottomNavBarBloc.pickItem(PageIndex.COUPON_LIST,
-                            {'previousPage': 'HOME', 'type': 'EXPIRESOON'});
-                      },
-                      child: Text(
-                        FlutterI18n.translate(context, 'homePage.seeAll'),
-                        style: Styles.seeAllTextStyle,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 12, left: _listPadding[5]),
-                  child: _buildListItemsSmall(expireSoonFuture, false,
-                      'expireSoonList', _listScroll[5]),
-                ),
-                ////////
-                applicationBloc.getAuthStatus.value
-                    ? FutureBuilder(
-                        future: viewNearlyItemFuture,
-                        builder: (context, AsyncSnapshot<ListItem> snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.waiting:
-                              return Center(child: CircularProgressIndicator());
-                            case ConnectionState.done:
-                              return Wrap(
-                                children: <Widget>[
-                                  SectionTitle(
-                                    FlutterI18n.translate(
-                                        context, 'homePage.near'),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        top: 12, left: _listPadding[6]),
-                                    child: _buildListItemsSmall(
-                                        viewNearlyItemFuture,
-                                        true,
-                                        'recentlyViewList',
-                                        _listScroll[6]),
-                                  ),
-                                ],
-                              );
-                            default:
-                              Center(child: Text('Load data error....'));
-                          }
-                          return Container();
-                        })
-                    : Container(),
-
-                _buildFavoritesBrand(listStore),
-                SizedBox(
-                  height: 10,
-                )
-              ]),
-        ),
-      ),
-    );
-  }
-
-  _buildBanner() {
-    return Padding(
-      padding: EdgeInsets.only(top: 27, left: _listPadding[0]),
-      child: SizedBox(
-        height: ScreenUtil().setHeight(157),
-        child: ListView.builder(
-            controller: _listScroll[0],
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            physics: ClampingScrollPhysics(),
-            itemCount: 2,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(16)),
-                padding: EdgeInsets.only(right: 10),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(16)),
-                  child: Image.asset(
-                    'assets/images/loyalty/demo.png',
-                    width: ScreenUtil().setWidth(343),
-                    height: ScreenUtil().setHeight(157),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
-            }),
-      ),
-    );
-  }
-
-  Widget _buildBalanceInfo() {
-    return Container(
-      width: ScreenUtil().setWidth(344),
-      height: ScreenUtil().setHeight(110),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                blurRadius: 10.0,
-                color: Colors.black12,
-                offset: Offset(0.0, 10.0))
-          ],
-          borderRadius: BorderRadius.circular(8)),
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: ScreenUtil().setHeight(37),
-            padding: EdgeInsets.all(ScreenUtil().setWidth(8)),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    FlutterI18n.translate(context, 'homePage.balance'),
-                    style: TextStyle(
-                        fontSize: ScreenUtil().setSp(14),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                isLoadingBalance
-                    ? Padding(
-                        padding: EdgeInsets.only(bottom: 5),
-                        child: SizedBox(
-                          width: ScreenUtil().setSp(12),
-                          height: ScreenUtil().setSp(12),
-                          child: SpinKitFadingCircle(
-                            color: Colors.grey,
-                            size: 30,
-                          ),
-                        ),
-                      )
-                    : Expanded(
-                        child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          MPoint(
-                            iconSize: ScreenUtil().setSp(18),
-                            point: '$balance',
-                            textColor: CommonColor.textBlack,
-                            fontSize: ScreenUtil().setSp(14),
-                          ),
-                          SizedBox(
-                            width: ScreenUtil().setSp(5),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 7,
-                            color: Color(0xFF9B9B9B),
-                          ),
-                        ],
-                      ))
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(8)),
-            child: Container(
-                height: ScreenUtil().setHeight(0.8), color: Color(0xFFDADADA)),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-              top: ScreenUtil().setHeight(10),
-              bottom: ScreenUtil().setHeight(8),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                _buildIconButton(
-                  Image.asset(
-                    'assets/images/loyalty/pay_ic.png',
-                    width: ScreenUtil().setWidth(28),
-                    height: ScreenUtil().setHeight(35),
-                  ),
-                  FlutterI18n.translate(context, 'homePage.scan'),
-                  _openQRCodeScaner,
-                ),
-                _buildIconButton(
-                  Image.asset(
-                    'assets/images/loyalty/card_link_ic.png',
-                    width: ScreenUtil().setWidth(37),
-                    height: ScreenUtil().setHeight(27),
-                  ),
-                  FlutterI18n.translate(context, 'homePage.linkCard'),
-                  null,
-                ),
-                _buildIconButton(
-                    Image.asset(
-                      'assets/images/reward.png',
-                      width: ScreenUtil().setWidth(36),
-                      height: ScreenUtil().setHeight(24),
-                    ),
-                    FlutterI18n.translate(context, 'homePage.gift'),
-                    null)
-              ],
-            ),
-          ),
-        ],
-      ),
+      child: Center(child: Text("Đây là trang Home")),
     );
   }
 
@@ -604,7 +281,6 @@ class _HomePageState extends State<HomePage>
               SizedBox(
                 height: ScreenUtil().setHeight(10),
               ),
-              _buildBalanceInfo()
             ],
           ),
         ),

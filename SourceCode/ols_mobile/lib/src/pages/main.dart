@@ -236,10 +236,16 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
         if (snapshot.hasData) {
           switch (snapshot.data.keys.toList()[0]) {
             case NavBarItem.DISCOVER:
-              _newPage = _homePage;
+              if (authStatus == AuthenticationState.signedIn) {
+                _newPage = _homePage;
+              } else
+                _newPage = SignInPage();
               break;
             case NavBarItem.BROWSER:
-              _newPage = _browserPage;
+              if (authStatus == AuthenticationState.signedIn) {
+                _newPage = _browserPage;
+              } else
+                _newPage = SignInPage();
               break;
             case NavBarItem.PROFILE:
               if (authStatus == AuthenticationState.signedIn) {
@@ -248,7 +254,11 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
                 _newPage = SignInPage();
               break;
             case NavBarItem.STORE_LIST:
+              if (authStatus == AuthenticationState.signedIn) {
                 _newPage = StoreListPage();
+              } else
+                _newPage = SignInPage();
+              break;
               break;
             case NavBarItem.WALLET:
               if (authStatus == AuthenticationState.signedIn) {

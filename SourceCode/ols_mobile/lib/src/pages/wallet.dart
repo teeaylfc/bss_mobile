@@ -81,55 +81,55 @@ class _WalletPageState extends PageState<WalletPage> with AutomaticKeepAliveClie
   @override
   void initState() {
     super.initState();
-
-    _tabController = new TabController(vsync: this, length: tabs.length);
-
-    InternetConnectivity.checkConnectivity();
-
-    selectedStatus = TabWallet.MY_REWARD;
-
-    applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-
-    listFavoriteItem = List<Item>();
-
-    bool loading = false;
-
-    currentUser = applicationBloc.currentUserValue.value;
-    if (currentUser == null) {
-    } else {
-      imageUrl = currentUser.getImageUrl();
-      if (InternetConnectivity.internet) {
-        _initUserData();
-      }
-    }
-    applicationBloc.notifyEvent.listen((data) {
-      if (data == AppEvent.RELOAD_WALLET) {
-        refreshData();
-      }
-    });
-
-    _tabController.addListener(() {
-      if (!_tabController.indexIsChanging) {
-        if (_tabController.index == 0) {
-          selectedStatus = TabWallet.MY_REWARD;
-        } else if (_tabController.index == 1) {
-          selectedStatus = TabWallet.MY_FAVORITE_ITEM;
-        }
-        refreshData();
-      }
-    });
-
-    HttpCode.eventBus.on<HttpErrorEvent>().listen((event) {
-      if (event.code == 401) {
-        BlocProvider.of<ApplicationBloc>(context).logout();
-        HttpCode.eventBus.destroy();
-        Navigator.of(context).push(new MaterialPageRoute<Null>(
-            builder: (BuildContext context) {
-              return SignInPage();
-            },
-            fullscreenDialog: true));
-      }
-    });
+//
+//    _tabController = new TabController(vsync: this, length: tabs.length);
+//
+//    InternetConnectivity.checkConnectivity();
+//
+//    selectedStatus = TabWallet.MY_REWARD;
+//
+//    applicationBloc = BlocProvider.of<ApplicationBloc>(context);
+//
+//    listFavoriteItem = List<Item>();
+//
+//    bool loading = false;
+//
+//    currentUser = applicationBloc.currentUserValue.value;
+//    if (currentUser == null) {
+//    } else {
+//      imageUrl = currentUser.getImageUrl();
+//      if (InternetConnectivity.internet) {
+//        _initUserData();
+//      }
+//    }
+//    applicationBloc.notifyEvent.listen((data) {
+//      if (data == AppEvent.RELOAD_WALLET) {
+//        refreshData();
+//      }
+//    });
+//
+//    _tabController.addListener(() {
+//      if (!_tabController.indexIsChanging) {
+//        if (_tabController.index == 0) {
+//          selectedStatus = TabWallet.MY_REWARD;
+//        } else if (_tabController.index == 1) {
+//          selectedStatus = TabWallet.MY_FAVORITE_ITEM;
+//        }
+//        refreshData();
+//      }
+//    });
+//
+//    HttpCode.eventBus.on<HttpErrorEvent>().listen((event) {
+//      if (event.code == 401) {
+//        BlocProvider.of<ApplicationBloc>(context).logout();
+//        HttpCode.eventBus.destroy();
+//        Navigator.of(context).push(new MaterialPageRoute<Null>(
+//            builder: (BuildContext context) {
+//              return SignInPage();
+//            },
+//            fullscreenDialog: true));
+//      }
+//    });
   }
 
   _initUserData() {
@@ -166,18 +166,9 @@ class _WalletPageState extends PageState<WalletPage> with AutomaticKeepAliveClie
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: CommonColor.backgroundColor,
-        child: Column(
-          children: <Widget>[
-            TabBarWidget(tabs,_tabController),
-            Expanded(child:TabBarView(
-              controller: _tabController,
-              children: <Widget>[
-                _buildListWallet(),
-                _buildListWallet2()
-              ],
-            ))
-          ],
-        ),
+        child: Center(
+          child: Text("Đây là trang Quản lý địa điểm"),
+        )
       ),
     );
   }

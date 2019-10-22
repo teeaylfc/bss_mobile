@@ -50,7 +50,7 @@ class AuthBloc extends BlocBase {
       _loadingStateController.sink.add(Loading());
       AccountInfo accountInfo = await authResponse();
       _loadingStateController.sink.add(Loaded());
-      User user = User(fullName: accountInfo.fullName, imageURL: accountInfo.urlAvatar, balance: accountInfo.balance);
+      User user = User(fullName: accountInfo.fullName, imageURL: accountInfo.urlAvatar);
       // user.walletCount = res['data']['offerCount'];
       delegate.success(user);
     } catch (error) {

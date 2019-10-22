@@ -9,10 +9,10 @@ class TokenInterceptor extends InterceptorsWrapper {
 
   @override
   onRequest(RequestOptions options) async {
+    options.headers['Content-Type'] = "application/json";
     String _token = await getToken();
     if (_token != null) {
       options.headers['Authorization'] = 'Bearer ' + _token;
-//      print("+++++++++++++++++"+_token.toString());
     }
     return options;
   }

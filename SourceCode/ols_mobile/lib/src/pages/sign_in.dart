@@ -13,6 +13,7 @@ import 'package:ols_mobile/src/blocs/bloc_provider.dart';
 import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/flutter_screenutil.dart';
 import 'package:ols_mobile/src/common/http_client.dart';
+import 'package:ols_mobile/src/models/account_info_model.dart';
 import 'package:ols_mobile/src/models/bloc_delegate.dart';
 import 'package:ols_mobile/src/models/item_model.dart';
 import 'package:ols_mobile/src/models/user_modal.dart';
@@ -50,9 +51,9 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
 
   //phuonglh9293@gmail.com/Oeoe999
   TextEditingController _emailController =
-      TextEditingController(text: '0933636470');
+      TextEditingController(text: 'hoangnt@gmail.com');
   TextEditingController _passwordController =
-      TextEditingController(text: '123456');
+      TextEditingController(text: '123');
 
   bool _obscureText = true;
   var connectivityResult;
@@ -271,7 +272,7 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
     );
   }
 
-  _buildSignupButton(context, authBloc) {
+  _buildSignupButton(context, AuthBloc authBloc) {
     return RaisedGradientButton(
         child: loading
             ? SizedBox(
@@ -302,9 +303,9 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
             });
             authBloc.login(_emailController.text, _passwordController.text);
           }
+           Navigator.push(
+               context, MaterialPageRoute(builder: (context) => MainPage()));
 
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => MainPage()));
         });
   }
 

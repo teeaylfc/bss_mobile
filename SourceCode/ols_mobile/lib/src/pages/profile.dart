@@ -75,50 +75,14 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     applicationBloc = BlocProvider.of<ApplicationBloc>(context);
     currentUser = applicationBloc.currentUserValue.value;
-    applicationBloc.notificationBadgeValue.listen((value) {
-      setState(() {
-        notificationBadge = value;
-      });
-    });
-
     if (currentUser == null) {
       //  bottomNavBarBloc.pickItem(4);
     } else {
       imageUrl = currentUser.getImageUrl();
       currentName = currentUser.fullName;
-      getListFavorite();
-      getBalance();
     }
   }
 
-  getBalance() async {
-    setState(() {
-      isLoadingBalance = true;
-    });
-    try {
-      final AccountInfo res = await _authService.getAccountInfo();
-      setState(() {
-        balance = formatCurrency.format(res.balance != null ? res.balance : 0);
-        unReadNotificationCount = res.unReadNotificationCount;
-        csn = res.phone;
-        isLoadingBalance = false;
-      });
-    } catch (error) {
-      setState(() {
-        isLoadingBalance = false;
-      });
-    }
-  }
-
-  getListFavorite() async {
-    try {
-      setState(() {
-        listFavorites = dataService.getFavorites();
-      });
-    } catch (error) {
-      Reusable.handleHttpError(context, error, applicationBloc);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

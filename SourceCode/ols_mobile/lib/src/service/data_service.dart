@@ -28,8 +28,22 @@ class DataService {
   final String _baseEndpoint = baseApiUrl;
   final String _apiUpload = fileApiUpload;
   final String _mbfEndpoint = mbfApiUrl;
+  final String _baseApiBss = baseApiBss;
 
   final size = Config.PAGE_SIZE;
+
+
+  Future<AccountInfo> register()async{
+    final body = {
+      "email":"sdsd@gmail.com",
+      "fullName":"teee",
+      "phone":"095452099",
+      "gender":"nam",
+      "password":"123"
+    };
+    final response = await httpManager.post('$_baseApiBss'+'users/register', body);
+    return AccountInfo.fromJson(response['data']);
+  }
 
   Future<dynamic> checkEmailExist(email) async {
     final response = await httpManager.get('$_cywEndpoint/customer/$distributorId?email=$email', null);
