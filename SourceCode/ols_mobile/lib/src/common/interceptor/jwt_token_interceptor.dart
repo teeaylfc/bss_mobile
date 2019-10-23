@@ -12,6 +12,7 @@ class TokenInterceptor extends InterceptorsWrapper {
     options.headers['Content-Type'] = "application/json";
     String _token = await getToken();
     if (_token != null) {
+      print(_token);
       options.headers['Authorization'] = 'Bearer ' + _token;
     }
     return options;

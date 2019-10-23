@@ -32,7 +32,9 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
 
   String city = 'Tỉnh/Thành phố';
   String district = 'Quận/Huyện';
+  String commune = 'Xã/Phường';
   bool enableDistrict = false;
+    bool enableCommune = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +59,11 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
                 child: ListView(
                   children: <Widget>[
                     _inputText(
-                        context, name, TextInputType.text, 'Tên người nhận'),
-                    _inputText(context, company, TextInputType.text,
-                        'Tên công ty (không bắt buộc)'),
-                    _inputText(
-                        context, phone, TextInputType.phone, 'Số điện thoại'),
-                    _inputText(
-                        context, email, TextInputType.emailAddress, 'Email'),
-                    _inputText(context, address, TextInputType.text, 'Địa chỉ'),
+                        context, name, TextInputType.text, 'Tên sân vận động'),
                     _inputChoose(city, TypeAddress.CITY),
                     _inputChoose(district, TypeAddress.DISTRICT),
+                     _inputChoose(commune, TypeAddress.COMMUNE),
+                    _inputText(context, address, TextInputType.text, 'Địa chỉ'),
                   ],
                 ),
               ),
@@ -81,7 +78,17 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
   Widget _inputChoose(text, type) {
     final width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap:(type == TypeAddress.DISTRICT && !enableDistrict)? null : () => _chooseAddress(context, type),
+      onTap:(){
+        if(type == TypeAddress.DISTRICT){
+        return _chooseAddress(context,type);
+        }else if(type == TypeAddress.COMMUNE){
+        return _chooseAddress(context,type);
+        }else if(type == TypeAddress.CITY){
+         return _chooseAddress(context,type);
+        }else{
+          return null;
+        }
+      },
       child: Container(
         width: width,
         margin: EdgeInsets.only(
@@ -96,7 +103,7 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
           bottom: ScreenUtil().setWidth(12),
         ),
         decoration: BoxDecoration(
-            color: (type == TypeAddress.DISTRICT && !enableDistrict)? Colors.grey[350] : Colors.white ,
+            color: (type == TypeAddress.DISTRICT && !enableDistrict || type == TypeAddress.COMMUNE && !enableCommune)? Colors.grey[350] : Colors.white ,
             border: Border.all(color: Color(0xFFE7E7E7), width: 1),
             borderRadius: BorderRadius.circular(4)),
         child: Row(
@@ -210,21 +217,14 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
       }
       else if(type == TypeAddress.DISTRICT){
         district = item['name'];
+        enableCommune = true;
+      } else if(type == TypeAddress.COMMUNE){
+        district = item['name'];
       }
     });
   }
   checkOut(context) async{
-    ShippingAddress shippingAddress = ShippingAddress(name.text,company.text,email.text,phone.text,address.text,city,district);
-    try{
-      await dataService.checkoutCart(widget.listItemCode, shippingAddress);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      Reusable.showMessageDialog(true, "Đổi quà thành công", context);
-    }catch(error){
-      Reusable.showMessageDialog(false, "Đổi quà thất bại", context);
-
-    }
+    
   }
 }
 

@@ -50,10 +50,10 @@ class DataService {
     return (response['data']);
   }
 
-  Future<dynamic> updateProfile(email, fullName, gender) async {
-    final dataJson = {"email": email, "fullName": fullName, "gender": gender};
-    final response = await httpManager.post('$_mbfEndpoint/account', dataJson);
-    return (response);
+  Future<AccountInfo> updateProfile(fullName,phone, gender) async {
+    final dataJson = {"fullName": fullName,"phone": phone, "gender": gender};
+    final response = await httpManager.put('$_baseApiBss'+'users/update', dataJson);
+    return AccountInfo.fromJson(response['data']['accountInfo']);
   }
 
   Future<bool> isFirstPassword() async {

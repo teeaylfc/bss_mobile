@@ -157,6 +157,7 @@ class SocialConnectionType {
 class TypeAddress {
   static const CITY = 'city';
   static const DISTRICT = 'district';
+  static const COMMUNE = 'commune';
 }
 class ContextProfile {
   static var context;

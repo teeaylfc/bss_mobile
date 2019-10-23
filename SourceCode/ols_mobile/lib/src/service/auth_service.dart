@@ -96,8 +96,8 @@ class AuthService {
   }
 
   Future<AccountInfo> getAccountInfo() async {
-    final response = await httpManager.get('$mbfApiUrl/account', null);
-    return AccountInfo.fromJson(response);
+    final response = await httpManager.get('$baseApiBss'+'users/info', null);
+    return AccountInfo.fromJson(response["data"]["accountInfo"]);
   }
 
   Future<AccountInfo> updateAccountInfo(fullName, phone, gender, countryCode) async {
