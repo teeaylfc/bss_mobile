@@ -227,6 +227,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                               height: ScreenUtil().setSp(10),
                             ),
                             new TextField(
+                              enabled: false,
                               style: TextStyle(
                                 fontSize: ScreenUtil().setSp(16),
                                 color: Color(0xFF000000),
@@ -255,7 +256,6 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                               height: ScreenUtil().setSp(15),
                             ),
                             TextFormField(
-                              enabled: false,
                               style: TextStyle(
                                 fontSize: ScreenUtil().setSp(16),
                                 color: Color(0xFF000000),
@@ -421,28 +421,25 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           width: ScreenUtil().setSp(67),
           height: ScreenUtil().setSp(28),
           onPressed: () async {
-//            if (_nameController.text.length != 0) {
-//              SystemChannels.textInput.invokeMethod('TextInput.hide');
-//              updateAccountInfo(context);
+           if (_nameController.text.length != 0) {
+             SystemChannels.textInput.invokeMethod('TextInput.hide');
+             updateAccountInfo(context);
               Navigator.pop(context);
-//            }
+           }
           }),
     );
   }
 
   updateAccountInfo(context) async {
-//    if (_phoneController.text != '' && _phoneController.text[0] == '0') {
-//      _phoneController.text = _phoneController.text.substring(1, _phoneController.text.length - 1);
-//    }
     setState(() {
       loading = true;
     });
     try {
-      var res;
+      AccountInfo res;
       if (_nameController.text != '') {
-        res = await dataService.updateProfile(_emailController.text, _nameController.text, gender.toString());
+        res = await dataService.updateProfile(_nameController.text, _phoneController.text, gender.toString());
         User user = applicationBloc.currentUserValue.value;
-        User newUser = User(username: user.username, fullName: res['fullName'], imageURL: user.imageURL, image: user.image);
+        User newUser = User(username: user.username, fullName: res.fullName, imageURL: user.imageURL, image: user.image);
         applicationBloc.changeCurrentUser(newUser);
         Reusable.showMessageDialog(true, FlutterI18n.translate(context, 'profileEditPage.updateSuccess'), context);
       }
