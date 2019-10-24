@@ -34,9 +34,9 @@
   },
   "mainPage": {
     "home": "Home",
-    "search": "Browser",
+    "search": "Customer",
     "wallet": "Wallet",
-    "store": "Store",
+    "store": "Stadium",
     "profile": "Profile"
   },
   "registrationPage": {

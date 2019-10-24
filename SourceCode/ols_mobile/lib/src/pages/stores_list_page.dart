@@ -7,6 +7,7 @@ import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/flutter_screenutil.dart';
 import 'package:ols_mobile/src/common/util/internet_connectivity.dart';
 import 'package:ols_mobile/src/models/store_model.dart';
+import 'package:ols_mobile/src/pages/address_accept_gift.dart';
 import 'package:ols_mobile/src/pages/grid_view_store.dart';
 import 'package:ols_mobile/src/pages/page_state.dart';
 import 'package:ols_mobile/src/pages/sign_in.dart';
@@ -69,68 +70,7 @@ class _StoreListPageState extends PageState<StoreListPage>
   bool favorites = false;
   ScrollController _controller;
 
-  _scrollListener() {
-    print(_controller.position.pixels);
-    print("max scroll: ${_controller.position.maxScrollExtent}");
-    setState(() {
-      if (_controller.offset >= ScreenUtil().setSp(100) &&
-          _controller.offset < ScreenUtil().setSp(150)) {
-        opacityHeader = 1;
-      } else if (_controller.offset < ScreenUtil().setSp(80) &&
-          _controller.offset >= ScreenUtil().setSp(60)) {
-        opacityHeader = 0.8;
-      } else if (_controller.offset < ScreenUtil().setSp(60) &&
-          _controller.offset > ScreenUtil().setSp(40)) {
-        opacityHeader = 0.6;
-      } else if (_controller.offset < ScreenUtil().setSp(40) &&
-          _controller.offset > ScreenUtil().setSp(20)) {
-        opacityHeader = 0.4;
-      } else if (_controller.offset < ScreenUtil().setSp(20) &&
-          _controller.offset > ScreenUtil().setSp(0)) {
-        opacityHeader = 0;
-      }
-    });
-  }
 
-//  @override
-//  void initState() {
-//    applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-//    authStatus = applicationBloc.getAuthStatus.value
-//        ? AuthenticationState.signedIn
-//        : AuthenticationState.notSignedIn;
-//
-//    applicationBloc.authenticationStatus.listen((data) {
-//      authStatus = applicationBloc.getAuthStatus.value
-//          ? AuthenticationState.signedIn
-//          : AuthenticationState.notSignedIn;
-//    });
-//    getAllStore();
-//    getFavoriteStore();
-//    _tabController = new TabController(vsync: this, length: tabs.length);
-//
-//    _tabController.addListener(() {
-//      print("indexIsChanging: ${_tabController.indexIsChanging}");
-//      if (!_tabController.indexIsChanging) {
-//        if (_tabController.index == 0) {
-//          favorites = false;
-//        } else if (_tabController.index == 1) {
-//          print("index: ${_tabController.index}");
-//          if (authStatus == AuthenticationState.notSignedIn) {
-////          _tabController.index = 0;
-//            var route =
-//                new MaterialPageRoute(builder: (context) => SignInPage());
-//            Navigator.push(context, route);
-//          }
-//          favorites = true;
-//        }
-//      }
-////      refreshData();
-//    });
-//    super.initState();
-//    _controller = ScrollController();
-//    _controller.addListener(_scrollListener);
-////    refreshData();
-//  }
 
   @override
   void didChangeDependencies() {
@@ -197,7 +137,15 @@ class _StoreListPageState extends PageState<StoreListPage>
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: Colors.white,
-        child: Center(child: Text("Quản lý ca đặt")),
+        child: GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) => AddressAccepGift()
+            ));
+          },
+          child: Center(child: Text("Thêm địa điểm", style: TextStyle(
+            fontSize: 24
+          ),))),
       ),
     ));
   }

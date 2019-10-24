@@ -21,6 +21,7 @@ import 'package:ols_mobile/src/pages/coupon_detail.dart';
 import 'package:ols_mobile/src/pages/item_list.dart';
 import 'package:ols_mobile/src/pages/loading-grid.dart';
 import 'package:ols_mobile/src/pages/main.dart';
+import 'package:ols_mobile/src/pages/profile.dart';
 import 'package:ols_mobile/src/pages/qr_scanner.dart';
 import 'package:ols_mobile/src/pages/wallet_balance.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
@@ -263,7 +264,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   Widget _buildBalanceInfo() {
     return Container(
       width: ScreenUtil().setWidth(344),
-      height: ScreenUtil().setHeight(133),
+      height: ScreenUtil().setHeight(135),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: <BoxShadow>[
@@ -376,7 +377,10 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
                       width: ScreenUtil().setSp(51),
                       height: ScreenUtil().setSp(33),
                     ),
-                    FlutterI18n.translate(context, 'homePage.gift'), () {
+                    "Thông tin cá nhân", () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => ProfilePage()
+                      ));
                 })
               ],
             ),

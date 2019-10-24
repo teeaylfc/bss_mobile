@@ -35,6 +35,23 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
   String commune = 'Xã/Phường';
   bool enableDistrict = false;
     bool enableCommune = false;
+    List<Object> cityList;
+
+@override
+  void initState() {
+    // TODO: implement initState
+
+    _getListCity();
+    super.initState();
+  }
+  _getListCity(){
+    dataService.getCity().then((data){
+        for(int i =0 ; i < data.length ; i++){
+          cityList[i] = data[i];
+        }
+        print(cityList);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +96,9 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
     final width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap:(){
-        if(type == TypeAddress.DISTRICT){
+        if(type == TypeAddress.DISTRICT && enableDistrict == true){
         return _chooseAddress(context,type);
-        }else if(type == TypeAddress.COMMUNE){
+        }else if(type == TypeAddress.COMMUNE && enableCommune == true){
         return _chooseAddress(context,type);
         }else if(type == TypeAddress.CITY){
          return _chooseAddress(context,type);

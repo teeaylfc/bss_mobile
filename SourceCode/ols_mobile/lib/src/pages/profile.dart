@@ -183,11 +183,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           _buildItemHeader("assets/images/loyalty/member_code_icon.png", FlutterI18n.translate(context, 'profilePage.memberCode') ,
                                   (){
-                                    Navigator.of(context).push(new MaterialPageRoute<Null>(
-                                        builder: (BuildContext context) {
-                                          return MemberCodePage();
-                                        },
-                                        fullscreenDialog: true));
+                                    // Navigator.of(context).push(new MaterialPageRoute<Null>(
+                                    //     builder: (BuildContext context) {
+                                    //       return MemberCodePage();
+                                    //     },
+                                    //     fullscreenDialog: true));
                                   }),
                           SizedBox(
                             width: ScreenUtil().setSp(44),

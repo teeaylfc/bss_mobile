@@ -33,6 +33,11 @@ class DataService {
   final size = Config.PAGE_SIZE;
 
 
+  Future<List> getCity () async{
+     final response = await httpManager.get('$_baseApiBss'+'location/city', null);
+     return response;
+  }
+
   Future<AccountInfo> register(email,fullName,phone,gender,password )async{
     final body = {
       "email":email,
@@ -44,6 +49,33 @@ class DataService {
     final response = await httpManager.post('$_baseApiBss'+'users/register', body);
     return AccountInfo.fromJson(response['data']);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Future<dynamic> checkEmailExist(email) async {
     final response = await httpManager.get('$_cywEndpoint/customer/$distributorId?email=$email', null);
