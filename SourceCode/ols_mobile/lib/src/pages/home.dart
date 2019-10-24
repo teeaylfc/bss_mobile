@@ -234,7 +234,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
           ),
           child: ListView(key: PageStorageKey('parentList'), controller: _scrollController, children: <Widget>[
             _buildHeader(),
-            _buildBanner(),
+            // _buildBanner(),
             
           ]),
         ),
@@ -242,28 +242,28 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
     );
   }
 
-  _buildBanner() {
-    return Padding(
-      padding: EdgeInsets.only(top: ScreenUtil().setSp(20), left: _listPadding[0]),
-      child: SizedBox(
-        height: ScreenUtil().setHeight(157),
-        child: ListView.builder(
-            controller: _listScroll[0],
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            physics: ClampingScrollPhysics(),
-            itemCount: 2,
-            itemBuilder: (context, index) {
+  // _buildBanner() {
+  //   return Padding(
+  //     padding: EdgeInsets.only(top: ScreenUtil().setSp(20), left: _listPadding[0]),
+  //     child: SizedBox(
+  //       height: ScreenUtil().setHeight(157),
+  //       child: ListView.builder(
+  //           controller: _listScroll[0],
+  //           shrinkWrap: true,
+  //           scrollDirection: Axis.horizontal,
+  //           physics: ClampingScrollPhysics(),
+  //           itemCount: 2,
+  //           itemBuilder: (context, index) {
 
-            }),
-      ),
-    );
-  }
+  //           }),
+  //     ),
+  //   );
+  // }
 
   Widget _buildBalanceInfo() {
     return Container(
       width: ScreenUtil().setWidth(344),
-      height: ScreenUtil().setHeight(132),
+      height: ScreenUtil().setHeight(133),
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: <BoxShadow>[
