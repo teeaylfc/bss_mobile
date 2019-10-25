@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/flutter_screenutil.dart';
+import 'package:ols_mobile/src/models/city_model.dart';
 import 'package:ols_mobile/src/models/shipping_address_model.dart';
 import 'package:ols_mobile/src/pages/choose_city_district.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
@@ -40,16 +41,14 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
 @override
   void initState() {
     // TODO: implement initState
-
     _getListCity();
     super.initState();
   }
   _getListCity(){
     dataService.getCity().then((data){
         for(int i =0 ; i < data.length ; i++){
-          cityList[i] = data[i];
+          cityList.addAll(data);
         }
-        print(cityList);
     });
   }
 
@@ -225,6 +224,7 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
     var route = new MaterialPageRoute(
         builder: (context) => ChooseCityDistrict(
               type: type,
+            list: cityList,
             ));
     var item = await Navigator.push(context, route);
     setState(() {

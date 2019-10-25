@@ -158,6 +158,8 @@ class AuthService {
   _saveUserDetailsToPreference(AccountInfo res) async {
     await _storage.write(key: Config.USER_FULLNAME, value: res.fullName);
     await _storage.write(key: Config.USER_EMAIL, value: res.email);
+    await _storage.write(key: Config.IMAGE_URL, value: res.imageURL);
+
 
     // if (res['data']['biometricClientSecret'] != null) {
     //   await _storage.write(key: Config.BIOMETRIC_CLIENT_SECRET, value: res['data']['biometricClientSecret']);

@@ -33,7 +33,7 @@ class DataService {
   final size = Config.PAGE_SIZE;
 
 
-  Future<List> getCity () async{
+  Future<dynamic> getCity () async{
      final response = await httpManager.get('$_baseApiBss'+'location/city', null);
      return response;
   }
@@ -51,7 +51,12 @@ class DataService {
   }
 
 
-
+    Future<AccountInfo> upLoadAvatar(File file) async {
+    FormData formData = FormData();
+    formData.add("file", UploadFileInfo(file, "filename"));
+    final response = await httpManager.put('$_baseApiBss'+'users/update/image', formData);
+    return AccountInfo.fromJson(response['data']['accountInfo']);
+  }
 
 
 
@@ -117,12 +122,7 @@ class DataService {
   }
 
   //upload Avatar for EditProfile page
-  Future<dynamic> upLoadAvatar(File file) async {
-    FormData formData = FormData();
-    formData.add("uploadFile", UploadFileInfo(file, "filename"));
-    final response = await httpManager.post('$_mbfEndpoint/account/uploadAvatar', formData);
-    return (response);
-  }
+
 
   Future<ListItem> getNewestItem(page) async {
     final response = await httpManager.get('$_mbfEndpoint/items/newest?page=$page&size=$size', null);

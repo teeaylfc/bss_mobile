@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -35,7 +36,8 @@ PageStorageKey mykey = new PageStorageKey("testkey");
 final PageStorageBucket bucket = new PageStorageBucket();
 
 final Widget _homePage = HomePage(key: PageStorageKey(NavBarItem.DISCOVER));
-final Widget _browserPage = BrowserPage(key: PageStorageKey(NavBarItem.BROWSER));
+final Widget _browserPage =
+BrowserPage(key: PageStorageKey(NavBarItem.BROWSER));
 final Widget _walletPage = WalletPage(key: PageStorageKey(NavBarItem.WALLET));
 final LocalStorage storage = new LocalStorage('cyw_app');
 final _storage = new FlutterSecureStorage();
@@ -56,13 +58,14 @@ class MainPage extends StatefulWidget {
   }
 }
 
-class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainPage> {
+class _MainPage extends State<MainPage>
+    with AutomaticKeepAliveClientMixin<MainPage> {
   AuthenticationState authStatus = AuthenticationState.notDetermined;
   DataService dataService = DataService();
   AuthService authService = AuthService();
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
 
+  // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
   ApplicationBloc applicationBloc;
 
   int walletCount;
@@ -73,13 +76,16 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
   void initState() {
     super.initState();
     applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-    authStatus = applicationBloc.getAuthStatus.value ? AuthenticationState.signedIn : AuthenticationState.notSignedIn;
+    authStatus = applicationBloc.getAuthStatus.value
+        ? AuthenticationState.signedIn
+        : AuthenticationState.notSignedIn;
 
     applicationBloc.authenticationStatus.listen((data) {
-      authStatus = applicationBloc.getAuthStatus.value ? AuthenticationState.signedIn : AuthenticationState.notSignedIn;
+      authStatus = applicationBloc.getAuthStatus.value
+          ? AuthenticationState.signedIn
+          : AuthenticationState.notSignedIn;
     });
-
-
+    listenBloc();
     registerNotification();
     // configLocalNotification();
 
@@ -87,7 +93,8 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
   }
 
   void registerNotification() {
-    _firebaseMessaging.requestNotificationPermissions(const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -114,7 +121,8 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
         );
       },
     );
-    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings) {
       print("Settings registered: $settings");
     });
     _firebaseMessaging.getToken().then((String token) {
@@ -159,7 +167,8 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
     if (message['badge'] != null) {
       var badge = int.parse(message['badge']);
       if (badge >= 0) {
-        ApplicationBloc applicationBloc = BlocProvider.of<ApplicationBloc>(context);
+        ApplicationBloc applicationBloc =
+        BlocProvider.of<ApplicationBloc>(context);
         applicationBloc.changeNotificationBadgeValue(badge);
       }
     }
@@ -225,94 +234,68 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
     });
   }
 
+  PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
+
+  void listenBloc(){
+    pickItemBloc.pickItemStream.listen((data) {
+      print('index tabbot: $data');
+     if(data != null){
+       pageController.animateToPage(
+           data, duration: Duration(milliseconds: 500), curve: Curves.ease);
+       setState(() {
+         _tabIndex = data;
+       });
+     }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     super.build(context);
     Widget _newPage = _homePage;
-    return StreamBuilder<Map<NavBarItem, dynamic>>(
-      stream: bottomNavBarBloc.itemStream,
-      initialData: bottomNavBarBloc.defaultItem,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          switch (snapshot.data.keys.toList()[0]) {
-            case NavBarItem.DISCOVER:
-              if (authStatus == AuthenticationState.signedIn) {
-                _newPage = _homePage;
-              } else
-                _newPage = SignInPage();
-              break;
-            case NavBarItem.BROWSER:
-              if (authStatus == AuthenticationState.signedIn) {
-                _newPage = _browserPage;
-              } else
-                _newPage = SignInPage();
-              break;
-            case NavBarItem.PROFILE:
-              if (authStatus == AuthenticationState.signedIn) {
-                _newPage = ProfilePage();
-              } else
-                _newPage = SignInPage();
-              break;
-            case NavBarItem.STORE_LIST:
-              if (authStatus == AuthenticationState.signedIn) {
-                _newPage = StoreListPage();
-              } else
-                _newPage = SignInPage();
-              break;
-              break;
-            case NavBarItem.WALLET:
-              if (authStatus == AuthenticationState.signedIn) {
-                _newPage = _walletPage;
-              } else
-                _newPage = SignInPage();
-              break;
-            case NavBarItem.ITEM_LIST:
-              _newPage = ItemListPage(object: snapshot.data.values.toList()[0]);
-              break;
-            case NavBarItem.CATEGORY_LIST:
-              _newPage = CategoryListPage();
-              break;
-            case NavBarItem.BOOKING_LIST:
-              _newPage = BookingAllPage(
-                object: snapshot.data.values.toList()[0],
-              );
-              break;
-            case NavBarItem.BOOKING_DETAIL:
-              _newPage = BookingDetailPage(
-                id: snapshot.data.values.toList()[0]['id'],
-                markerIcon: snapshot.data.values.toList()[0]['markerIcon'],
-                previousPage: snapshot.data.values.toList()[0]['previousPage'],
-                previousStatus: snapshot.data.values.toList()[0]['previousStatus'],
-              );
-              break;
-            case NavBarItem.BOOKING:
-              _newPage = BookingPage(
-                couponId: snapshot.data.values.toList()[0]['couponId'],
-                merchantName: snapshot.data.values.toList()[0]['merchantName'],
-                listStores: snapshot.data.values.toList()[0]['listStores'],
-                booking: snapshot.data.values.toList()[0]['booking'],
-                markerIcon: snapshot.data.values.toList()[0]['markerIcon'],
-              );
-              break;
-          }
-        }
-        _tabIndex = snapshot.data.keys.toList()[0].index;
-        if (_tabIndex == PageIndex.COUPON_LIST || _tabIndex == PageIndex.CATEGORY_LIST) {
-          _tabIndex = PageIndex.BROWSER;
-        } else if (_tabIndex == PageIndex.BOOKING || _tabIndex == PageIndex.BOOKING_DETAIL || _tabIndex == PageIndex.BOOKING_LIST) {
-          _tabIndex = PageIndex.PROFILE;
-        }
+    return
 
-        return Scaffold(
-          body: PageStorage(
-            child: _newPage,
-            bucket: bucket,
-            key: mykey,
-          ),
-          bottomNavigationBar: _buildBottomNavigationBar(),
-        );
-      },
-    );
+      Scaffold(
+        body:
+        StreamBuilder(
+            stream: pickItemBloc.pickItemStream,
+            builder: (context, snapshot) {
+              return PageView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: pageController,
+                onPageChanged: (index) {
+                  pageChanged(index);
+                },
+                children: [
+                     authStatus == AuthenticationState.signedIn
+                      ? _homePage
+                      : SignInPage(),
+                      authStatus == AuthenticationState.signedIn
+                      ? _browserPage
+                      : SignInPage(),
+                  // authStatus == AuthenticationState.signedIn
+                  //     ? _walletPage
+                  //     : SignInPage(),
+                     authStatus == AuthenticationState.signedIn
+                      ? StoreListPage()
+                      : SignInPage(),
+                  authStatus == AuthenticationState.signedIn
+                      ? ProfilePage()
+                      : SignInPage(),
+                ],
+              );
+            }
+        ),
+        bottomNavigationBar: _buildBottomNavigationBar(),
+      );
+  }
+
+  void pageChanged(int index) {
+    setState(() {
+      _tabIndex = index;
+    });
   }
 
   BottomNavigationBar _buildBottomNavigationBar() {
@@ -321,12 +304,12 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
       backgroundColor: Colors.white,
       currentIndex: _tabIndex,
       onTap: (index) {
-        if (_tabIndex == index && index == 0) {
-          applicationBloc.changeNotifyEventValue(AppEvent.SCROLL_HOME);
-        } else if (_tabIndex == index && index == 1) {
-          applicationBloc.changeNotifyEventValue(AppEvent.SCROLL_BROWSER);
-        }
-        bottomNavBarBloc.pickItem(index);
+        setState(() {
+          _tabIndex = index;
+        });
+        pageController.animateToPage(
+            index, duration: Duration(milliseconds: 500), curve: Curves.ease);
+        print("_tabIndex: $_tabIndex");
       },
       items: [
         BottomNavigationBarItem(
@@ -357,31 +340,6 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
             ),
             title: Text(
               FlutterI18n.translate(context, 'mainPage.search'),
-              style: Styles.bottomBarTextStyle,
-            )),
-        BottomNavigationBarItem(
-            icon: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/wallet_ic.png',
-                  width: ScreenUtil().setSp(20),
-                  height: ScreenUtil().setSp(20),
-                ),
-                _buildBadgeWalletCount(walletCount)
-              ],
-            ),
-            activeIcon: Stack(
-              children: <Widget>[
-                Image.asset(
-                  'assets/images/wallet_ic_active.png',
-                  width: ScreenUtil().setSp(20),
-                  height: ScreenUtil().setSp(20),
-                ),
-                _buildBadgeWalletCount(walletCount)
-              ],
-            ),
-            title: Text(
-              FlutterI18n.translate(context, 'mainPage.wallet'),
               style: Styles.bottomBarTextStyle,
             )),
         BottomNavigationBarItem(
@@ -450,7 +408,6 @@ class _MainPage extends State<MainPage> with AutomaticKeepAliveClientMixin<MainP
 
   @override
   void dispose() {
-    // bottomNavBarBloc.close();
     super.dispose();
   }
 

@@ -22,7 +22,9 @@ class ChooseCityDistrictState extends State<ChooseCityDistrict> {
   @override
   void initState() {
     // TODO: implement initState
+    if(widget.list != null){
     data.addAll(widget.list);
+    }
     super.initState();
   }
 

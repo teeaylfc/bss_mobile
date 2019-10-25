@@ -30,9 +30,9 @@ class BottomNavBarBloc {
       case PageIndex.BROWSER:
         _navBarStreamController.sink.add({NavBarItem.BROWSER: ''});
         break;
-      case PageIndex.WALLET:
-        _navBarStreamController.sink.add({NavBarItem.WALLET: ''});
-        break;
+      // case PageIndex.WALLET:
+      //   _navBarStreamController.sink.add({NavBarItem.WALLET: ''});
+      //   break;
       case PageIndex.STORE_LIST:
         _navBarStreamController.sink.add({NavBarItem.STORE_LIST: ''});
         break;
@@ -57,9 +57,44 @@ class BottomNavBarBloc {
     }
   }
 
+
+
   close() {
     _navBarStreamController?.close();
   }
 }
+class PickItemBloc{
+  final StreamController<dynamic> pickItemController = StreamController<dynamic>.broadcast();
+  Stream<dynamic> get pickItemStream => pickItemController.stream;
 
+  homePage(){
+     pickItemController.sink.add(0);
+  }
+   browserPage(){
+     pickItemController.sink.add(1);
+  }
+  stadiumPage(){
+    pickItemController.sink.add(2);
+  }
+   profilePage(){
+     pickItemController.sink.add(4);
+  }
+  
+  void dispose(){
+    pickItemController?.close();
+  }
+}
+class GetSearchResult{
+  final StreamController listSearchResultController = StreamController.broadcast();
+  Stream get listSearchResultStream => listSearchResultController.stream;
+
+  void getResult(data){
+    listSearchResultController.sink.add(data);
+  }
+  void dispose(){
+    listSearchResultController?.close();
+  }
+}
 final bottomNavBarBloc = BottomNavBarBloc();
+final pickItemBloc = PickItemBloc();
+final getSearchResult = GetSearchResult();

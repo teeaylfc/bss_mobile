@@ -88,11 +88,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           _emailController.text = accountInfo.email;
           _phoneController.text = accountInfo.phone;
           gender = accountInfo.gender;
-          if (accountInfo.imageURL != null) {
-            imageUrl = accountInfo.imageURL;
-          } else if (accountInfo.image != null) {
-            imageUrl = fileApiUrl + accountInfo.image.toString();
-          }
+          imageUrl = accountInfo.imageURL;
         });
       }
     } catch (error) {
@@ -648,10 +644,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
       fileImage = file;
     });
     try {
-      var res = await dataService.upLoadAvatar(file);
-      avatarUrl = res['urlAvatar'];
+      AccountInfo res = await dataService.upLoadAvatar(file);
+      avatarUrl = res.imageURL;
       User user = applicationBloc.currentUserValue.value;
-      User newUser = User(username: user.username, fullName: user.fullName, imageURL: res['urlAvartar'], image: user.image);
+      User newUser = User(username: user.username, fullName: user.fullName, imageURL: avatarUrl, image: user.image);
 
       applicationBloc.changeCurrentUser(newUser);
       _showMessageDialog(true,  FlutterI18n.translate(context, 'profileEditPage.avatarSuccess'),);
