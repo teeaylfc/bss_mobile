@@ -38,6 +38,16 @@ class DataService {
      return response;
   }
 
+ Future<dynamic> getDistrict (cityId) async{
+     final response = await httpManager.get('$_baseApiBss'+'location/city/$cityId', null);
+     return response['districtDTOs'];
+  }
+
+ Future<dynamic> getCommune (districtId) async{
+     final response = await httpManager.get('$_baseApiBss'+'location/district/$districtId', null);
+     return response['townDTOs'];
+  }
+
   Future<AccountInfo> register(email,fullName,phone,gender,password )async{
     final body = {
       "email":email,

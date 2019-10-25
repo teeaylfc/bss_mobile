@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:ols_mobile/src/blocs/application_bloc.dart';
 import 'package:ols_mobile/src/blocs/bloc_provider.dart';
+import 'package:ols_mobile/src/blocs/bottom_navbar_bloc.dart';
 import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/flutter_screenutil.dart';
 import 'package:ols_mobile/src/common/http_client.dart';
@@ -378,9 +379,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
                       height: ScreenUtil().setSp(33),
                     ),
                     "Thông tin cá nhân", () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => ProfilePage()
-                      ));
+                    pickItemBloc.profilePage();
                 })
               ],
             ),

@@ -263,7 +263,7 @@ class _MainPage extends State<MainPage>
             stream: pickItemBloc.pickItemStream,
             builder: (context, snapshot) {
               return PageView(
-                physics: NeverScrollableScrollPhysics(),
+                // physics: NeverScrollableScrollPhysics(),
                 controller: pageController,
                 onPageChanged: (index) {
                   pageChanged(index);

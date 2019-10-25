@@ -218,7 +218,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       builder: (BuildContext context) {
                         return ProfileEditPage();
                       },
-                      fullscreenDialog: true));
+                      fullscreenDialog: true)).then((data){
+                        currentUser = applicationBloc.currentUserValue.value;
+                        setState(() {
+                         imageUrl = currentUser.imageURL; 
+                        });
+                      });
                 },
                 child: Container(
                   color: Colors.white,

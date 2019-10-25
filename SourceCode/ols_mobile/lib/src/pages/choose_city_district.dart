@@ -7,7 +7,7 @@ import 'package:ols_mobile/src/widgets/header.dart';
 // ignore: must_be_immutable
 class ChooseCityDistrict extends StatefulWidget {
   String type;
-  List<Object> list;
+  var list;
   ChooseCityDistrict({this.type, this.list});
 
   @override
@@ -22,9 +22,7 @@ class ChooseCityDistrictState extends State<ChooseCityDistrict> {
   @override
   void initState() {
     // TODO: implement initState
-    if(widget.list != null){
-    data.addAll(widget.list);
-    }
+    data = widget.list;
     super.initState();
   }
 

@@ -30,9 +30,9 @@ class BottomNavBarBloc {
       case PageIndex.BROWSER:
         _navBarStreamController.sink.add({NavBarItem.BROWSER: ''});
         break;
-      // case PageIndex.WALLET:
-      //   _navBarStreamController.sink.add({NavBarItem.WALLET: ''});
-      //   break;
+      case PageIndex.WALLET:
+        _navBarStreamController.sink.add({NavBarItem.WALLET: ''});
+        break;
       case PageIndex.STORE_LIST:
         _navBarStreamController.sink.add({NavBarItem.STORE_LIST: ''});
         break;
@@ -77,7 +77,7 @@ class PickItemBloc{
     pickItemController.sink.add(2);
   }
    profilePage(){
-     pickItemController.sink.add(4);
+     pickItemController.sink.add(3);
   }
   
   void dispose(){

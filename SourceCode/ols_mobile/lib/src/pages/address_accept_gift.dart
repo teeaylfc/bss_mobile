@@ -32,12 +32,16 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
   DataService dataService = DataService();
 
   String city = 'Tỉnh/Thành phố';
+  String cityId;
   String district = 'Quận/Huyện';
+  String districtId;
   String commune = 'Xã/Phường';
+  String comuneId;
   bool enableDistrict = false;
     bool enableCommune = false;
-    List<Object> cityList;
-
+   var cityList;
+   var districtList;
+   var communeList;
 @override
   void initState() {
     // TODO: implement initState
@@ -46,11 +50,11 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
   }
   _getListCity(){
     dataService.getCity().then((data){
-        for(int i =0 ; i < data.length ; i++){
-          cityList.addAll(data);
-        }
+      cityList = data;
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +102,7 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
         if(type == TypeAddress.DISTRICT && enableDistrict == true){
         return _chooseAddress(context,type);
         }else if(type == TypeAddress.COMMUNE && enableCommune == true){
-        return _chooseAddress(context,type);
+         _chooseAddress(context,type);
         }else if(type == TypeAddress.CITY){
          return _chooseAddress(context,type);
         }else{
@@ -224,21 +228,38 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
     var route = new MaterialPageRoute(
         builder: (context) => ChooseCityDistrict(
               type: type,
-            list: cityList,
+            list: type == TypeAddress.CITY ? cityList
+                                            :  type == TypeAddress.DISTRICT 
+                                               ? districtList 
+                                               : communeList,
             ));
     var item = await Navigator.push(context, route);
     setState(() {
       if(type == TypeAddress.CITY){
         city = item['name'];
+        cityId = item['matp'];
+     dataService.getDistrict(cityId).then((data){
+       setState(() {
+        districtList = data; 
+       });
+     });
         enableDistrict = true;
       }
       else if(type == TypeAddress.DISTRICT){
         district = item['name'];
+        districtId = item['maqh'];
+        dataService.getCommune(districtId).then((data){
+       setState(() {
+          communeList = data; 
+       });
+     });
         enableCommune = true;
       } else if(type == TypeAddress.COMMUNE){
-        district = item['name'];
+        commune = item['name'];
+        comuneId = item['xaid'];
       }
     });
+    print(cityId ?? ''+districtId ?? ''+comuneId ?? '');
   }
   checkOut(context) async{
     
