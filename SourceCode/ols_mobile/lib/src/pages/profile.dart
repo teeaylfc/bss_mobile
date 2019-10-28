@@ -22,6 +22,7 @@ import 'package:ols_mobile/src/pages/member_code.dart';
 import 'package:ols_mobile/src/pages/profile_edit.dart';
 import 'package:ols_mobile/src/pages/security_setting.dart';
 import 'package:ols_mobile/src/pages/send_feedback.dart';
+import 'package:ols_mobile/src/pages/sign_in.dart';
 import 'package:ols_mobile/src/pages/support_center.dart';
 import 'package:ols_mobile/src/pages/term_condition.dart';
 import 'package:ols_mobile/src/pages/transaction_history.dart';
@@ -529,7 +530,7 @@ class _ProfilePageState extends State<ProfilePage> {
     applicationBloc.logout().then((data) {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => MainPage()),
+        MaterialPageRoute(builder: (context) => SignInPage()),
         (Route<dynamic> route) => false,
       );
     });

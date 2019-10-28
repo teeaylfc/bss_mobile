@@ -27,6 +27,14 @@ class _RegistrationState extends State<RegistrationPage> {
 
   TextEditingController _emailController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+
+   String gender;
+  final List genderMaps = [
+    {'key': 'nam', 'value': 'Nam'},
+    {'key': 'nu', 'value': 'Nữ'}
+  ];
+
   bool _autoValidate = false;
 
   bool checked = false;
@@ -96,6 +104,36 @@ class _RegistrationState extends State<RegistrationPage> {
 //                ,
                 _showNameInput(),
                 _showEmailInput(),
+                _showPhoneInput(),
+                            Text(
+                              FlutterI18n.translate(context, 'profileEditPage.gender'),
+                              style: TextStyle(fontSize: ScreenUtil().setSp(12), color: Color(0xFF9B9B9B)),
+                            ),
+                            Container(
+                              width: ScreenUtil().setSp(105),
+                              child: DropdownButtonFormField<String>(
+                                hint: Text(FlutterI18n.translate(context, 'profileEditPage.gender'),),
+                                onChanged: (value) {
+                                  setState(() {
+                                    gender = value;
+                                  });
+                                },
+                                value: gender,
+                                items: genderMaps.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['key'],
+                                    child: Text(
+                                      value['value'],
+                                      style: TextStyle(
+                                        fontSize: ScreenUtil().setSp(16),
+                                        color: Color(0xFF000000),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
                 Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: Row(
@@ -140,6 +178,7 @@ class _RegistrationState extends State<RegistrationPage> {
     );
   }
 
+
   Widget _showNameInput() {
     return Padding(
       padding: const EdgeInsets.only(top: 30),
@@ -177,11 +216,34 @@ class _RegistrationState extends State<RegistrationPage> {
       child: TextFormField(
         controller: _emailController,
         maxLines: 1,
+        keyboardType: TextInputType.emailAddress,
+        autofocus: false,
+        style: new TextStyle(color: Color(0xFF9B9B9B), fontSize: ScreenUtil().setSp(18)),
+        decoration: InputDecoration(
+            labelText:  "Email",
+            labelStyle: TextStyle(fontSize: ScreenUtil().setSp(15), color: Color(0xFF9B9B9B), fontWeight: FontWeight.w500),
+            contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 5),
+            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFF9B9B9B))),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFF9B9B9B)),
+            )),
+        validator: validateEmail,
+        onSaved: (value) => {},
+      ),
+    );
+  }
+
+  Widget _showPhoneInput() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 30),
+      child: TextFormField(
+        controller: _phoneController,
+        maxLines: 1,
         keyboardType: TextInputType.phone,
         autofocus: false,
         style: new TextStyle(color: Color(0xFF9B9B9B), fontSize: ScreenUtil().setSp(18)),
         decoration: InputDecoration(
-            labelText:  FlutterI18n.translate(context, 'registrationPage.phone'),
+            labelText:  "Số điện thoại",
             labelStyle: TextStyle(fontSize: ScreenUtil().setSp(15), color: Color(0xFF9B9B9B), fontWeight: FontWeight.w500),
             contentPadding: EdgeInsets.fromLTRB(0, 15, 0, 5),
             enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0xFF9B9B9B))),
@@ -193,7 +255,6 @@ class _RegistrationState extends State<RegistrationPage> {
       ),
     );
   }
-
   _checkEmailExist() async {
     setState(() {
       loading = true;

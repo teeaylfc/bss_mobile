@@ -203,6 +203,8 @@ class _LogInPageState extends State<LogInPage> implements BlocDelegate<User> {
 
   _loginFacebook(authBloc) async {
     final facebookLogin = FacebookLogin();
+
+
     await facebookLogin.logOut();
     final result = await facebookLogin.logInWithReadPermissions(['email']);
 //    print(result.accessToken.token);
@@ -214,8 +216,6 @@ class _LogInPageState extends State<LogInPage> implements BlocDelegate<User> {
           loading = true;
         });
         var inforByFacebook = await authService.getInforFacebook(accessToken.token);
-
-        print(inforByFacebook['name'].toString());
         authBloc.loginSocial(SocialConnectionType.FACEBOOK, inforByFacebook['name'].toString(), inforByFacebook['email'].toString().replaceAll('\u0040', '@'), inforByFacebook['id'], inforByFacebook['picture']['data']['url']);
         _showMessage('''
          Logged in!

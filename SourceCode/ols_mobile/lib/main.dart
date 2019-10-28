@@ -5,7 +5,6 @@ import 'package:ols_mobile/src/common/flutter_screenutil.dart';
 import 'package:ols_mobile/src/pages/bankCard_link.dart';
 import 'package:ols_mobile/src/pages/card_authentication.dart';
 import 'package:ols_mobile/src/pages/main.dart';
-import 'package:ols_mobile/src/pages/wallet_balance.dart';
 import 'package:ols_mobile/src/service/local_authentication/service_locator.dart';
 import 'package:ols_mobile/src/style/color.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
@@ -63,7 +62,7 @@ class SplashPage extends StatelessWidget {
     return Stack(
       children: <Widget>[
         SplashScreen(
-            seconds: 1,
+            seconds: 5,
             navigateAfterSeconds: MainPage(),
             // image: Image(fit: BoxFit.cover, image: AssetImage('assets/images/loyalty/app_launcher_icon.png')),
             // imageBackground: AssetImage("assets/images/redeem_success_bg.png"),
@@ -72,15 +71,23 @@ class SplashPage extends StatelessWidget {
             // photoSize: ScreenUtil().setSp(50),
             loaderColor: Colors.transparent),
         Center(
-          child: Container(
-            width: ScreenUtil().setSp(110),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/loyalty/app_launcher_icon.png',
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: ScreenUtil().setSp(110),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      'assets/images/loyalty/logo_stadium.png',
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Text("BOOKING SPORT",style: TextStyle(
+                color: Colors.green,
+                fontSize: ScreenUtil().setSp(16),
+              ),)
+            ],
           ),
         ),
       ],
