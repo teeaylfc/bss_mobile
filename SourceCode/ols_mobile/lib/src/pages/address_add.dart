@@ -4,17 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/flutter_screenutil.dart';
-import 'package:ols_mobile/src/models/city_model.dart';
-import 'package:ols_mobile/src/models/shipping_address_model.dart';
 import 'package:ols_mobile/src/pages/choose_city_district.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
 import 'package:ols_mobile/src/widgets/header.dart';
 import 'package:ols_mobile/src/widgets/reusable.dart';
 
-class AddressAccepGift extends StatefulWidget {
+class AddressAddPage extends StatefulWidget {
   List<String> listItemCode;
 
-  AddressAccepGift({this.listItemCode});
+  AddressAddPage({this.listItemCode});
 
   @override
   State<StatefulWidget> createState() {
@@ -23,12 +21,13 @@ class AddressAccepGift extends StatefulWidget {
   }
 }
 
-class AddressAccepGiftState extends State<AddressAccepGift> {
+class AddressAccepGiftState extends State<AddressAddPage> {
   TextEditingController name = new TextEditingController();
   TextEditingController company = new TextEditingController();
   TextEditingController phone = new TextEditingController();
   TextEditingController email = new TextEditingController();
   TextEditingController address = new TextEditingController();
+  TextEditingController description = new TextEditingController();
   DataService dataService = DataService();
 
   String city = 'Tỉnh/Thành phố';
@@ -84,6 +83,7 @@ class AddressAccepGiftState extends State<AddressAccepGift> {
                     _inputChoose(district, TypeAddress.DISTRICT),
                      _inputChoose(commune, TypeAddress.COMMUNE),
                     _inputText(context, address, TextInputType.text, 'Địa chỉ'),
+                    _inputText(context, description, TextInputType.text, 'Mô tả'),
                   ],
                 ),
               ),

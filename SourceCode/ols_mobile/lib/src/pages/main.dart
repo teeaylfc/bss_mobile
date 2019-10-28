@@ -23,8 +23,8 @@ import 'package:ols_mobile/src/pages/item_list.dart';
 import 'package:ols_mobile/src/pages/notification_list.dart';
 import 'package:ols_mobile/src/pages/profile.dart';
 import 'package:ols_mobile/src/pages/sign_in.dart';
+import 'package:ols_mobile/src/pages/stadium_manager.dart';
 import 'package:ols_mobile/src/pages/stores_list_page.dart';
-import 'package:ols_mobile/src/pages/wallet.dart';
 import 'package:ols_mobile/src/service/auth_service.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
 import 'package:ols_mobile/src/style/styles.dart';
@@ -38,7 +38,7 @@ final PageStorageBucket bucket = new PageStorageBucket();
 final Widget _homePage = HomePage(key: PageStorageKey(NavBarItem.DISCOVER));
 final Widget _browserPage =
 BrowserPage(key: PageStorageKey(NavBarItem.BROWSER));
-final Widget _walletPage = WalletPage(key: PageStorageKey(NavBarItem.WALLET));
+final Widget _stadiumPage = StadiumManagerPage(key: PageStorageKey(NavBarItem.WALLET));
 final LocalStorage storage = new LocalStorage('cyw_app');
 final _storage = new FlutterSecureStorage();
 
@@ -276,7 +276,7 @@ class _MainPage extends State<MainPage>
                       ? _browserPage
                       : SignInPage(),
                   // authStatus == AuthenticationState.signedIn
-                  //     ? _walletPage
+                  //     ? _stadiumPage
                   //     : SignInPage(),
                      authStatus == AuthenticationState.signedIn
                       ? StoreListPage()

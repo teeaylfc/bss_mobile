@@ -15,16 +15,12 @@ import 'package:ols_mobile/src/models/category_model.dart';
 import 'package:ols_mobile/src/models/list_item_model.dart';
 import 'package:ols_mobile/src/models/store_model.dart';
 import 'package:ols_mobile/src/models/user_modal.dart';
-import 'package:ols_mobile/src/pages/address_accept_gift.dart';
+import 'package:ols_mobile/src/pages/address_add.dart';
 import 'package:ols_mobile/src/pages/bankCard_link.dart';
-import 'package:ols_mobile/src/pages/category_list.dart';
 import 'package:ols_mobile/src/pages/coupon_detail.dart';
-import 'package:ols_mobile/src/pages/item_list.dart';
 import 'package:ols_mobile/src/pages/loading-grid.dart';
 import 'package:ols_mobile/src/pages/main.dart';
-import 'package:ols_mobile/src/pages/profile.dart';
 import 'package:ols_mobile/src/pages/qr_scanner.dart';
-import 'package:ols_mobile/src/pages/wallet_balance.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
 import 'package:ols_mobile/src/service/stellar_data_service.dart';
 import 'package:ols_mobile/src/style/color.dart';
@@ -311,7 +307,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => AddressAccepGift(),
+                                  builder: (context) => AddressAddPage(),
                                 ),
                               );
                             },
@@ -427,8 +423,6 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
                             : Container(
                                 height: ScreenUtil().setHeight(10),
                               ),
-                        Spacer(),
-                        ShoppingCart()
                       ],
                     );
                   }),

@@ -32,8 +32,8 @@ import 'package:ols_mobile/src/widgets/shopping_cart.dart';
 import 'package:ols_mobile/src/widgets/tab_bar.dart';
 import 'package:pull_to_refresh_notification/pull_to_refresh_notification.dart';
 
-class WalletPage extends StatefulWidget {
-  WalletPage({Key key}) : super(key: key);
+class StadiumManagerPage extends StatefulWidget {
+  StadiumManagerPage({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -41,7 +41,7 @@ class WalletPage extends StatefulWidget {
   }
 }
 
-class _WalletPageState extends PageState<WalletPage> with AutomaticKeepAliveClientMixin<WalletPage>, SingleTickerProviderStateMixin {
+class _WalletPageState extends PageState<StadiumManagerPage> with AutomaticKeepAliveClientMixin<StadiumManagerPage>, SingleTickerProviderStateMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   GlobalKey<EasyRefreshState> _easyRefreshKey = new GlobalKey<EasyRefreshState>();
   GlobalKey<EasyRefreshState> _easyRefreshKey2 = new GlobalKey<EasyRefreshState>();

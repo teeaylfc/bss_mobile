@@ -13,7 +13,7 @@ import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/flutter_screenutil.dart';
 import 'package:ols_mobile/src/common/util/internet_connectivity.dart';
 import 'package:ols_mobile/src/models/item_model.dart';
-import 'package:ols_mobile/src/pages/address_accept_gift.dart';
+import 'package:ols_mobile/src/pages/address_add.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
 import 'package:ols_mobile/src/style/color.dart';
 import 'package:ols_mobile/src/widgets/no_internet.dart';
@@ -580,7 +580,7 @@ class _CartPageState extends State<CartPage>
       }
     } else {
       var route = new MaterialPageRoute(
-          builder: (context) => AddressAccepGift(
+          builder: (context) => AddressAddPage(
                 listItemCode: listItemCode,
               ));
       Navigator.push(context, route);

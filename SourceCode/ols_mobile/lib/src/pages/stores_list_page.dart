@@ -7,7 +7,7 @@ import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/flutter_screenutil.dart';
 import 'package:ols_mobile/src/common/util/internet_connectivity.dart';
 import 'package:ols_mobile/src/models/store_model.dart';
-import 'package:ols_mobile/src/pages/address_accept_gift.dart';
+import 'package:ols_mobile/src/pages/address_add.dart';
 import 'package:ols_mobile/src/pages/grid_view_store.dart';
 import 'package:ols_mobile/src/pages/page_state.dart';
 import 'package:ols_mobile/src/pages/sign_in.dart';
@@ -140,7 +140,7 @@ class _StoreListPageState extends PageState<StoreListPage>
         child: GestureDetector(
           onTap: (){
             Navigator.push(context, MaterialPageRoute(
-              builder: (context) => AddressAccepGift()
+              builder: (context) => AddressAddPage()
             ));
           },
           child: Center(child: Text("Thêm địa điểm", style: TextStyle(
