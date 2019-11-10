@@ -62,7 +62,7 @@ class SplashPage extends StatelessWidget {
     return Stack(
       children: <Widget>[
         SplashScreen(
-            seconds: 5,
+            seconds: 2,
             navigateAfterSeconds: MainPage(),
             // image: Image(fit: BoxFit.cover, image: AssetImage('assets/images/loyalty/app_launcher_icon.png')),
             // imageBackground: AssetImage("assets/images/redeem_success_bg.png"),

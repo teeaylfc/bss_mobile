@@ -94,6 +94,11 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   bool get wantKeepAlive => true;
 
   @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
+  }
+  @override
   void initState() {
     super.initState();
     _initScrollController();
@@ -131,6 +136,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
     _initData();
     // checkLocaltionPermission();
   }
+
 
   _initScrollController() {
     for (int i = 0; i < _listScroll.length; i++) {
@@ -192,6 +198,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   // }
 
   Future<Null> _initData() async {
+    int a = 1+1;
+    print(a);
     /// initial data
     // getHotItem(0);
     // getNewestItem(0);
@@ -744,6 +752,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
       viewNearlyItemFuture = dataService.getViewNearlyItem(page);
     });
   }
+
 
   _openCouponDtail(context, id) {
     InternetConnectivity.checkConnectivity().then(

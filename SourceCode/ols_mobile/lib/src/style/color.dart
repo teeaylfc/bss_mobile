@@ -12,21 +12,21 @@ class CommonColor {
   static Color backgroundColor = Color(0xFFF7F7F7);
 
   static LinearGradient commonButtonColor = LinearGradient(
-      colors: <Color>[Color(0xFFFF7777), Color(0xFFF44040)],
+      colors: <Color>[Color(0xFF95f542), Color(0xFF0a8c1d)],
       begin: FractionalOffset.centerLeft,
       end: FractionalOffset.centerRight,
       stops: const <double>[0.0, 1],
       tileMode: TileMode.clamp);
 
   static LinearGradient commonLinearGradient = LinearGradient(
-      colors: <Color>[Color(0xFFFF7777), Color(0xFFF44040)],
+     colors: <Color>[Color(0xFF95f542), Color(0xFF0a8c1d)],
       begin: FractionalOffset.topLeft,
       end: FractionalOffset.bottomRight,
       stops: const <double>[0.0, 1],
       tileMode: TileMode.clamp);
 
   static LinearGradient leftRightLinearGradient = LinearGradient(
-      colors: <Color>[Color(0xFFFF7777), Color(0xFFF44040)],
+      colors: <Color>[Color(0xFF95f542), Color(0xFF0a8c1d)],
       begin: FractionalOffset.centerLeft,
       end: FractionalOffset.centerRight,
       stops: const <double>[0.0, 1],

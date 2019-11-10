@@ -6,7 +6,6 @@ import 'package:ols_mobile/src/models/bloc_delegate.dart';
 import 'package:ols_mobile/src/models/load_state.dart';
 import 'package:ols_mobile/src/models/user_modal.dart';
 import 'package:ols_mobile/src/service/auth_service.dart';
-import 'package:rxdart/rxdart.dart';
 
 class AuthBloc extends BlocBase {
   AuthService authService = AuthService();

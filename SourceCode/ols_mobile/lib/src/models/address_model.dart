@@ -14,6 +14,7 @@ class Address {
   final Commune town;
   final List<Stadium> stadiumDTOs;
 
+
   Address({this.city,this.specificAddress,this.district,this.town,this.description,this.stadiumDTOs});
 
   

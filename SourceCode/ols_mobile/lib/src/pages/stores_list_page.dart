@@ -11,6 +11,7 @@ import 'package:ols_mobile/src/pages/address_add.dart';
 import 'package:ols_mobile/src/pages/grid_view_store.dart';
 import 'package:ols_mobile/src/pages/page_state.dart';
 import 'package:ols_mobile/src/pages/sign_in.dart';
+import 'package:ols_mobile/src/pages/stadium_manager.dart';
 import 'package:ols_mobile/src/pages/store_info.dart';
 import 'package:ols_mobile/src/service/auth_service.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
@@ -130,24 +131,45 @@ class _StoreListPageState extends PageState<StoreListPage>
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     super.build(context);
-    return Scaffold(
-        body: GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        color: Colors.white,
-        child: GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(
-              builder: (context) => AddressAddPage()
-            ));
-          },
-          child: Center(child: Text("Thêm địa điểm", style: TextStyle(
-            fontSize: 24
-          ),))),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: CommonColor.leftRightLinearGradient
       ),
-    ));
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: Center(child: Text("Quản lý địa điểm")),
+        ),
+       body: GestureDetector(
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => AddressAddPage()
+                  ));
+                },
+                child:Text("Thêm địa điểm", style: TextStyle(
+                  fontSize: 24
+                ),)),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => StadiumManager() ));
+                  },
+                  child: Text("Chọn sân", style: TextStyle(
+                    fontSize: 24
+                  ),),
+                )
+            ],
+          ),
+        ),
+      )),
+    );
   }
 
   Widget _gridViewStore(type) {
