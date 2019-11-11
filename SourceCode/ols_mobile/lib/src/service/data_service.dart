@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:core';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/http_client.dart';
 import 'package:ols_mobile/src/models/account_info_model.dart';
+import 'package:ols_mobile/src/models/address_model.dart';
 import 'package:ols_mobile/src/models/balance_detail_model.dart';
 import 'package:ols_mobile/src/models/booking_model.dart';
 import 'package:ols_mobile/src/models/branch_model.dart';
@@ -12,9 +15,11 @@ import 'package:ols_mobile/src/models/category_model.dart';
 import 'package:ols_mobile/src/models/item_cms_model.dart';
 import 'package:ols_mobile/src/models/item_detail_model.dart';
 import 'package:ols_mobile/src/models/item_model.dart';
+import 'package:ols_mobile/src/models/list_address_model.dart';
 import 'package:ols_mobile/src/models/list_item_model.dart';
 import 'package:ols_mobile/src/models/list_redeem_history_model.dart';
 import 'package:ols_mobile/src/models/list_review_model.dart';
+import 'package:ols_mobile/src/models/list_stadium_model.dart';
 import 'package:ols_mobile/src/models/list_transaction_model.dart';
 import 'package:ols_mobile/src/models/notification_model.dart';
 import 'package:ols_mobile/src/models/store_model.dart';
@@ -60,7 +65,6 @@ class DataService {
     return AccountInfo.fromJson(response['data']);
   }
 
-
     Future<AccountInfo> upLoadAvatar(File file) async {
     FormData formData = FormData();
     formData.add("file", UploadFileInfo(file, "filename"));
@@ -69,28 +73,16 @@ class DataService {
   }
 
 
+  Future<ListAddress>getAllAdress () async{
+    final response = await httpManager.get('$_baseApiBss'+'address/all', null);
+    return ListAddress.fromJson(response['data']);
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  Future<ListStadium> getDetailAddress(idAdrress,date) async{
+     final response = await httpManager.get('$_baseApiBss'+'stadiums/full/address/$idAdrress/date/$date', null);
+     return ListStadium.fromJson(response['data']);
+  }
+ 
 
   Future<dynamic> checkEmailExist(email) async {
     final response = await httpManager.get('$_cywEndpoint/customer/$distributorId?email=$email', null);

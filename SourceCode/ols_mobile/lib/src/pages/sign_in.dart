@@ -54,7 +54,7 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
   TextEditingController _emailController =
       TextEditingController(text: 'ta@gmail.com');
   TextEditingController _passwordController =
-      TextEditingController(text: '123');
+      TextEditingController(text: '12345678');
 
   bool _obscureText = true;
   var connectivityResult;

@@ -4,8 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ols_mobile/src/common/constants/constants.dart';
 import 'package:ols_mobile/src/common/flutter_screenutil.dart';
+import 'package:ols_mobile/src/pages/address_add_2.dart';
 import 'package:ols_mobile/src/pages/choose_city_district.dart';
 import 'package:ols_mobile/src/service/data_service.dart';
+import 'package:ols_mobile/src/style/color.dart';
 import 'package:ols_mobile/src/widgets/header.dart';
 import 'package:ols_mobile/src/widgets/reusable.dart';
 
@@ -58,10 +60,21 @@ class AddressAccepGiftState extends State<AddressAddPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Header(
-      title: 'Địa chỉ nhận quà',
-      body: content(context),
-    );
+      return Container(
+        decoration: BoxDecoration(
+          gradient: CommonColor.leftRightLinearGradient,
+        ),
+        child: Scaffold(
+          appBar : AppBar(
+            title: Text("Thiết lập địa điểm"),
+            automaticallyImplyLeading: true,
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+          ),
+          body: content(context),
+        ),
+        
+      );
   }
 
   Widget content(context) {
@@ -207,13 +220,7 @@ class AddressAccepGiftState extends State<AddressAddPage> {
           decoration: BoxDecoration(
             color: Color(0xFF0A4DD0),
             borderRadius: BorderRadius.circular(25),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [const Color(0xFFFF483D), const Color(0xFFF42E13)],
-              tileMode:
-                  TileMode.repeated, // repeats the gradient over the canvas
-            ),
+            gradient: CommonColor.leftRightLinearGradient,
           ),
           child: Text(
             'Tiếp tục',
@@ -262,7 +269,7 @@ class AddressAccepGiftState extends State<AddressAddPage> {
     print(cityId ?? ''+districtId ?? ''+comuneId ?? '');
   }
   checkOut(context) async{
-    
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AddressAddPage2()));
   }
 }
 

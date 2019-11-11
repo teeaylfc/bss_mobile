@@ -22,10 +22,12 @@ Address _$AddressFromJson(Map<String, dynamic> json) {
       stadiumDTOs: (json['stadiumDTOs'] as List)
           ?.map((e) =>
               e == null ? null : Stadium.fromJson(e as Map<String, dynamic>))
-          ?.toList());
+          ?.toList(),
+      id: json['id'] as int);
 }
 
 Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
+      'id': instance.id,
       'city': instance.city,
       'specificAddress': instance.specificAddress,
       'description': instance.description,

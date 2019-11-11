@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      color: Colors.white,
+      color: Color(0xffF7F7F7),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SmartRefresher(
