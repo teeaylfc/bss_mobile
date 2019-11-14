@@ -33,111 +33,19 @@ class BrowserPage extends StatefulWidget {
 class _BrowserPageState extends State<BrowserPage> with AutomaticKeepAliveClientMixin<BrowserPage> {
   DataService dataService = DataService();
   RefreshController _refreshController = RefreshController();
-  ScrollController _scrollController = ScrollController();
-
-  CategoryList _categoryList = CategoryList([], true);
-
   bool loading;
-
   String errorMessage;
   int countListView = 10;
-  List<ScrollController> _listScroll;
-  List<double> _listPadding;
-  List<Function> _listFunction ;
+
 
 
   @override
   void initState() {
     super.initState();
-    InternetConnectivity.checkConnectivity();
-
-    ApplicationBloc applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-    // sroll to top page
-    applicationBloc.notifyEvent.listen((onData) {
-      if (AppEvent.SCROLL_BROWSER == onData) {
-        if (_scrollController.hasClients && _scrollController.position.pixels > 0.0) {
-          _scrollController.animateTo(0.0, curve: Curves.easeOut, duration: const Duration(milliseconds: 300));
-        }
-      }
-    });
-
-    _initData(false);
-    _initScrollListening();
 
   }
-
-  _callbackInitData() {
-    InternetConnectivity.checkConnectivity().then((data) {
-      if (InternetConnectivity.internet) {
-        _initData(false);
-      }
-    });
-  }
-
-  _initScrollListening(){
-    _listScroll = List<ScrollController>(countListView);
-    _listPadding = List<double>(countListView);
-    _listFunction = List<Function>(countListView);
-    for(int i = 0; i < _listScroll.length ; i++){
-      _listScroll[i] = ScrollController();
-      _listPadding[i] = 16;
-      _listFunction[i] = (){
-        if(_listScroll[i].hasClients){
-          if (_listScroll[i].offset >= _listScroll[i].position.minScrollExtent &&
-              !_listScroll[i].position.outOfRange) {
-            setState(() {
-              _listPadding[i] = 0;
-            });
-          }
-          if (_listScroll[i].offset <= _listScroll[i].position.minScrollExtent &&
-              !_listScroll[i].position.outOfRange) {
-            setState(() {
-              _listPadding[i] = 16;
-            });
-          }
-        }
-      };
-    }
-    for(int i= 0 ; i < _listScroll.length ; i ++){
-      _listScroll[i].addListener(_listFunction[i]);
-    }
-  }
-
-  _initData(refresh) {
-    setState(() {
-      loading = true;
-    });
-    if (PageStorage.of(context).readState(context, identifier: "_categoryList") == null || refresh) {
-      dataService.getBrowserCategory(1).then((data) {
-        setState(() {
-          loading = false;
-          errorMessage = null;
-          _categoryList = CategoryList(data, true);
-        });
-        _refreshController.refreshCompleted();
-        PageStorage.of(context).writeState(context, _categoryList, identifier: "_categoryList");
-      }).catchError((error) {
-        setState(() {
-          loading = false;
-          errorMessage = error.message;
-        });
-        _refreshController.refreshCompleted();
-        // Reusable.handleHttpError(context, error, null);
-      });
-    } else {
-      _categoryList = PageStorage.of(context).readState(context, identifier: "_categoryList");
-    }
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
   @override
   void dispose() {
-    _refreshController.dispose();
-    _scrollController.dispose();
     super.dispose();
   }
 
@@ -171,121 +79,26 @@ class _BrowserPageState extends State<BrowserPage> with AutomaticKeepAliveClient
       body: SmartRefresher(
         controller: _refreshController,
         onRefresh: () {
-          _initData(true);
+         
         },
-        header: CustomHeader(
-            refreshStyle: RefreshStyle.Behind,
-            builder: (c, m) {
-              return Container(
-                alignment: Alignment.bottomCenter,
-                child: SpinKitFadingCircle(
-                  color: Colors.grey,
-                  size: ScreenUtil().setSp(20),
-                ),
-              );
-            }),
+        // header: CustomHeader(
+        //     refreshStyle: RefreshStyle.Behind,
+        //     builder: (c, m) {
+        //       return Container(
+        //         alignment: Alignment.bottomCenter,
+        //         child: SpinKitFadingCircle(
+        //           color: Colors.grey,
+        //           size: ScreenUtil().setSp(20),
+        //         ),
+        //       );
+        //     }),
         child: InternetConnectivity.internet
             ? ListView(
-                controller: _scrollController,
                 children: <Widget>[
-                  Container(
-                    child: _categoryList != null && _categoryList.content != null && _categoryList.content.length > 0
-                        ? ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: _categoryList.content.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              var item = _categoryList.content[index];
-                              if (item.itemDTOS != null && item.itemDTOS.length > 0) {
-                                return Column(
-                                  children: <Widget>[
-                                    SectionTitle(
-                                      item.categoryDescription,
-                                      GestureDetector(
-                                        onTap: () {
-                                          bottomNavBarBloc.pickItem(PageIndex.COUPON_LIST, {'category': item, 'previousPage': 'BROWSER'});
-                                        },
-                                        child: Text(
-                                          FlutterI18n.translate(context, "browser.seeAll"),
-                                          style: TextStyle(color: CommonColor.textBlue),
-                                        ),
-                                      ),
-                                      EdgeInsets.fromLTRB(ScreenUtil().setWidth(16), 30, ScreenUtil().setWidth(16), 8),
-                                    ),
-                                    Padding(
-                                      padding:  EdgeInsets.only(left: _listPadding[index]),
-                                      child: SizedBox(
-                                        height: ScreenUtil().setHeight(210),
-                                        width: MediaQuery.of(context).size.width,
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: ListView.builder(
-                                                  controller:_categoryList.content[index].itemDTOS.length >2 ? _listScroll[index] : null,
-                                                  key: PageStorageKey(item.categoryDescription),
-                                                  scrollDirection: Axis.horizontal,
-                                                  shrinkWrap: true,
-                                                  itemCount: _categoryList.content[index].itemDTOS.length,
-                                                  itemBuilder: (BuildContext context, int index2) {
-                                                    var item = _categoryList.content[index].itemDTOS[index2];
-                                                    return ItemCard(
-                                                      item: item,
-                                                      showLocation: true,
-                                                      width: ScreenUtil().setWidth(168),
-                                                      height: ScreenUtil().setHeight(206),
-                                                      imageHeight: ScreenUtil().setHeight(115),
-                                                      middleHeight: ScreenUtil().setHeight(52),
-                                                      footerHeight: ScreenUtil().setHeight(35),
-                                                      paddingRight: 0,
-                                                      paddingBottom: 0,
-                                                      star: item.itemPrice != null ? item.itemPrice.toString() : '',
-                                                    );
-                                                  }),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                );
-                              } else {
-                                return Container();
-                              }
-                            },
-                          )
-                        : loading
-                            ? Container(
-                                alignment: Alignment(0.0, 0.0),
-                                padding: EdgeInsets.symmetric(vertical: 30, horizontal: 18),
-                                child: LoadingGridPage(
-                                  itemCount: 8,
-                                  itemWidth: (MediaQuery.of(context).size.width - 36 - 10) / 2,
-                                  itemHeight: MediaQuery.of(context).size.width / 3.8,
-                                ),
-                              )
-                            : errorMessage != null
-                                ? Container(
-                                  height: MediaQuery.of(context).size.height/2,
-                                    child: ErrorPage('Tap to retry', _callbackInitData, errorMessage),
-                                  )
-                                : Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(top: 200),
-                                      child: Text('No coupon!'),
-                                    ),
-                                  ),
-                  ),
                 ],
               )
-            : Container(
-                height: MediaQuery.of(context).size.height / 1.5,
-                child: NoInternetConnection(
-                  callback: _callbackInitData,
-                ),
+            : Container()
               ),
-      ),
     );
   }
 

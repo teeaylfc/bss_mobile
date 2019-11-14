@@ -30,6 +30,18 @@ const int distributorId = 1126;
 
 const String CYW_DOLLAR = 'UM\$';
 
+
+
+class TypeStadium{
+  static const STADIUM_TYPE7 = 0;
+  static const STADIUM_TYPE9 = 1;
+  static const STADIUM_TYPE11 = 2;
+}
+
+
+
+
+
 class Config {
   static const CONNECTION_TIMEOUT = 5000;
 

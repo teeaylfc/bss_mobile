@@ -146,7 +146,6 @@ class StadiumManagerState extends State<StadiumManager> {
                          ),
                        ),
                      )
-                    
                   ],
                 )
               ],

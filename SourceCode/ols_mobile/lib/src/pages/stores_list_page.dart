@@ -40,16 +40,7 @@ class StoreListPage extends StatefulWidget {
 }
 
 class _StoreListPageState extends PageState<StoreListPage>
-    with
-        AutomaticKeepAliveClientMixin<StoreListPage>,
-        SingleTickerProviderStateMixin {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  GlobalKey<EasyRefreshState> _easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  GlobalKey<RefreshHeaderState> _headerKey =
-      new GlobalKey<RefreshHeaderState>();
-  GlobalKey<RefreshFooterState> _footerKey =
-      new GlobalKey<RefreshFooterState>();
+         {
 
   DataService dataService = DataService();
   RefreshController _refreshController = RefreshController();
@@ -65,14 +56,9 @@ class _StoreListPageState extends PageState<StoreListPage>
   double opacityHeader = 0;
   TabController _tabController;
 
-  List<Store> listStore = List<Store>();
-  List<Store> listFavoriteStore = List<Store>();
-  List<Store> listAllStore = List<Store>();
   AuthService authService = AuthService();
   ApplicationBloc applicationBloc;
   AuthenticationState authStatus = AuthenticationState.notDetermined;
-  bool favorites = false;
-  ScrollController _controller;
   List<Address> listAddress = List<Address>();
 
   @override
@@ -95,23 +81,10 @@ class _StoreListPageState extends PageState<StoreListPage>
     super.dispose();
   }
 
-  getStoreList() {
-    dataService.getStore(page, favorites).then((data) {
-      setState(() {
-        if (page == 0) {
-          listStore = [];
-        }
-        listStore.addAll(data.content);
-        last = data.last;
-      });
-    }).catchError((error) {
-      Reusable.handleHttpError(context, error, applicationBloc);
-    });
-  }
 
   getAllAddress(){
+          listAddress = [];
     dataService.getAllAdress().then((data){
-      listAddress = [];
       setState(() {
         listAddress.addAll(data.address);
       });
@@ -121,37 +94,16 @@ class _StoreListPageState extends PageState<StoreListPage>
     });
   }
 
-  getAllStore() {
-    dataService.getAllStore(page).then((data) {
-      print("data: ${data.content[0].toJson()}");
-      setState(() {
-        if (page == 0) {
-          listAllStore = [];
-        }
-        listAllStore.addAll(data.content);
-      });
-    }).catchError((err) {
-      Reusable.handleHttpError(context, err, applicationBloc);
-    });
-  }
-
-  getFavoriteStore() {
-    dataService.getFavoriteStore(page).then((data) {
-      setState(() {
-        if (page == 0) {
-          listFavoriteStore = [];
-        }
-        listFavoriteStore.addAll(data.content);
-      });
-    }).catchError((err) {
-//      Reusable.handleHttpError(context, err, applicationBloc);
-    });
+  void _onRefresh() async{
+    // monitor network fetch
+     await getAllAddress();
+     await Future.delayed(Duration(milliseconds: 1000));
+    _refreshController.refreshCompleted();
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    super.build(context);
     return Container(
       decoration: BoxDecoration(
         gradient: CommonColor.leftRightLinearGradient
@@ -163,21 +115,29 @@ class _StoreListPageState extends PageState<StoreListPage>
         ),
        body: GestureDetector(
         onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          color: Color(0xffF7F7F7),
-          child: Column(
-            children: <Widget>[
-                    Expanded(
-                   child: ListView.builder(
-                  itemCount: listAddress.length,
-                  itemBuilder: (context,index){
-                      return _addressCard(listAddress[index]);
-                  },
-                ),
-                    )
-            ],
+        child: SmartRefresher(
+            controller: _refreshController,
+            onRefresh: (){
+            _onRefresh();
+            },
+
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            color: Color(0xffF7F7F7),
+            child: Column(
+              children: <Widget>[
+                      Expanded(
+                     child: ListView.builder(
+                       physics: NeverScrollableScrollPhysics(),
+                    itemCount: listAddress.length,
+                    itemBuilder: (context,index){
+                        return _addressCard(listAddress[index]);
+                    },
+                  ),
+                      )
+              ],
+            ),
           ),
         ),
       ),
@@ -312,60 +272,6 @@ class _StoreListPageState extends PageState<StoreListPage>
     );
   }
 
-  Widget _gridViewStore(type) {
-    var size = MediaQuery.of(context).size;
-    final double itemWidth = (size.width - ScreenUtil().setSp(66)) / 4;
-    final double itemHeight = itemWidth + ScreenUtil().setSp(25);
-    final double itemImage = ScreenUtil().setSp(75.15);
-    // TODO: implement build
-    List<Store> listStore =
-        type == TypeStore.ALL_STORE ? listAllStore : listFavoriteStore;
-    return Container(
-        color: Colors.white,
-        padding: EdgeInsets.only(
-          left: ScreenUtil().setSp(15),
-          right: ScreenUtil().setSp(5),
-        ),
-        child: GridView.count(
-          physics: NeverScrollableScrollPhysics(),
-//          shrinkWrap: true,
-//            physics: const NeverScrollableScrollPhysics()
-          childAspectRatio: (itemWidth / itemHeight),
-          primary: false,
-          padding: EdgeInsets.only(top: ScreenUtil().setSp(12)),
-          crossAxisCount: 4,
-          children: listStore.map((item) {
-            return GestureDetector(
-              onTap: () => _storeInfo(item.storeId),
-              child: Container(
-                margin: EdgeInsets.only(right: 10, bottom: 10),
-                child: Column(
-                  children: <Widget>[
-                    ClipRRect(
-                      child: Image.network(
-                        item.logoUrl,
-                        width: itemImage,
-                        height: itemImage,
-                        fit: BoxFit.contain,
-                      ),
-                      borderRadius:
-                          new BorderRadius.circular(ScreenUtil().setSp(12)),
-                    ),
-                    Container(
-                      child: Text(
-                        item.storeName,
-                        maxLines: 2,
-                        style: TextStyle(fontSize: ScreenUtil().setSp(12)),
-                      ),
-                      margin: EdgeInsets.only(top: ScreenUtil().setSp(8)),
-                    )
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
-        ));
-  }
 
   _storeInfo(itemID) {
     var route = new MaterialPageRoute(
@@ -406,18 +312,16 @@ class _StoreListPageState extends PageState<StoreListPage>
   }
 
   @override
-  Future loadMoreData() async {
-    if (!last) {
-      page = page + 1;
-      getStoreList();
-    } else {
-      print('last page..........');
-    }
+  Future loadMoreData() {
+    // TODO: implement loadMoreData
+    return null;
   }
 
   @override
-  Future refreshData() async {
-    page = 0;
-    getStoreList();
+  Future refreshData() {
+    // TODO: implement refreshData
+    return null;
   }
+
+
 }
