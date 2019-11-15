@@ -85,7 +85,7 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
     var width = MediaQuery.of(context).size.width;
     return Container(
       width: width,
-      height: ScreenUtil().setSp(80),
+      height: ScreenUtil().setSp(70),
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
           color: Colors.grey[300],
@@ -95,7 +95,19 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
         )
       ]),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          List<dynamic> list = List<dynamic>();
+          for(int i = 0; i < listStadiumFirst.length; i++){
+           dynamic stadium = listStadiumFirst[i];
+            dynamic object = {
+              "name" : "Sân ${i+1}",
+              "maType" : stadium['type'],
+              "description" : stadium['des']
+            } ;
+            list.add(object);
+          }
+          
+        },
         child: Container(
           width: width,
           margin: EdgeInsets.only(
@@ -230,7 +242,7 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
   _addStadium(){
     if(_eneble7 || _eneble9 || _eneble11 == true && desController.text.length > 0){
         Object object = {
-          "type" : "$typeStadium",
+          "type" : typeStadium,
           "des" : "${desController.text}"
         };
         setState(() {
@@ -278,12 +290,12 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
   }
 
   _buildAddStadiumCard(stadium,index) {
-      String type = stadium['type'];
+      int type = stadium['type'];
       String des = stadium['des'];
       int number;
-      if(type == '0' ){
+      if(type == 0 ){
         number = 7;
-      }else if(type == '1'){
+      }else if(type == 1){
         number = 9;
       }else{
         number = 11;
