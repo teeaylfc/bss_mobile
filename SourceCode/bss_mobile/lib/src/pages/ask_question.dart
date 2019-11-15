@@ -1,0 +1,70 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:bss_mobile/src/blocs/application_bloc.dart';
+import 'package:bss_mobile/src/blocs/bloc_provider.dart';
+import 'package:bss_mobile/src/common/flutter_screenutil.dart';
+import 'package:bss_mobile/src/models/item_cms_model.dart';
+import 'package:bss_mobile/src/service/data_service.dart';
+import 'package:bss_mobile/src/widgets/header.dart';
+import 'package:bss_mobile/src/widgets/item_support.dart';
+//import 'package:flutter_html_view/flutter_html_view.dart';
+class AskQuestion extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return AskQuestionState();
+  }
+}
+
+class AskQuestionState extends State<AskQuestion> {
+  DataService dataService = DataService();
+  List<Content> listFaq = [];
+  ApplicationBloc applicationBloc;
+  String _currentLanguage;
+  @override
+  void initState() {
+    applicationBloc = BlocProvider.of<ApplicationBloc>(context);
+    _currentLanguage = applicationBloc.currentLanguageValue.value;
+    getCmsFaq();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getCmsFaq() {
+    dataService.getCmsFaq(_currentLanguage, 0).then((data) {
+      print("respone: ${data.content.length}");
+      setState(() {
+        if (data.content != null) {
+          listFaq = data.content;
+        }
+      });
+    }).catchError((err) {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Header(
+      title: FlutterI18n.translate(context, 'supportCenter.faq'),
+      body: content(context),
+    );
+  }
+
+  Widget content(context) {
+    final width = MediaQuery.of(context).size.width;
+    return Container(
+      padding: EdgeInsets.only(
+        top: ScreenUtil().setSp(5),
+        bottom: ScreenUtil().setSp(5),
+      ),
+      width: width,
+      color: Colors.grey[100],
+      child: listFaq.length > 0
+          ? ListView.builder(
+              itemCount: listFaq.length,
+              itemBuilder: (context, index) => ItemSupport(title: listFaq[index].question, expand: listFaq[index].answer,))
+          : Container(),
+    );
+  }
+}
