@@ -73,7 +73,7 @@ class DataService {
   }
 
 
-  Future<ListAddress>getAllAdress () async{
+  Future<ListAddress> getAllAdress () async{
     final response = await httpManager.get('$_baseApiBss'+'address/all', null);
     return ListAddress.fromJson(response['data']);
   }
@@ -82,7 +82,39 @@ class DataService {
      final response = await httpManager.get('$_baseApiBss'+'stadiums/full/address/$idAdrress/date/$date', null);
      return ListStadium.fromJson(response['data']);
   }
+  Future<dynamic> creatAddress(name,specificAddress,description,matp,maqh,xaid,stadiumDTOs,shiftDTOs)async{
+    final body = {
+      "name" : name,
+      "specificAddress" : specificAddress,
+      "description" : description,
+      "matp" : matp,
+      "maqh" : maqh,
+      "xaid" : xaid,
+      "stadiumDTOs" : stadiumDTOs,
+      "shiftDTOs" : shiftDTOs,
+    };
+    final response = await httpManager.post('$_baseApiBss'+'address/register', body);
+    return response;
+    
+  }
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Future<dynamic> checkEmailExist(email) async {
     final response = await httpManager.get('$_cywEndpoint/customer/$distributorId?email=$email', null);

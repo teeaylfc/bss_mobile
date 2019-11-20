@@ -1,3 +1,4 @@
+import 'package:bss_mobile/src/pages/address_add_3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -9,7 +10,7 @@ class AddressAddPage2 extends StatefulWidget {
   String name;
   String cityId;
   String districtId;
-  String communeId;
+  String comuneId;
   String address;
   String description;
 
@@ -17,7 +18,7 @@ class AddressAddPage2 extends StatefulWidget {
       {this.name,
       this.cityId,
       this.districtId,
-      this.communeId,
+      this.comuneId,
       this.address,
       this.description});
 
@@ -40,6 +41,13 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
   List<Object> listStadiumFirst = List<Object>();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    desController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
@@ -48,34 +56,38 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           centerTitle: true,
-          title: Text("Thêm sân",style: TextStyle(
-            fontWeight: FontWeight.bold
-          ),),
+          title: Text(
+            "Thêm sân",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           automaticallyImplyLeading: true,
         ),
-        body:  Container(
-            height: MediaQuery.of(context).size.height,
-            color: Colors.white,
-            child: Column(
-              children: <Widget>[
-                _buildAction(),
-                SizedBox(
-                  height: ScreenUtil().setSp(15),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          color: Colors.white,
+          child: Column(
+            children: <Widget>[
+              _buildAction(),
+              SizedBox(
+                height: ScreenUtil().setSp(15),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: listStadiumFirst.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(
+                          left: ScreenUtil().setSp(10),
+                          right: ScreenUtil().setSp(10)),
+                      child:
+                          _buildAddStadiumCard(listStadiumFirst[index], index),
+                    );
+                  },
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: listStadiumFirst.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.only(left: ScreenUtil().setSp(10),right: ScreenUtil().setSp(10)),
-                        child: _buildAddStadiumCard(listStadiumFirst[index],index),
-                      ) ;
-                    },
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
+        ),
         bottomNavigationBar: _footer(),
       ),
     );
@@ -97,16 +109,27 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
       child: GestureDetector(
         onTap: () {
           List<dynamic> list = List<dynamic>();
-          for(int i = 0; i < listStadiumFirst.length; i++){
-           dynamic stadium = listStadiumFirst[i];
+          for (int i = 0; i < listStadiumFirst.length; i++) {
+            dynamic stadium = listStadiumFirst[i];
             dynamic object = {
-              "name" : "Sân ${i+1}",
-              "maType" : stadium['type'],
-              "description" : stadium['des']
-            } ;
+              "name": "Sân ${i + 1}",
+              "maType": stadium['type'],
+              "description":"${stadium['des']}"
+            };
             list.add(object);
           }
-          
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddressAdd3Page(
+                        name: widget.name,
+                        address: widget.address,
+                        cityId: widget.cityId,
+                        communeId: widget.comuneId,
+                        description: widget.description,
+                        districtId: widget.districtId,
+                        listStadium: list,
+                      )));
         },
         child: Container(
           width: width,
@@ -219,7 +242,7 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
                 width: ScreenUtil().setSp(60),
                 height: ScreenUtil().setSp(30),
                 decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.red,
                     borderRadius: BorderRadius.circular(100)),
                 child: Center(
                   child: GestureDetector(
@@ -227,7 +250,8 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
                     child: Text(
                       "Thêm",
                       style: TextStyle(
-                          fontSize: ScreenUtil().setSp(14), color: Colors.black),
+                          fontSize: ScreenUtil().setSp(14),
+                          color: Colors.black),
                     ),
                   ),
                 ),
@@ -239,17 +263,17 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
     );
   }
 
-  _addStadium(){
-    if(_eneble7 || _eneble9 || _eneble11 == true && desController.text.length > 0){
-        Object object = {
-          "type" : typeStadium,
-          "des" : "${desController.text}"
-        };
-        setState(() {
-          listStadiumFirst.add(object);
-        });
+  _addStadium() {
+    if (_eneble7 ||
+        _eneble9 ||
+        _eneble11 == true && desController.text.length > 0) {
+      Object object = {"type": typeStadium, "des": "${desController.text}"};
+      setState(() {
+        listStadiumFirst.add(object);
+      });
     }
   }
+
   _buildNumber(n, enable) {
     return GestureDetector(
       onTap: () {
@@ -263,13 +287,13 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
           setState(() {
             _eneble9 = true;
             _eneble7 = _eneble11 = false;
-             typeStadium = TypeStadium.STADIUM_TYPE9;
+            typeStadium = TypeStadium.STADIUM_TYPE9;
           });
         } else if (n == 11) {
           setState(() {
             _eneble11 = true;
             _eneble7 = _eneble9 = false;
-             typeStadium = TypeStadium.STADIUM_TYPE11;
+            typeStadium = TypeStadium.STADIUM_TYPE11;
           });
         }
       },
@@ -289,42 +313,41 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
     );
   }
 
-  _buildAddStadiumCard(stadium,index) {
-      int type = stadium['type'];
-      String des = stadium['des'];
-      int number;
-      if(type == 0 ){
-        number = 7;
-      }else if(type == 1){
-        number = 9;
-      }else{
-        number = 11;
-      }
+  _buildAddStadiumCard(stadium, index) {
+    int type = stadium['type'];
+    String des = stadium['des'];
+    int number;
+    if (type == 0) {
+      number = 7;
+    } else if (type == 1) {
+      number = 9;
+    } else {
+      number = 11;
+    }
     return Container(
-      margin: EdgeInsets.only(top: ScreenUtil().setSp(20)),
-      padding: EdgeInsets.only(left: ScreenUtil().setSp(10),right: ScreenUtil().setSp(10)),
-      width: MediaQuery.of(context).size.width,
-      height: ScreenUtil().setSp(60),
-      decoration: BoxDecoration(
-      color: Color(0xffE7E7E7)
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            height: ScreenUtil().setSp(60),
-            width: ScreenUtil().setSp(60),
-            color: Colors.green,
-            child: Center(
-              child: Text("Sân "+ (index+1).toString(),style: TextStyle(
-                fontSize: ScreenUtil().setSp(20),
-                color: Colors.white
-              ),),
+        margin: EdgeInsets.only(top: ScreenUtil().setSp(20)),
+        padding: EdgeInsets.only(
+            left: ScreenUtil().setSp(10), right: ScreenUtil().setSp(10)),
+        width: MediaQuery.of(context).size.width,
+        height: ScreenUtil().setSp(60),
+        decoration: BoxDecoration(color: Color(0xffE7E7E7)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: ScreenUtil().setSp(60),
+              width: ScreenUtil().setSp(60),
+              color: Colors.green,
+              child: Center(
+                child: Text(
+                  "Sân " + (index + 1).toString(),
+                  style: TextStyle(
+                      fontSize: ScreenUtil().setSp(20), color: Colors.white),
+                ),
+              ),
             ),
-          ),
-        ],
-      )
-    );
+          ],
+        ));
   }
 }

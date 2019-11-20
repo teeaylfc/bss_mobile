@@ -7,7 +7,9 @@ part 'address_model.g.dart';
 
 @JsonSerializable()
 class Address {
+
   final int id;
+  final int name;
   final City city;
   final String specificAddress;
   final String description;
@@ -16,7 +18,7 @@ class Address {
   final List<Stadium> stadiumDTOs;
 
 
-  Address({this.city,this.specificAddress,this.district,this.town,this.description,this.stadiumDTOs,this.id});
+  Address({this.city,this.name,this.specificAddress,this.district,this.town,this.description,this.stadiumDTOs,this.id});
 
   
   factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);

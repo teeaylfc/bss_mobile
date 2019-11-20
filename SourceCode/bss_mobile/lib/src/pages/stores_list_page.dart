@@ -204,7 +204,7 @@ class _StoreListPageState extends PageState<StoreListPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Sân bóng Đông Đô',
+                        address.name ?? 'Sân bóng',
                         style: TextStyle(
                           fontSize: ScreenUtil().setSp(16),
                           fontWeight: FontWeight.bold,

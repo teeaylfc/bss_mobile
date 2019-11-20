@@ -25,9 +25,6 @@ class AddressAddPage extends StatefulWidget {
 
 class AddressAccepGiftState extends State<AddressAddPage> {
   TextEditingController name = new TextEditingController();
-  TextEditingController company = new TextEditingController();
-  TextEditingController phone = new TextEditingController();
-  TextEditingController email = new TextEditingController();
   TextEditingController address = new TextEditingController();
   TextEditingController description = new TextEditingController();
   DataService dataService = DataService();
@@ -270,7 +267,16 @@ class AddressAccepGiftState extends State<AddressAddPage> {
     print(cityId ?? ''+districtId ?? ''+comuneId ?? '');
   }
   checkOut(context) async{
-    Navigator.push(context, MaterialPageRoute(builder: (context) => AddressAddPage2()));
+
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => AddressAddPage2(
+      name: name.text,
+      address: address.text,
+      cityId: cityId,
+      comuneId: comuneId,
+      description: description.text,
+      districtId: districtId,
+    )));
   }
 }
 
