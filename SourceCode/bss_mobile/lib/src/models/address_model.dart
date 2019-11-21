@@ -9,7 +9,7 @@ part 'address_model.g.dart';
 class Address {
 
   final int id;
-  final int name;
+  final String name;
   final City city;
   final String specificAddress;
   final String description;

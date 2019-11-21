@@ -73,7 +73,7 @@ class DataService {
   }
 
 
-  Future<ListAddress> getAllAdress () async{
+  Future<ListAddress> getAllAdress() async{
     final response = await httpManager.get('$_baseApiBss'+'address/all', null);
     return ListAddress.fromJson(response['data']);
   }
@@ -95,7 +95,10 @@ class DataService {
     };
     final response = await httpManager.post('$_baseApiBss'+'address/register', body);
     return response;
-    
+  }
+  Future<dynamic> deleteAddress(id)async{
+       final response = await httpManager.delete('$_baseApiBss'+'address/delete/$id', null);
+       return response;
   }
  
 

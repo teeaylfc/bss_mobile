@@ -109,11 +109,11 @@ class Reusable {
     if (error.action == HttpActionError.LOGIN) {
       // TODO 
       // applicationBloc.logout();
-      // Navigator.of(context).push(new MaterialPageRoute<Null>(
-      //     builder: (BuildContext context) {
-      //       return SignInPage();
-      //     },
-      //     fullscreenDialog: true));
+      Navigator.of(context).push(new MaterialPageRoute<Null>(
+          builder: (BuildContext context) {
+            return SignInPage();
+          },
+          fullscreenDialog: true));
     } else {
       Reusable.showTotastError(error.message);
     }

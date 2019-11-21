@@ -1,3 +1,4 @@
+import 'package:bss_mobile/src/widgets/confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -39,8 +40,7 @@ class StoreListPage extends StatefulWidget {
   }
 }
 
-class _StoreListPageState extends PageState<StoreListPage>
-         {
+class _StoreListPageState extends PageState<StoreListPage>{
 
   DataService dataService = DataService();
   RefreshController _refreshController = RefreshController();
@@ -83,14 +83,15 @@ class _StoreListPageState extends PageState<StoreListPage>
 
 
   getAllAddress(){
-          listAddress = [];
+    print("000000000000000000");
+     listAddress = [];
     dataService.getAllAdress().then((data){
       setState(() {
         listAddress.addAll(data.address);
       });
 
     }).catchError((error){
-      Reusable.handleHttpError(context, error, applicationBloc);
+      print(error);
     });
   }
 
@@ -261,7 +262,11 @@ class _StoreListPageState extends PageState<StoreListPage>
                          SizedBox(
                            width: ScreenUtil().setSp(20),
                          ),
-                          Container(child: Image.asset("assets/images/loyalty/delete_icon.png",width: ScreenUtil().setSp(25),height: ScreenUtil().setSp(25),)),
+                          GestureDetector(
+                            onTap: () async{
+                              await _asyncConfirmDialog(context, address.id);
+                            },
+                            child: Container(child: Image.asset("assets/images/loyalty/delete_icon.png",width: ScreenUtil().setSp(25),height: ScreenUtil().setSp(25),))),
                         ],
                       )
                     ],
@@ -272,13 +277,35 @@ class _StoreListPageState extends PageState<StoreListPage>
     );
   }
 
-
-  _storeInfo(itemID) {
-    var route = new MaterialPageRoute(
-        builder: (context) => StoreInfoPage(
-              storeId: itemID,
-            ));
-    Navigator.push(context, route);
+     Future<ConfirmAction> _asyncConfirmDialog(BuildContext context, id) async {
+    return showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return Transform.scale(
+            scale: a1.value,
+            child: Opacity(
+                opacity: a1.value,
+                child: ConfirmDialog(
+                  width: 306,
+                  height: 263,
+                  image: 'assets/images/remove_icon.png',
+                  title: "Bạn có chắc muốn xóa địa điểm này?",
+                  callbackConfirm: () async{
+                    try{
+                     await  dataService.deleteAddress(id);
+                     getAllAddress();
+                    }catch(error){
+                      Reusable.showTotastError(error.toString());
+                    }
+                  },
+                )),
+          );
+        },
+        transitionDuration: Duration(milliseconds: 200),
+        barrierDismissible: true,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {});
   }
 
 //  _buildListStore() {
