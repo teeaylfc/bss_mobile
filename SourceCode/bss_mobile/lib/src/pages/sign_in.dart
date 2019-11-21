@@ -327,7 +327,7 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
                 style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: Colors.black,
-                    fontSize: ScreenUtil().setSp(16)),
+                    fontSize: ScreenUtil().setSp(14)),
               ),
         image: AssetImage(
           'assets/images/loyalty/touch_id.png',

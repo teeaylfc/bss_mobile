@@ -83,7 +83,6 @@ class _StoreListPageState extends PageState<StoreListPage>{
 
 
   getAllAddress(){
-    print("000000000000000000");
      listAddress = [];
     dataService.getAllAdress().then((data){
       setState(() {
@@ -165,7 +164,7 @@ class _StoreListPageState extends PageState<StoreListPage>{
   Widget _addressCard(Address address){
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => StadiumManager()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => StadiumManager(address.id)));
       },
       onLongPress: (){},
       child: Container(

@@ -87,6 +87,7 @@ dev_dependencies:
   pin_input_text_field: ^2.0.0
   flutter_html: ^0.11.0
   flutter_swiper: ^1.1.6
+  flutter_datetime_picker: ^1.2.8
 
 flutter_icons:
   android: "launcher_icon"

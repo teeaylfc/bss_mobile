@@ -1,10 +1,16 @@
+import 'package:bss_mobile/src/models/shift_model.dart';
+import 'package:bss_mobile/src/service/data_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:bss_mobile/src/common/flutter_screenutil.dart';
 import 'package:bss_mobile/src/models/stadium_model.dart';
-import 'package:bss_mobile/src/style/color.dart';
+import 'package:bss_mobile/src/style/color.dart'; 
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class StadiumManager extends StatefulWidget {
+  int addressId;
+
+  StadiumManager(this.addressId);
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -13,6 +19,28 @@ class StadiumManager extends StatefulWidget {
 }
 
 class StadiumManagerState extends State<StadiumManager> {
+  DataService dataService = DataService();
+  String datePicker;
+  String dateView;
+  List<Stadium> listStadium = List<Stadium>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    dateView = "Hôm nay";
+    datePicker = DateTime.now().toString().substring(0,10);
+    print(widget.addressId.toString());
+    refreshData();
+    super.initState();
+  }
+
+  refreshData()async{
+    dataService.getDetailAddress(widget.addressId, datePicker).then((data){
+       setState(() {
+         listStadium.addAll(data.address);
+       });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -24,9 +52,29 @@ class StadiumManagerState extends State<StadiumManager> {
           title: Center(child: Text("Sân bóng Đông Đô")),
           automaticallyImplyLeading: true,
           actions: <Widget>[
-            Image.asset(
-              "assets/images/loyalty/calendar_icon.png",
-              width: ScreenUtil().setSp(40),
+            GestureDetector(
+              onTap: (){
+                DatePicker.showDatePicker(context,
+                              minTime: DateTime.now(),
+                              maxTime: DateTime(2020, 12, 30),
+                              onConfirm: (date) {
+                                setState(() {
+                                  datePicker = date.toString().substring(0,10);
+                                  if(datePicker == DateTime.now().toString().toString().substring(0,10)){
+                                    dateView = "Hôm nay";
+                                  }else{
+                                    dateView = datePicker;
+                                  }
+                                  refreshData();
+                                });
+                          }, currentTime: DateTime.now(), locale: LocaleType.vi);
+              },
+              child: Container(
+                child: Image.asset(
+                  "assets/images/loyalty/calendar_icon.png",
+                  width: ScreenUtil().setSp(40),
+                ),
+              ),
             )
           ],
         ),
@@ -41,7 +89,7 @@ class StadiumManagerState extends State<StadiumManager> {
                   height: ScreenUtil().setSp(20),
                 ),
                 Text(
-                  "Hôm nay",
+                  dateView,
                   style: TextStyle(
                       color: CommonColor.textBlack,
                       fontWeight: FontWeight.bold,
@@ -64,14 +112,29 @@ class StadiumManagerState extends State<StadiumManager> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: ScreenUtil().setSp(15)
                               ),))),
-                          _timeWidget("7h"),
-                          _timeWidget("9h"),
-                          _timeWidget("11h"),
-                          _timeWidget("13h"),
-                          _timeWidget("15h"),
-                          _timeWidget("17h"),
-                          _timeWidget("19h"),
-                          _timeWidget("21h"),
+                            Expanded(
+                              child: ListView.builder(
+                                itemCount: listStadium[0].statusShiftResponses.length,
+                                itemBuilder: (context,index){
+                                  Shift shift = listStadium[0].statusShiftResponses[index];
+                                  return Container(
+                                    height: ScreenUtil().setSp(40),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(shift.shiftDTO.time_start,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                                        SizedBox(
+                                          height: ScreenUtil().setSp(10),
+                                        ),
+                                        Text(shift.shiftDTO.time_end,style: TextStyle(fontSize: ScreenUtil().setSp(14)))
+                                      ],
+                                    ),
+                                  );
+                                },
+
+                              ),
+                            )
                         ],
                       ),
                     ),
