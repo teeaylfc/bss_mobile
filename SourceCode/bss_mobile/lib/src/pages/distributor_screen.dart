@@ -124,7 +124,7 @@ class _DistributorPageState extends State<DistributorPage> {
       child: InkWell(
         onTap: () {
           if (index == 4) {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SplashPage()));
+            // Navigator.of(context).push(MaterialPageRoute(builder: (context) => SplashPage()));
           }
         },
         child: Container(

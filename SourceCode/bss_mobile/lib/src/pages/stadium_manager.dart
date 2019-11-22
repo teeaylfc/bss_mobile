@@ -80,8 +80,7 @@ class StadiumManagerState extends State<StadiumManager> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
             color: Colors.white,
             child: Column(
               children: <Widget>[
@@ -114,27 +113,25 @@ class StadiumManagerState extends State<StadiumManager> {
                               ),))),
                             Expanded(
                               child: ListView.builder(
-                                itemCount: listStadium[0].statusShiftResponses.length,
-                                itemBuilder: (context,index){
-                                  Shift shift = listStadium[0].statusShiftResponses[index];
-                                  return Container(
-                                    height: ScreenUtil().setSp(40),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(shift.shiftDTO.time_start,style: TextStyle(fontSize: ScreenUtil().setSp(14))),
-                                        SizedBox(
-                                          height: ScreenUtil().setSp(10),
-                                        ),
-                                        Text(shift.shiftDTO.time_end,style: TextStyle(fontSize: ScreenUtil().setSp(14)))
-                                      ],
-                                    ),
-                                  );
-                                },
-
-                              ),
-                            )
+                                  itemCount: 5,
+                                  itemBuilder: (context,index){
+                                    // Shift shift = listStadium[0].statusShiftResponses[index];
+                                    return Container(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text("10h",style: TextStyle(fontSize: ScreenUtil().setSp(14))),
+                                          SizedBox(
+                                            height: ScreenUtil().setSp(10),
+                                          ),
+                                          Text("12h",style: TextStyle(fontSize: ScreenUtil().setSp(14)))
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                            ),
                         ],
                       ),
                     ),

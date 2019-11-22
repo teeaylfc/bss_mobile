@@ -2,9 +2,12 @@ import 'package:bss_mobile/src/blocs/application_bloc.dart';
 import 'package:bss_mobile/src/blocs/bloc_provider.dart';
 import 'package:bss_mobile/src/common/constants/constants.dart';
 import 'package:bss_mobile/src/common/flutter_screenutil.dart';
+import 'package:bss_mobile/src/common/http_client.dart';
 import 'package:bss_mobile/src/pages/bankCard_link.dart';
 import 'package:bss_mobile/src/pages/card_authentication.dart';
 import 'package:bss_mobile/src/pages/main.dart';
+import 'package:bss_mobile/src/pages/sign_in.dart';
+import 'package:bss_mobile/src/service/auth_service.dart';
 import 'package:bss_mobile/src/service/local_authentication/service_locator.dart';
 import 'package:bss_mobile/src/style/color.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
@@ -18,6 +21,15 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 List<CameraDescription> cameras;
 
 void main() async {
+    bool hasLogin = true;
+   AuthService _authService = AuthService();
+   try{
+    await _authService.getAccountInfo();
+   }catch(error){
+     if(error.action == HttpActionError.LOGIN){
+       hasLogin = false;
+     }
+   }
   setupLocator();
   try {
     cameras = await availableCameras();
@@ -34,7 +46,7 @@ void main() async {
           canvasColor: Colors.transparent,
         ),
         // home: DistributorPage(),
-        home: SplashPage(),
+        home: SplashPage(hasLogin),
         routes: {
           'bankcard': (context) => BankCardLink(),
           '/cardAuthen': (context) => CardAuthenticaton(),
@@ -46,6 +58,8 @@ void main() async {
 }
 
 class SplashPage extends StatelessWidget {
+    bool hasLogin;
+    SplashPage(this.hasLogin);
   @override
   Widget build(BuildContext context) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -63,7 +77,7 @@ class SplashPage extends StatelessWidget {
       children: <Widget>[
         SplashScreen(
             seconds: 2,
-            navigateAfterSeconds: MainPage(),
+            navigateAfterSeconds: hasLogin ? MainPage() : SignInPage(),
             // image: Image(fit: BoxFit.cover, image: AssetImage('assets/images/loyalty/app_launcher_icon.png')),
             // imageBackground: AssetImage("assets/images/redeem_success_bg.png"),
             backgroundColor: Colors.white,
