@@ -97,7 +97,7 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
     var width = MediaQuery.of(context).size.width;
     return Container(
       width: width,
-      height: ScreenUtil().setSp(70),
+      height: ScreenUtil().setSp(80),
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
           color: Colors.grey[300],
@@ -347,6 +347,66 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
                 ),
               ),
             ),
+            Container(
+              padding: EdgeInsets.only(left: ScreenUtil().setSp(10),right: ScreenUtil().setSp(10),top: ScreenUtil().setSp(05)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Loại sân :",style: TextStyle(
+                        fontSize: ScreenUtil().setSp(14),
+                        color: CommonColor.textBlack,
+                      ),),
+                      Text(number.toString(),style: TextStyle(
+                        fontSize: ScreenUtil().setSp(16),
+                        fontWeight: FontWeight.bold,
+                        color: CommonColor.textOrange,
+                      ),)
+                    ],
+                  ),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Mô tả :",
+                        style: TextStyle(
+                          fontSize: ScreenUtil().setSp(14),
+                          color: CommonColor.textBlack,
+                        ),),
+                        Container(
+                          width: ScreenUtil().setSp(170),
+                          child: Text(des,
+                          maxLines: 3,
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(14),
+                            fontWeight: FontWeight.normal,
+                            color: CommonColor.textBlack,
+                          ),),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+             Spacer(),
+                GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      listStadiumFirst.remove(stadium);
+                    });
+                  },
+                  child: Container(
+                    color: Color(0xffE7E7E7),
+                    width: ScreenUtil().setSp(40),
+                    child: Center(child: Image.asset("assets/images/remove_red.png")),
+                  ),
+                )
           ],
         ));
   }
