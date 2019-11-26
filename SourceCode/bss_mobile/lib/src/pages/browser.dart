@@ -52,53 +52,37 @@ class _BrowserPageState extends State<BrowserPage> with AutomaticKeepAliveClient
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-//      backgroundColor: CommonColor.backgroundColor,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0.0,
-        iconTheme: IconThemeData(
-          color: Color(0xffF76016),
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-//            gradient: CommonColor.commonLinearGradient
-          color: Colors.white,
-            border: Border(
-              bottom: BorderSide(
-                color: Color(0xffE7E7E7),
-                width: 1
-              )
-            )
-          ),
-        ),
-        automaticallyImplyLeading: false,
-        title: SearchField(bgColor: Color(0xffF4F4F4),),
-        titleSpacing: 0.0,
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: MediaQuery.of(context).size.height
       ),
-      body: SmartRefresher(
-        controller: _refreshController,
-        onRefresh: () {
-         
-        },
-        // header: CustomHeader(
-        //     refreshStyle: RefreshStyle.Behind,
-        //     builder: (c, m) {
-        //       return Container(
-        //         alignment: Alignment.bottomCenter,
-        //         child: SpinKitFadingCircle(
-        //           color: Colors.grey,
-        //           size: ScreenUtil().setSp(20),
-        //         ),
-        //       );
-        //     }),
-        child: InternetConnectivity.internet
-            ? ListView(
-                children: <Widget>[
-                ],
-              )
-            : Container()
-              ),
+      decoration: BoxDecoration(gradient: CommonColor.leftRightLinearGradient),
+      child: Scaffold(
+//      backgroundColor: CommonColor.backgroundColor,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+          elevation: 0.0,
+          automaticallyImplyLeading: false,
+          title: Text("Danh sách chờ xác nhận"),
+          centerTitle: true,
+          titleSpacing: 0.0,
+        ),
+        body: SmartRefresher(
+          controller: _refreshController,
+          onRefresh: () {
+           
+          },
+
+          child: InternetConnectivity.internet
+              ? ListView(
+                  children: <Widget>[
+                    
+                  ],
+                )
+              : Container()
+                ),
+      ),
     );
   }
 
