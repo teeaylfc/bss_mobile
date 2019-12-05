@@ -65,6 +65,7 @@ class DataService {
     return AccountInfo.fromJson(response['data']);
   }
 
+  
     
 
     Future<AccountInfo> upLoadAvatar(File file) async {
@@ -102,9 +103,12 @@ class DataService {
        final response = await httpManager.delete('$_baseApiBss'+'address/delete/$id', null);
        return response;
   }
- 
 
-
+    Future<ListAddress> getConfirm()async{
+      final response = await httpManager.get('$_baseApiBss'+'address/confirm', null);
+      return ListAddress.fromJson(response['data']);
+    }
+    
 
 
 
