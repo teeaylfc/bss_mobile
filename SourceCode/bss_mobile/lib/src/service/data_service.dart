@@ -65,6 +65,8 @@ class DataService {
     return AccountInfo.fromJson(response['data']);
   }
 
+    
+
     Future<AccountInfo> upLoadAvatar(File file) async {
     FormData formData = FormData();
     formData.add("file", UploadFileInfo(file, "filename"));

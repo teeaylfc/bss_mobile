@@ -14,7 +14,7 @@
  const String fileApiUpload = 'http://192.168.99.21:9090/api/files';
  const String baseApiUrl = 'http://192.168.99.21:9090/';
 //  const String baseApiBss = 'http://vuonxa.com:9090/';
- const String baseApiBss = 'http://103.56.156.194:9090/';
+ const String baseApiBss = 'http://45.124.94.74:9090/';
 
 
 // PUBLIC SERVER

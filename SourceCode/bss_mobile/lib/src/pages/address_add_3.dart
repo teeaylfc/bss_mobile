@@ -2,7 +2,9 @@ import 'package:bss_mobile/src/common/flutter_screenutil.dart';
 import 'package:bss_mobile/src/pages/main.dart';
 import 'package:bss_mobile/src/service/data_service.dart';
 import 'package:bss_mobile/src/style/color.dart';
+import 'package:bss_mobile/src/widgets/notification_popup.dart';
 import 'package:bss_mobile/src/widgets/reusable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddressAdd3Page extends StatefulWidget {
@@ -128,13 +130,8 @@ class AddressAdd3State extends State<AddressAdd3Page> {
                 widget.communeId,
                 widget.listStadium,
                 list);
-            Reusable.showMessageDialog(
+            showMessageDialog(
                 true, "Thêm địa điểm thành công", context);
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MainPage()),
-              (Route<dynamic> route) => false,
-            );
           } catch (error) {
             Reusable.showTotastError("Thêm địa điểm thất bại");
           }
@@ -443,7 +440,10 @@ class AddressAdd3State extends State<AddressAdd3Page> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: ScreenUtil().setSp(10),right: ScreenUtil().setSp(10),top: ScreenUtil().setSp(05)),
+              padding: EdgeInsets.only(
+                  left: ScreenUtil().setSp(10),
+                  right: ScreenUtil().setSp(10),
+                  top: ScreenUtil().setSp(05)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -452,15 +452,21 @@ class AddressAdd3State extends State<AddressAdd3Page> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text("Thời gian :",style: TextStyle(
-                        fontSize: ScreenUtil().setSp(14),
-                        color: CommonColor.textBlack,
-                      ),),
-                      Text(start+"-"+end,style: TextStyle(
-                        fontSize: ScreenUtil().setSp(16),
-                        fontWeight: FontWeight.bold,
-                        color: CommonColor.textOrange,
-                      ),)
+                      Text(
+                        "Thời gian :",
+                        style: TextStyle(
+                          fontSize: ScreenUtil().setSp(14),
+                          color: CommonColor.textBlack,
+                        ),
+                      ),
+                      Text(
+                        start + "-" + end,
+                        style: TextStyle(
+                          fontSize: ScreenUtil().setSp(16),
+                          fontWeight: FontWeight.bold,
+                          color: CommonColor.textOrange,
+                        ),
+                      )
                     ],
                   ),
                   SizedBox(
@@ -471,20 +477,24 @@ class AddressAdd3State extends State<AddressAdd3Page> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Text("Giá : ",
-                        style: TextStyle(
-                          fontSize: ScreenUtil().setSp(14),
-                          color: CommonColor.textBlack,
-                        ),),
-                        Container(
-                          width: ScreenUtil().setSp(170),
-                          child: Text(cash.toString() + " VNĐ",
-                          maxLines: 1,
+                        Text(
+                          "Giá : ",
                           style: TextStyle(
                             fontSize: ScreenUtil().setSp(14),
-                            fontWeight: FontWeight.bold,
                             color: CommonColor.textBlack,
-                          ),),
+                          ),
+                        ),
+                        Container(
+                          width: ScreenUtil().setSp(170),
+                          child: Text(
+                            cash.toString() + " VNĐ",
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(14),
+                              fontWeight: FontWeight.bold,
+                              color: CommonColor.textBlack,
+                            ),
+                          ),
                         )
                       ],
                     ),
@@ -492,20 +502,47 @@ class AddressAdd3State extends State<AddressAdd3Page> {
                 ],
               ),
             ),
-             Spacer(),
-                GestureDetector(
-                  onTap: (){
-                    setState(() {
-                      listShiftFirst.remove(shift);
-                    });
-                  },
-                  child: Container(
-                    color: Color(0xffE7E7E7),
-                    width: ScreenUtil().setSp(40),
-                    child: Center(child: Image.asset("assets/images/remove_red.png")),
-                  ),
-                )
+            Spacer(),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  listShiftFirst.remove(shift);
+                });
+              },
+              child: Container(
+                color: Color(0xffE7E7E7),
+                width: ScreenUtil().setSp(40),
+                child:
+                    Center(child: Image.asset("assets/images/remove_red.png")),
+              ),
+            )
           ],
         ));
+  }
+
+showMessageDialog(success,text,context) {
+    containerForSheet<String>(
+        context: context,
+        child: Container(
+          child: MessagePopup(success: success, title1: text),
+        ),
+    );
+  }
+
+containerForSheet<T>({BuildContext context, Widget child}) {
+    showCupertinoModalPopup<T>(
+        context: context,
+        builder: (BuildContext context) {
+          Future.delayed(Duration(seconds: 5), () {
+            Navigator.of(context).pop();
+          });
+          return child;
+        }).then<void>((T value) {
+                      Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => MainPage()),
+                (Route<dynamic> route) => false,
+              );
+    });
   }
 }
