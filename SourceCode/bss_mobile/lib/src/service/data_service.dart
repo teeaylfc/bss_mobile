@@ -38,17 +38,17 @@ class DataService {
   final size = Config.PAGE_SIZE;
 
 
-  Future<dynamic> getCity () async{
+  Future<dynamic> getCity() async{
      final response = await httpManager.get('$_baseApiBss'+'location/city', null);
      return response;
   }
 
- Future<dynamic> getDistrict (cityId) async{
+ Future<dynamic> getDistrict(cityId) async{
      final response = await httpManager.get('$_baseApiBss'+'location/city/$cityId', null);
      return response['districtDTOs'];
   }
 
- Future<dynamic> getCommune (districtId) async{
+ Future<dynamic> getCommune(districtId) async{
      final response = await httpManager.get('$_baseApiBss'+'location/district/$districtId', null);
      return response['townDTOs'];
   }
@@ -64,6 +64,9 @@ class DataService {
     final response = await httpManager.post('$_baseApiBss'+'users/register', body);
     return AccountInfo.fromJson(response['data']);
   }
+
+  
+    
 
     Future<AccountInfo> upLoadAvatar(File file) async {
     FormData formData = FormData();
@@ -100,9 +103,12 @@ class DataService {
        final response = await httpManager.delete('$_baseApiBss'+'address/delete/$id', null);
        return response;
   }
- 
 
-
+    Future<ListAddress> getConfirm()async{
+      final response = await httpManager.get('$_baseApiBss'+'address/confirm', null);
+      return ListAddress.fromJson(response['data']);
+    }
+    
 
 
 

@@ -73,10 +73,10 @@ class _TransactionHistoryPageState extends PageState<TransactionHistoryPage>
     if (month.length == 1) {
       month = '0$month';
     }
-    dataService.getListRedeemHistory(0, '', '').then((data){
-      redeemHistoryList.addAll(data.content);
-      last = data.last;
-    });
+    // dataService.getListRedeemHistory(0, '', '').then((data){
+    //   redeemHistoryList.addAll(data.content);
+    //   last = data.last;
+    // });
     selectedStatus = TransactionStatus.GIFTHISTORY;
     _tabController.addListener(() {
       if (!_tabController.indexIsChanging) {
@@ -86,9 +86,9 @@ class _TransactionHistoryPageState extends PageState<TransactionHistoryPage>
           selectedStatus = TransactionStatus.POINTHISTORY;
         }
       }
-      refreshData();
+      // refreshData();
     });
-    refreshData();
+    // refreshData();
   }
 
   @override

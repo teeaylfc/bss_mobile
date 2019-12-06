@@ -2,7 +2,9 @@ import 'package:bss_mobile/src/common/flutter_screenutil.dart';
 import 'package:bss_mobile/src/pages/main.dart';
 import 'package:bss_mobile/src/service/data_service.dart';
 import 'package:bss_mobile/src/style/color.dart';
+import 'package:bss_mobile/src/widgets/notification_popup.dart';
 import 'package:bss_mobile/src/widgets/reusable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddressAdd3Page extends StatefulWidget {
@@ -34,6 +36,7 @@ class AddressAdd3State extends State<AddressAdd3Page> {
   TextEditingController _startTimeController = TextEditingController();
   TextEditingController _endTimeController = TextEditingController();
   TextEditingController _cashController = TextEditingController();
+  TimeOfDay pickedTime;
 
   DataService dataService = DataService();
 
@@ -45,6 +48,7 @@ class AddressAdd3State extends State<AddressAdd3Page> {
     _cashController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -126,13 +130,8 @@ class AddressAdd3State extends State<AddressAdd3Page> {
                 widget.communeId,
                 widget.listStadium,
                 list);
-            Reusable.showMessageDialog(
+            showMessageDialog(
                 true, "Thêm địa điểm thành công", context);
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => MainPage()),
-              (Route<dynamic> route) => false,
-            );
           } catch (error) {
             Reusable.showTotastError("Thêm địa điểm thất bại");
           }
@@ -209,21 +208,57 @@ class AddressAdd3State extends State<AddressAdd3Page> {
               SizedBox(
                 width: ScreenUtil().setSp(7),
               ),
-              Container(
-                height: ScreenUtil().setSp(30),
-                padding: EdgeInsets.only(left: 7, right: 7),
-                width: ScreenUtil().setSp(70),
-                constraints: BoxConstraints(minHeight: ScreenUtil().setSp(30)),
-                color: Colors.white,
-                child: TextField(
-                  controller: _startTimeController,
-                  maxLines: 1,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    focusedBorder: InputBorder.none,
-                    border: InputBorder.none,
+              Stack(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () async {
+                      final TimeOfDay response = await showTimePicker(
+                        context: context,
+                        initialTime: pickedTime ?? TimeOfDay.now(),
+                      );
+                      if (response != null && response != pickedTime) {
+                        setState(() {
+                          pickedTime = response;
+                          _startTimeController.text = response.hour.toString() +
+                              ":" +
+                              response.minute.toString();
+                        });
+                      } else {
+                        setState(() {
+                          _startTimeController.text = response.hour.toString() +
+                              ":" +
+                              response.minute.toString();
+                        });
+                      }
+                    },
+                    child: Container(
+                      height: ScreenUtil().setSp(30),
+                      padding: EdgeInsets.only(left: 7, right: 7),
+                      width: ScreenUtil().setSp(90),
+                      constraints:
+                          BoxConstraints(minHeight: ScreenUtil().setSp(30)),
+                      color: Colors.white,
+                      child: TextField(
+                        enabled: false,
+                        controller: _startTimeController,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          focusedBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    top: 4,
+                    right: 4,
+                    child: Image.asset(
+                      "assets/images/time_start_icon.png",
+                      width: ScreenUtil().setSp(23),
+                    ),
+                  )
+                ],
               ),
               SizedBox(
                 width: ScreenUtil().setSp(7),
@@ -236,21 +271,57 @@ class AddressAdd3State extends State<AddressAdd3Page> {
               SizedBox(
                 width: ScreenUtil().setSp(7),
               ),
-              Container(
-                height: ScreenUtil().setSp(30),
-                padding: EdgeInsets.only(left: 7, right: 7),
-                width: ScreenUtil().setSp(70),
-                constraints: BoxConstraints(minHeight: ScreenUtil().setSp(30)),
-                color: Colors.white,
-                child: TextField(
-                  controller: _endTimeController,
-                  maxLines: 1,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    focusedBorder: InputBorder.none,
-                    border: InputBorder.none,
+              Stack(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () async {
+                      final TimeOfDay response = await showTimePicker(
+                        context: context,
+                        initialTime: pickedTime ?? TimeOfDay.now(),
+                      );
+                      if (response != null) {
+                        setState(() {
+                          pickedTime = response;
+                          _endTimeController.text = response.hour.toString() +
+                              ":" +
+                              response.minute.toString();
+                        });
+                      } else {
+                        setState(() {
+                          _endTimeController.text = response.hour.toString() +
+                              ":" +
+                              response.minute.toString();
+                        });
+                      }
+                    },
+                    child: Container(
+                      height: ScreenUtil().setSp(30),
+                      padding: EdgeInsets.only(left: 7, right: 7),
+                      width: ScreenUtil().setSp(90),
+                      constraints:
+                          BoxConstraints(minHeight: ScreenUtil().setSp(30)),
+                      color: Colors.white,
+                      child: TextField(
+                        enabled: false,
+                        controller: _endTimeController,
+                        maxLines: 1,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          focusedBorder: InputBorder.none,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    top: 4,
+                    right: 4,
+                    child: Image.asset(
+                      "assets/images/time_icon_picker.png",
+                      width: ScreenUtil().setSp(20),
+                    ),
+                  )
+                ],
               )
             ],
           ),
@@ -368,7 +439,110 @@ class AddressAdd3State extends State<AddressAdd3Page> {
                 ),
               ),
             ),
+            Container(
+              padding: EdgeInsets.only(
+                  left: ScreenUtil().setSp(10),
+                  right: ScreenUtil().setSp(10),
+                  top: ScreenUtil().setSp(05)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "Thời gian :",
+                        style: TextStyle(
+                          fontSize: ScreenUtil().setSp(14),
+                          color: CommonColor.textBlack,
+                        ),
+                      ),
+                      Text(
+                        start + "-" + end,
+                        style: TextStyle(
+                          fontSize: ScreenUtil().setSp(16),
+                          fontWeight: FontWeight.bold,
+                          color: CommonColor.textOrange,
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: ScreenUtil().setSp(7),
+                  ),
+                  Expanded(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Giá : ",
+                          style: TextStyle(
+                            fontSize: ScreenUtil().setSp(14),
+                            color: CommonColor.textBlack,
+                          ),
+                        ),
+                        Container(
+                          width: ScreenUtil().setSp(170),
+                          child: Text(
+                            cash.toString() + " VNĐ",
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontSize: ScreenUtil().setSp(14),
+                              fontWeight: FontWeight.bold,
+                              color: CommonColor.textBlack,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Spacer(),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  listShiftFirst.remove(shift);
+                });
+              },
+              child: Container(
+                color: Color(0xffE7E7E7),
+                width: ScreenUtil().setSp(40),
+                child:
+                    Center(child: Image.asset("assets/images/remove_red.png")),
+              ),
+            )
           ],
         ));
+  }
+
+showMessageDialog(success,text,context) {
+    containerForSheet<String>(
+        context: context,
+        child: Container(
+          child: MessagePopup(success: success, title1: text),
+        ),
+    );
+  }
+
+containerForSheet<T>({BuildContext context, Widget child}) {
+    showCupertinoModalPopup<T>(
+        context: context,
+        builder: (BuildContext context) {
+          Future.delayed(Duration(seconds: 5), () {
+            Navigator.of(context).pop();
+          });
+          return child;
+        }).then<void>((T value) {
+                      Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => MainPage()),
+                (Route<dynamic> route) => false,
+              );
+    });
   }
 }
