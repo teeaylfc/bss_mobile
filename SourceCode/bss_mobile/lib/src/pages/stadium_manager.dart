@@ -246,11 +246,22 @@ class StadiumManagerState extends State<StadiumManager> {
             color: Colors.white,
             // decoration: BoxDecoration(
             //     color: shift.status == 0 ? Colors.green : Colors.red , borderRadius: BorderRadius.circular(100)),
-            child: Image.asset("assets/images/ball_red.png",width: ScreenUtil().setSp(50),),
+            child: Image.asset("assets/images/${_stringImage(shift.status)}",width: ScreenUtil().setSp(50),),
           ),
         ));
   }
 
+  String _stringImage (status){
+    if(status == 0){
+      return "ball_green.png";
+    }else if(status == 1){
+      return "ball_yellow.png";
+    }else if(status == 2){
+      return "ball_blue.png";
+    }else if(status == 3){
+      return "ball_red.png";
+    }
+  }
   _timeWidget(text) {
     return Container(
         height: ScreenUtil().setSp(40),

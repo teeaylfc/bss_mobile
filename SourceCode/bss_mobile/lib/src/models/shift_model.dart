@@ -8,7 +8,6 @@ class Shift {
   final int id;
   final int status; 
   ShiftDTO shiftDTO;
-
   AccountInfo user;
   Shift({this.id,this.shiftDTO,this.status,this.user});
   factory Shift.fromJson(Map<String, dynamic> json) => _$ShiftFromJson(json);
