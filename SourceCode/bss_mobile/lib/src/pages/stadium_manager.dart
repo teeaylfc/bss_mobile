@@ -8,6 +8,7 @@ import 'package:bss_mobile/src/models/stadium_model.dart';
 import 'package:bss_mobile/src/style/color.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class StadiumManager extends StatefulWidget {
   int addressId;
@@ -21,6 +22,7 @@ class StadiumManager extends StatefulWidget {
 }
 
 class StadiumManagerState extends State<StadiumManager> {
+   RefreshController _refreshController = RefreshController();
   DataService dataService = DataService();
   String datePicker;
   String dateView;
@@ -35,7 +37,12 @@ class StadiumManagerState extends State<StadiumManager> {
     refreshData();
     super.initState();
   }
-
+ void _onRefresh() async{
+    // monitor network fetch
+     await refreshData();
+     await Future.delayed(Duration(milliseconds: 1000));
+    _refreshController.refreshCompleted();
+  }
   refreshData() async {
     setState(() {
       loading =  true;
@@ -90,128 +97,135 @@ class StadiumManagerState extends State<StadiumManager> {
               )
             ],
           ),
-          body: SingleChildScrollView(
-            child: Container(
-              constraints:
-                  BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-              color: Colors.white,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: ScreenUtil().setSp(20),
-                  ),
-                  Text(
-                    dateView,
-                    style: TextStyle(
-                        color: CommonColor.textBlack,
-                        fontWeight: FontWeight.bold,
-                        fontSize: ScreenUtil().setSp(20)),
-                  ),
-                  SizedBox(
-                    height: ScreenUtil().setSp(20),
-                  ),
-                  listStadium.length != 0 ?
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: ScreenUtil().setSp(70),
-                        height: MediaQuery.of(context).size.height,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                                height: ScreenUtil().setSp(50),
-                                child: Center(
-                                    child: Text(
-                                  "Sân",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: ScreenUtil().setSp(15)),
-                                ))),
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount:
-                                    listStadium[0].statusShiftResponses.length,
-                                itemBuilder: (context, index) {
-                                  Shift shift = listStadium[0]
-                                          .statusShiftResponses[index] ??
-                                      null;
-                                  return Container(
-                                    height: ScreenUtil().setSp(50),
-                                    padding: EdgeInsets.only(
-                                        left: ScreenUtil().setSp(20)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Text(shift.shiftDTO.time_start ?? '',
-                                            style: TextStyle(
-                                                fontSize: ScreenUtil().setSp(12),
-                                                fontWeight: FontWeight.bold)),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              bottom: ScreenUtil().setSp(4),
-                                              left: ScreenUtil().setSp(5)),
-                                          child: Text(
-                                            ".....",
-                                            style: TextStyle(color: Colors.black),
+          body: SmartRefresher(
+                          controller: _refreshController,
+              onRefresh: () {
+                  _onRefresh();
+              },
+            child: SingleChildScrollView(
+              child: Container(
+                constraints:
+                    BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: ScreenUtil().setSp(20),
+                    ),
+                    Text(
+                      dateView,
+                      style: TextStyle(
+                          color: CommonColor.textBlack,
+                          fontWeight: FontWeight.bold,
+                          fontSize: ScreenUtil().setSp(20)),
+                    ),
+                    SizedBox(
+                      height: ScreenUtil().setSp(20),
+                    ),
+                    listStadium.length != 0 ?
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: ScreenUtil().setSp(70),
+                          height: MediaQuery.of(context).size.height,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                  height: ScreenUtil().setSp(50),
+                                  child: Center(
+                                      child: Text(
+                                    "Sân",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: ScreenUtil().setSp(15)),
+                                  ))),
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount:
+                                      listStadium[0].statusShiftResponses.length,
+                                  itemBuilder: (context, index) {
+                                    Shift shift = listStadium[0]
+                                            .statusShiftResponses[index] ??
+                                        null;
+                                    return Container(
+                                      height: ScreenUtil().setSp(50),
+                                      padding: EdgeInsets.only(
+                                          left: ScreenUtil().setSp(20)),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Text(shift.shiftDTO.time_start ?? '',
+                                              style: TextStyle(
+                                                  fontSize: ScreenUtil().setSp(12),
+                                                  fontWeight: FontWeight.bold)),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                bottom: ScreenUtil().setSp(4),
+                                                left: ScreenUtil().setSp(5)),
+                                            child: Text(
+                                              ".....",
+                                              style: TextStyle(color: Colors.black),
+                                            ),
                                           ),
-                                        ),
-                                        Text(shift.shiftDTO.time_end ?? '',
-                                            style: TextStyle(
-                                                fontSize: ScreenUtil().setSp(12),
-                                                fontWeight: FontWeight.bold))
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: ScreenUtil().setSp(500),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: listStadium.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: <Widget>[
-                                  _buildItemStadium(index + 1),
-                                  Expanded(
-                                    child: Container(
-                                      width: ScreenUtil().setSp(50),
-                                      height: ScreenUtil().setSp(600),
-                                      child: ListView.builder(
-                                        itemCount: listStadium[index]
-                                            .statusShiftResponses
-                                            .length,
-                                        itemBuilder: (context, index1) {
-                                          return _buildShift(
-                                              listStadium[index]
-                                                  .statusShiftResponses[index1],
-                                              index1,listStadium[index]
-                                            .statusShiftResponses
-                                            .length,);
-                                        },
+                                          Text(shift.shiftDTO.time_end ?? '',
+                                              style: TextStyle(
+                                                  fontSize: ScreenUtil().setSp(12),
+                                                  fontWeight: FontWeight.bold))
+                                        ],
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      )
-                    ],
-                  ) : Container()
-                ],
+                        Expanded(
+                          child: Container(
+                            height: ScreenUtil().setSp(500),
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: listStadium.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: <Widget>[
+                                    _buildItemStadium(index + 1),
+                                    Expanded(
+                                      child: Container(
+                                        width: ScreenUtil().setSp(50),
+                                        height: ScreenUtil().setSp(600),
+                                        child: ListView.builder(
+                                          physics: NeverScrollableScrollPhysics(),
+                                          itemCount: listStadium[index]
+                                              .statusShiftResponses
+                                              .length,
+                                          itemBuilder: (context, index1) {
+                                            return _buildShift(
+                                                listStadium[index]
+                                                    .statusShiftResponses[index1],
+                                                index1,listStadium[index]
+                                              .statusShiftResponses
+                                              .length,);
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ) : Container()
+                  ],
+                ),
               ),
             ),
           ),
@@ -222,7 +236,7 @@ class StadiumManagerState extends State<StadiumManager> {
 
   _buildShift(Shift shift, index, length) {
     return GestureDetector(
-      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=> ShiftDetailPage(shift))),
+      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=> ShiftDetailPage(shift,datePicker))),
       child: Container(
           decoration: BoxDecoration(
               color: Colors.white,
@@ -264,6 +278,8 @@ class StadiumManagerState extends State<StadiumManager> {
       return "ball_blue.png";
     }else if(status == 3){
       return "ball_red.png";
+    }else{
+      return "cancel_icon.jpg";
     }
   }
   _timeWidget(text) {

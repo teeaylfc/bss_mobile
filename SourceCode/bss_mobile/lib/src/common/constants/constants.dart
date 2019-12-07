@@ -41,8 +41,13 @@ class TypeStadium{
 }
 
 
-
-
+class ConfigStatusShift{
+    static const AVAILABLE = 0;
+    static const NO_CONFIRM = 1;
+    static const CONFIRMED_NOPAY = 2;
+    static const CONFIRMED_PAYED = 3;
+    static const CANCEL = 4;
+}
 
 class Config {
   static const CONNECTION_TIMEOUT = 5000;

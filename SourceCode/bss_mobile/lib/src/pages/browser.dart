@@ -1,3 +1,4 @@
+import 'package:bss_mobile/src/common/constants/constants.dart';
 import 'package:bss_mobile/src/common/flutter_screenutil.dart';
 import 'package:bss_mobile/src/common/util/internet_connectivity.dart';
 import 'package:bss_mobile/src/models/category_model.dart';
@@ -84,6 +85,7 @@ class _BrowserPageState extends State<BrowserPage>
               child: listConfirm != [] ? Padding(
           padding: EdgeInsets.all(15),
           child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
             itemCount: listConfirm.length,
             itemBuilder: (context, index) {
               Shift shift = listConfirm[index];
@@ -147,6 +149,13 @@ class _BrowserPageState extends State<BrowserPage>
                       stops: const <double>[0.0, 1],
                     ),
                     onPressed: () async {
+                                            try {
+                        await dataService.updateStatus(shift.id,ConfigStatusShift.CANCEL,"Xin lỗi ca này không thể đặt");
+                        Reusable.showMessageDialog(true, "Hủy lịch thành công", context);
+                        _getData();
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                     child: Text(
                       "Hủy lịch",
@@ -168,7 +177,7 @@ class _BrowserPageState extends State<BrowserPage>
                 child: RaisedGradientButton(
                     onPressed: () async {
                       try {
-                        await dataService.confirm(shift.id);
+                        await dataService.updateStatus(shift.id,ConfigStatusShift.CONFIRMED_NOPAY,"");
                         Reusable.showMessageDialog(true, "Xác nhận thành công", context);
                         _getData();
                       } catch (e) {
@@ -189,7 +198,12 @@ class _BrowserPageState extends State<BrowserPage>
               );
             },
           ),
-        ) : Container(),
+        ) : Container(
+          child: Center(child: Text("Hiện không có lịch đặt nào cần phải xác nhận", style: TextStyle(
+            color: CommonColor.textBlack,
+            fontSize: ScreenUtil().setSp(16),
+          ),)),
+        ),
                     ),
           );
         return Container(
