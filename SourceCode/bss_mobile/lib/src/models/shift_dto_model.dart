@@ -7,7 +7,7 @@ class ShiftDTO {
   final int name;
   final double cash;  
  final String time_start;
- final String time_end;
+ final String time_end; 
   ShiftDTO({this.id,this.time_start,this.time_end,this.name,this.cash});
   factory ShiftDTO.fromJson(Map<String, dynamic> json) => _$ShiftDTOFromJson(json);
 }

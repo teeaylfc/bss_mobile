@@ -1,4 +1,5 @@
 import 'package:bss_mobile/src/models/shift_model.dart';
+import 'package:bss_mobile/src/pages/shift_detail.dart';
 import 'package:bss_mobile/src/service/data_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -220,35 +221,38 @@ class StadiumManagerState extends State<StadiumManager> {
   }
 
   _buildShift(Shift shift, index, length) {
-    return Container(
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              left: BorderSide(color: Colors.green),
-              top: index == 0
-                  ? BorderSide(color: Colors.green)
-                  : BorderSide(
-                      width: 0,
-                    ),
-              bottom: BorderSide(color: Colors.green),
-              right: index == length
-                  ? BorderSide(color: Colors.green)
-                  : BorderSide(
-                      width: 0,
-                    ),
-            )),
-        width: ScreenUtil().setSp(50),
-        height: ScreenUtil().setSp(50),
-        child: Center(
-          child: Container(
-            width: ScreenUtil().setSp(25),
-            height: ScreenUtil().setSp(25),
-            color: Colors.white,
-            // decoration: BoxDecoration(
-            //     color: shift.status == 0 ? Colors.green : Colors.red , borderRadius: BorderRadius.circular(100)),
-            child: Image.asset("assets/images/${_stringImage(shift.status)}",width: ScreenUtil().setSp(50),),
-          ),
-        ));
+    return GestureDetector(
+      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=> ShiftDetailPage(shift))),
+      child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                left: BorderSide(color: Colors.green),
+                top: index == 0
+                    ? BorderSide(color: Colors.green)
+                    : BorderSide(
+                        width: 0,
+                      ),
+                bottom: BorderSide(color: Colors.green),
+                right: index == length
+                    ? BorderSide(color: Colors.green)
+                    : BorderSide(
+                        width: 0,
+                      ),
+              )),
+          width: ScreenUtil().setSp(50),
+          height: ScreenUtil().setSp(50),
+          child: Center(
+            child: Container(
+              width: ScreenUtil().setSp(25),
+              height: ScreenUtil().setSp(25),
+              color: Colors.white,
+              // decoration: BoxDecoration(
+              //     color: shift.status == 0 ? Colors.green : Colors.red , borderRadius: BorderRadius.circular(100)),
+              child: Image.asset("assets/images/${_stringImage(shift.status)}",width: ScreenUtil().setSp(50),),
+            ),
+          )),
+    );
   }
 
   String _stringImage (status){

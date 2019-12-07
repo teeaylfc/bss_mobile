@@ -104,11 +104,15 @@ class DataService {
        return response;
   }
 
-    Future<ListAddress> getConfirm()async{
-      final response = await httpManager.get('$_baseApiBss'+'address/confirm', null);
-      return ListAddress.fromJson(response['data']);
+    Future<dynamic> getConfirm()async{
+      final response = await httpManager.get('$_baseApiBss'+'stadiums/confirm', null);
+      return response['data']['address'];
     }
-    
+
+     Future<dynamic> confirm(id)async{
+      final response = await httpManager.get('$_baseApiBss'+'stadiums/confirm/$id', null);
+      return response['data'];
+    }
 
 
 
