@@ -130,6 +130,22 @@ class DataService {
         await httpManager.post('$_baseApiBss' + 'statusshift/create', body);
     return response['data'];
   }
+  Future<dynamic> registerManager(email,name,phone,gender,password)async{
+        final body = {
+    	"email":email,
+    "fullName":name,
+    "phone":phone,
+    "gender":gender,
+    "password":password
+};
+    final response =
+        await httpManager.post('$_baseApiBss' + 'users/register', body);
+    return response;
+  }
+
+
+
+
 
   Future<dynamic> checkEmailExist(email) async {
     final response = await httpManager.get(

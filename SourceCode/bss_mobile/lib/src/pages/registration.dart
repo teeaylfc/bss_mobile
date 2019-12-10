@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:bss_mobile/src/common/flutter_screenutil.dart';
 import 'package:bss_mobile/src/pages/registration_page2.dart';
@@ -105,6 +104,9 @@ class _RegistrationState extends State<RegistrationPage> {
                 _showNameInput(),
                 _showEmailInput(),
                 _showPhoneInput(),
+                SizedBox(
+                  height: ScreenUtil().setSp(20),
+                ),
                             Text(
                               FlutterI18n.translate(context, 'profileEditPage.gender'),
                               style: TextStyle(fontSize: ScreenUtil().setSp(12), color: Color(0xFF9B9B9B)),
@@ -275,6 +277,8 @@ class _RegistrationState extends State<RegistrationPage> {
                 builder: (context) => RegistrationPage2(
                       name: _nameController.text,
                       email: _emailController.text,
+                      gender: gender,
+                      phone: _phoneController.text,
                     )));
       }
     } catch (e) {

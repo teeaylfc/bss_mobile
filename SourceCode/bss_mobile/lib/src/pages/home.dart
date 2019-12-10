@@ -118,9 +118,9 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
       if (user != null) {
         fullName = user.fullName;
         imageUrl = user.getImageUrl();
-        getViewNearlyItem(0);
+        // getViewNearlyItem(0);
         // balance = user.balance;
-        getBalance();
+        // getBalance();
       } else {
         fullName = null;
         imageUrl = null;
@@ -239,9 +239,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
             },
           ),
           child: ListView(key: PageStorageKey('parentList'), controller: _scrollController, children: <Widget>[
-            _buildHeader(),
-            // _buildBanner(),
-            
+            _buildHeader(),            
           ]),
         ),
       ),
@@ -312,12 +310,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
                         children: <Widget>[
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => AddressAddPage(),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => AddressAddPage(),
+                              //   ),
+                              // );
                             },
                             child: MPoint(
                               iconSize: ScreenUtil().setSp(18),

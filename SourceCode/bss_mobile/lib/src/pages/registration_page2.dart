@@ -21,8 +21,9 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 class RegistrationPage2 extends StatefulWidget {
   final String name;
   final String email;
-
-  const RegistrationPage2({this.name, this.email});
+  final String phone;
+  final String gender;
+  const RegistrationPage2({this.name, this.email, this.phone, this.gender});
 
   @override
   State<StatefulWidget> createState() {
@@ -198,8 +199,13 @@ class _Registration2State extends State<RegistrationPage2> implements BlocDelega
           colors: <Color>[Color(0xFFD90D0D), Color(0xFFD90D0D)],
         ),
         onPressed: () {
-          FocusScope.of(context).requestFocus(new FocusNode());
-          _validateInputs(authBloc);
+          print("222222222");
+          // FocusScope.of(context).requestFocus(new FocusNode());
+          // _validateInputs(authBloc);
+          if(_passwordController.text != '' && _passwordController.text == _passwordConfirmController.text){
+            print("222222222222");
+            _register();
+          }
         });
   }
 
@@ -217,7 +223,7 @@ class _Registration2State extends State<RegistrationPage2> implements BlocDelega
     if (_formKey.currentState.validate() && _passwordController.text.length >= 8 && _passwordConfirmController.text == _passwordController.text) {
 //    If all data are correct then save data to out variables
       _formKey.currentState.save();
-      _register(authBloc);
+      // _register(authBloc);
     } else {
 //    If all data are not valid then start auto validation.
       setState(() {
@@ -226,19 +232,22 @@ class _Registration2State extends State<RegistrationPage2> implements BlocDelega
     }
   }
 
-  _register(authBloc) {
+  _register() {
+    print("222222222222");
     setState(() {
       loading = true;
     });
     try {
-      authBloc.register(widget.email, widget.name, _passwordController.text);
+      // authBloc.register(widget.email, widget.name, _passwordController.text);
+      dataService.registerManager(widget.email, widget.name, widget.phone, widget.gender, _passwordController.text);
+         Navigator.pop(context);
+      Navigator.pop(context);
+      Reusable.showMessageDialog(true, "Bạn đã đăng kí tài khoản thành công", context);
+   
     } catch (error) {
       setState(() {
         loading = false;
-        Reusable.showSnackBar(
-          _scaffoldKey,
-          error,
-        );
+        Reusable.showMessageDialog(false, error, context);
       });
     }
   }

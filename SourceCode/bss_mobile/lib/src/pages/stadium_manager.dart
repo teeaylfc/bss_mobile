@@ -73,20 +73,7 @@ class StadiumManagerState extends State<StadiumManager> {
             actions: <Widget>[
               GestureDetector(
                 onTap: () {
-                  DatePicker.showDatePicker(context,
-                      minTime: DateTime.now(),
-                      maxTime: DateTime(2020, 12, 30), onConfirm: (date) {
-                    setState(() {
-                      datePicker = date.toString().substring(0, 10);
-                      if (datePicker ==
-                          DateTime.now().toString().toString().substring(0, 10)) {
-                        dateView = "Hôm nay";
-                      } else {
-                        dateView = datePicker;
-                      }
-                      refreshData();
-                    });
-                  }, currentTime: DateTime.now(), locale: LocaleType.vi);
+                  _showDatePicker();
                 },
                 child: Container(
                   child: Image.asset(
@@ -112,12 +99,15 @@ class StadiumManagerState extends State<StadiumManager> {
                     SizedBox(
                       height: ScreenUtil().setSp(20),
                     ),
-                    Text(
-                      dateView,
-                      style: TextStyle(
-                          color: CommonColor.textBlack,
-                          fontWeight: FontWeight.bold,
-                          fontSize: ScreenUtil().setSp(20)),
+                    GestureDetector(
+                      onTap: ()=>_showDatePicker(),
+                      child: Text(
+                        dateView,
+                        style: TextStyle(
+                            color: CommonColor.textBlack,
+                            fontWeight: FontWeight.bold,
+                            fontSize: ScreenUtil().setSp(20)),
+                      ),
                     ),
                     SizedBox(
                       height: ScreenUtil().setSp(20),
@@ -229,11 +219,66 @@ class StadiumManagerState extends State<StadiumManager> {
               ),
             ),
           ),
+          bottomNavigationBar: Container(
+            padding: EdgeInsets.all(ScreenUtil().setSp(10)),
+            height: ScreenUtil().setSp(80),
+            color: Colors.white,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    _buildDes("Sân trống", 0),
+                    _buildDes("Chờ xác nhận", 1),
+                    _buildDes("Chưa thanh toán", 2),
+                  ],
+                ),
+                SizedBox(
+                  height: ScreenUtil().setSp(5),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                      _buildDes("Đã thanh toán", 3),
+                      SizedBox(width: ScreenUtil().setSp(10),),
+                    _buildDes("Bị hủy", 4)
+                  ],
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
-
+  _showDatePicker(){
+                     DatePicker.showDatePicker(context,
+                      minTime: DateTime.now(),
+                      maxTime: DateTime(2020, 12, 30), onConfirm: (date) {
+                    setState(() {
+                      datePicker = date.toString().substring(0, 10);
+                      if (datePicker ==
+                          DateTime.now().toString().toString().substring(0, 10)) {
+                        dateView = "Hôm nay";
+                      } else {
+                        dateView = datePicker;
+                      }
+                      refreshData();
+                    });
+                  }, currentTime: DateTime.now(), locale: LocaleType.vi);
+  }
+  _buildDes(title,status){
+    return Row(
+      children: <Widget>[
+        Image.asset("assets/images/${_stringImage(status)}",width: ScreenUtil().setSp(25),),
+        SizedBox(width: ScreenUtil().setSp(8),),
+        Text(title,style: TextStyle(
+          color: CommonColor.textBlack,
+          fontSize: ScreenUtil().setSp(12),
+        ),)
+      ],
+    );
+  }
   _buildShift(Shift shift, index, length) {
     return GestureDetector(
       onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=> ShiftDetailPage(shift,datePicker))),

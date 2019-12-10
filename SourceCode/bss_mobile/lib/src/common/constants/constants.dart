@@ -53,7 +53,7 @@ class Config {
   static const CONNECTION_TIMEOUT = 5000;
 
   static const PAGE_SIZE = 20;
-  static const DEBUG = false;
+  static const DEBUG = true;
   static const USE_NATIVE_WEBVIEW = true;
 
   static const BIOMETRIC_CLIENT_SECRET = "biometric-client-secret";

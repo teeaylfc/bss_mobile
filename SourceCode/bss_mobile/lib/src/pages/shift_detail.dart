@@ -60,7 +60,18 @@ class ShiftState extends State<ShiftDetailPage> {
               _buildInfo("Thời gian bắt đầu:", shift.shiftDTO.time_start),
               _buildInfo("Thời gian kết thúc:", shift.shiftDTO.time_end),
               _buildInfo("Giá thuê:", shift.shiftDTO.cash.toString() + " VNĐ"),
-              _buildInfo("Người đặt", "Không có")
+              shift.user != null
+                  ? Column(
+                      children: <Widget>[
+                        _buildInfo(
+                            "Người đặt", shift.user.fullName ?? "Chưa rõ"),
+                              _buildInfo(
+                            "Số điện thoại", shift.user.phone ?? "Chưa rõ"),
+                              _buildInfo(
+                            "Email", shift.user.email ?? "Chưa rõ"),
+                      ],
+                    )
+                  : Container()
             ],
           ),
         ),
@@ -116,7 +127,7 @@ class ShiftState extends State<ShiftDetailPage> {
                       onPressed: () async {
                         try {
                           await dataService.bookShift(
-                              shift.shiftDTO.id, widget.date);  
+                              shift.shiftDTO.id, widget.date);
                           Reusable.showMessageDialog(
                               true, "Đặt lịch thành công", context);
                         } catch (e) {

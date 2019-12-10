@@ -51,8 +51,8 @@ class _StoreInfoPageState extends State<StoreInfoPage> with AutomaticKeepAliveCl
   @override
   void initState() {
     super.initState();
-    getStoreItemList(0);
-    _getStoreDetail();
+    // getStoreItemList(0);
+    // _getStoreDetail();
   }
 
   getStoreItemList(page) async {
