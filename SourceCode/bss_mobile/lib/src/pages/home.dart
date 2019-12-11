@@ -31,7 +31,6 @@ import 'package:bss_mobile/src/widgets/item_card_home.dart';
 import 'package:bss_mobile/src/widgets/m_point.dart';
 import 'package:bss_mobile/src/widgets/reusable.dart';
 import 'package:bss_mobile/src/widgets/section_title.dart';
-import 'package:bss_mobile/src/widgets/shopping_cart.dart';
 import 'package:bss_mobile/src/widgets/store_item_home.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -753,30 +752,6 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
 
 
   _openCouponDtail(context, id) {
-    InternetConnectivity.checkConnectivity().then(
-      (data) {
-        if (InternetConnectivity.internet) {
-          Navigator.of(context).push(
-            PageRouteBuilder<Null>(
-                pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-                  return AnimatedBuilder(
-                      animation: animation,
-                      builder: (BuildContext context, Widget child) {
-                        return Opacity(
-                          opacity: animation.value,
-                          child: ItemDetailPage(
-                            itemCode: id,
-                          ),
-                        );
-                      });
-                },
-                transitionDuration: Duration(milliseconds: 100)),
-          );
-        } else {
-          Reusable.showTotastError("No internet connection! Please try again");
-        }
-      },
-    );
   }
 
   _openQRCodeScaner() {

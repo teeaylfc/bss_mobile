@@ -85,16 +85,7 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
         child: ListView(
           children: <Widget>[
             Center(
-              child: Container(
-                width: ScreenUtil().setSp(98),
-                height: ScreenUtil().setSp(98),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/images/loyalty/loy_logo.png'),
-                  ),
-                ),
-              ),
+              child: Image.asset("assets/images/loyalty/app_launcher_icon.png",width: ScreenUtil().setSp(135),),
             ),
             _showEmailInput(),
             _showPasswordInput(),
@@ -400,7 +391,7 @@ class _SignInPageState extends State<SignInPage> implements BlocDelegate<User> {
       _storage.delete(key: Config.LIST_ORDER);
     }
     else{
-      applicationBloc.getOrderCount();
+      // applicationBloc.getOrderCount();
     }
   }
 

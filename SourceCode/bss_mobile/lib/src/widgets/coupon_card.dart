@@ -329,30 +329,5 @@ class _ItemCardState extends State<ItemCard> with SingleTickerProviderStateMixin
   }
 
   _openCouponDetail(context, Item item) {
-    InternetConnectivity.checkConnectivity().then(
-      (data) {
-        if (InternetConnectivity.internet) {
-          Navigator.of(context).push(
-            PageRouteBuilder<Null>(
-                pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-                  return AnimatedBuilder(
-                      animation: animation,
-                      builder: (BuildContext context, Widget child) {
-                        return Opacity(
-                          opacity: animation.value,
-                          child: ItemDetailPage(
-                            itemCode: item.itemCode,
-                            previousPage: widget.pageContext,
-                          ),
-                        );
-                      });
-                },
-                transitionDuration: Duration(milliseconds: 250)),
-          );
-        } else {
-          Reusable.showTotastError("No internet connection! Please try again");
-        }
-      },
-    );
   }
 }

@@ -15,7 +15,6 @@ import 'package:bss_mobile/src/common/constants/constants.dart';
 import 'package:bss_mobile/src/common/flutter_screenutil.dart';
 import 'package:bss_mobile/src/common/util/localstorage.dart';
 import 'package:bss_mobile/src/pages/booking-all.dart';
-import 'package:bss_mobile/src/pages/booking_detail.dart';
 import 'package:bss_mobile/src/pages/browser.dart';
 import 'package:bss_mobile/src/pages/category_list.dart';
 import 'package:bss_mobile/src/pages/home.dart';
@@ -29,7 +28,6 @@ import 'package:bss_mobile/src/service/data_service.dart';
 import 'package:bss_mobile/src/style/styles.dart';
 import 'package:bss_mobile/src/widgets/notification_popup.dart';
 
-import 'booking.dart';
 
 PageStorageKey mykey = new PageStorageKey("testkey");
 final PageStorageBucket bucket = new PageStorageBucket();
@@ -83,8 +81,8 @@ class _MainPage extends State<MainPage>
           ? AuthenticationState.signedIn
           : AuthenticationState.notSignedIn;
     });
-    listenBloc();
-    registerNotification();
+    // listenBloc();
+    // registerNotification();
     // configLocalNotification();
 
 //    walletCount = BlocProvider.of<ApplicationBloc>(context).walletCount.value;
