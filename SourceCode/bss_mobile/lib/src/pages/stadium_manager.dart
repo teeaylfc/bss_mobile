@@ -281,7 +281,11 @@ class StadiumManagerState extends State<StadiumManager> {
   }
   _buildShift(Shift shift, index, length) {
     return GestureDetector(
-      onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=> ShiftDetailPage(shift,datePicker))),
+      onTap: ()async{
+         Navigator.push(context, MaterialPageRoute(builder: (context)=> ShiftDetailPage(shift,datePicker))).then((data){
+           refreshData();
+         });
+      } ,
       child: Container(
           decoration: BoxDecoration(
               color: Colors.white,
@@ -341,7 +345,7 @@ class StadiumManagerState extends State<StadiumManager> {
     return Container(
       width: ScreenUtil().setSp(50),
       height: ScreenUtil().setSp(50),
-      padding: EdgeInsets.all(17),
+      padding: EdgeInsets.all(12),
       child: Container(
         width: ScreenUtil().setSp(25),
         height: ScreenUtil().setSp(25),
@@ -352,7 +356,7 @@ class StadiumManagerState extends State<StadiumManager> {
         child: Center(
           child: Text(
             index.toString(),
-            style: TextStyle(color: Colors.white, fontSize: 18),
+            style: TextStyle(color: Colors.white, fontSize: ScreenUtil().setSp(15)),
           ),
         ),
       ),

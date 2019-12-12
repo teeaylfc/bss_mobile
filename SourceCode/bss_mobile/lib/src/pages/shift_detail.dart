@@ -82,9 +82,9 @@ class ShiftState extends State<ShiftDetailPage> {
             height: ScreenUtil().setSp(76),
             color: Colors.white,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: shift.user != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
               children: <Widget>[
-                Container(
+                shift.user != null ?  Container(
                   width: ScreenUtil().setSp(160),
                   height: ScreenUtil().setSp(35),
                   decoration: BoxDecoration(
@@ -92,7 +92,7 @@ class ShiftState extends State<ShiftDetailPage> {
                       borderRadius: BorderRadius.circular(40)),
                   child: RaisedGradientButton(
                       gradient: LinearGradient(
-                        colors: <Color>[Color(0xff575757), Color(0xff575757)],
+                        colors: <Color>[Colors.red, Colors.red],
                         begin: FractionalOffset.topCenter,
                         end: FractionalOffset.bottomCenter,
                         stops: const <double>[0.0, 1],
@@ -103,6 +103,7 @@ class ShiftState extends State<ShiftDetailPage> {
                               shift.id,
                               ConfigStatusShift.CANCEL,
                               "Xin lỗi ca này không thể đặt");
+                              Navigator.pop(context,true);
                           Reusable.showMessageDialog(
                               true, "Hủy lịch thành công", context);
                         } catch (e) {
@@ -116,7 +117,7 @@ class ShiftState extends State<ShiftDetailPage> {
                             fontWeight: FontWeight.w500,
                             fontSize: ScreenUtil().setSp(13)),
                       )),
-                ),
+                ) : Container(),
                 Container(
                   width: ScreenUtil().setSp(160),
                   height: ScreenUtil().setSp(35),
@@ -128,6 +129,7 @@ class ShiftState extends State<ShiftDetailPage> {
                         try {
                           await dataService.bookShift(
                               shift.shiftDTO.id, widget.date);
+                              Navigator.pop(context,true);
                           Reusable.showMessageDialog(
                               true, "Đặt lịch thành công", context);
                         } catch (e) {

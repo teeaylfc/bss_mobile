@@ -130,6 +130,9 @@ class AddressAdd3State extends State<AddressAdd3Page> {
                 widget.communeId,
                 widget.listStadium,
                 list);
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context,true);
             showMessageDialog(
                 true, "Thêm địa điểm thành công", context);
           } catch (error) {

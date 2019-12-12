@@ -151,10 +151,12 @@ class _StoreListPageState extends PageState<StoreListPage>{
           ),
           gradient: CommonColor.leftRightLinearGradient,
       height: ScreenUtil().setSp(40),
-          onPressed: () {
+          onPressed: () async{
                 Navigator.push(context, MaterialPageRoute(
                     builder: (context) => AddressAddPage()
-                  ));
+                  )).then((data){
+                    getAllAddress();
+                  });
           }),
         ),
       ),

@@ -59,9 +59,11 @@ class ConfirmDialog extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 20),
                     child: Text(
                       title,
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: CommonColor.textGrey,
                         fontSize: ScreenUtil().setSp(15),
+                        
                       ),
                     ),
                   )

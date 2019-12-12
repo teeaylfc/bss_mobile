@@ -677,7 +677,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           avatarPreview: true,
           avatarFile: file,
           width: ScreenUtil().setSp(297),
-          height: ScreenUtil().setSp(180),
+          height: ScreenUtil().setSp(220),
           title: FlutterI18n.translate(context, 'profileEditPage.sure'),
           callbackConfirm: () {},
         );
