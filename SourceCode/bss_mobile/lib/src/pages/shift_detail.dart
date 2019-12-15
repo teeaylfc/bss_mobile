@@ -85,7 +85,7 @@ class ShiftState extends State<ShiftDetailPage> {
               mainAxisAlignment: shift.user != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
               children: <Widget>[
                 shift.user != null ?  Container(
-                  width: ScreenUtil().setSp(160),
+                  width: MediaQuery.of(context).size.width/2.4,
                   height: ScreenUtil().setSp(35),
                   decoration: BoxDecoration(
                       color: Color(0xff595959),
@@ -119,7 +119,7 @@ class ShiftState extends State<ShiftDetailPage> {
                       )),
                 ) : Container(),
                 Container(
-                  width: ScreenUtil().setSp(160),
+                  width: MediaQuery.of(context).size.width/2.4,
                   height: ScreenUtil().setSp(35),
                   decoration: BoxDecoration(
                       gradient: CommonColor.commonButtonColor,

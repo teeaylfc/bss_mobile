@@ -379,7 +379,7 @@ class _AdddressAddPage2State extends State<AddressAddPage2> {
                           color: CommonColor.textBlack,
                         ),),
                         Container(
-                          width: ScreenUtil().setSp(170),
+                          width: ScreenUtil().setSp(135),
                           child: Text(des,
                           maxLines: 3,
                           style: TextStyle(

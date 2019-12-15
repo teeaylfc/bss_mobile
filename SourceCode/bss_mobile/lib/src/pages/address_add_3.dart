@@ -488,7 +488,7 @@ class AddressAdd3State extends State<AddressAdd3Page> {
                           ),
                         ),
                         Container(
-                          width: ScreenUtil().setSp(170),
+                          width: ScreenUtil().setSp(125),
                           child: Text(
                             cash.toString() + " VNĐ",
                             maxLines: 1,
