@@ -55,21 +55,21 @@ class BonusPointState extends State<WalletBalance> {
               !statusBonus
                   ? Expanded(child: _content(context))
                   : _content(context),
-              !statusBonus
-                  ? Container(
-                      width: width,
-                      decoration:
-                          BoxDecoration(color: Colors.white, boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey[300],
-                          blurRadius: 3.0,
-                          spreadRadius: 1.0,
-                          offset: new Offset(0.0, -3.0),
-                        )
-                      ]),
-                      child: _footer(context),
-                    )
-                  : _footer(context)
+              // !statusBonus
+              //     ? Container(
+              //         width: width,
+              //         decoration:
+              //             BoxDecoration(color: Colors.white, boxShadow: [
+              //           BoxShadow(
+              //             color: Colors.grey[300],
+              //             blurRadius: 3.0,
+              //             spreadRadius: 1.0,
+              //             offset: new Offset(0.0, -3.0),
+              //           )
+              //         ]),
+              //         child: _footer(context),
+              //       )
+              //     : _footer(context)
             ],
           ),
         ),

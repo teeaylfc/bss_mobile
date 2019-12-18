@@ -99,27 +99,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   }
   @override
   void initState() {
-    super.initState();
-    _initScrollController();
-    _geolocator = Geolocator();
     applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-
-    // sroll to top page
-    applicationBloc.notifyEvent.listen((onData) {
-      if (AppEvent.SCROLL_HOME == onData) {
-        if (_scrollController.hasClients && _scrollController.position.pixels > 0.0) {
-          _scrollController.animateTo(0.0, curve: Curves.easeOut, duration: const Duration(milliseconds: 500));
-        }
-      }
-    });
 
     applicationBloc.currentUserValue.listen((user) {
       if (user != null) {
         fullName = user.fullName;
         imageUrl = user.getImageUrl();
-        // getViewNearlyItem(0);
-        // balance = user.balance;
-        // getBalance();
       } else {
         fullName = null;
         imageUrl = null;
@@ -137,29 +122,6 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   }
 
 
-  _initScrollController() {
-    for (int i = 0; i < _listScroll.length; i++) {
-      _listScroll[i] = ScrollController();
-      _listPadding[i] = 18;
-      _listFunction[i] = () {
-        if (_listScroll[i].hasClients) {
-          if (_listScroll[i].offset >= _listScroll[i].position.minScrollExtent && !_listScroll[i].position.outOfRange) {
-            setState(() {
-              _listPadding[i] = 0;
-            });
-          }
-          if (_listScroll[i].offset <= _listScroll[i].position.minScrollExtent && !_listScroll[i].position.outOfRange) {
-            setState(() {
-              _listPadding[i] = 18;
-            });
-          }
-        }
-      };
-    }
-    for (int i = 0; i < _listScroll.length; i++) {
-      _listScroll[i].addListener(_listFunction[i]);
-    }
-  }
 
   // getStoreList() {
   //   dataService.getStore("", false).then((data) {
@@ -197,15 +159,6 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   // }
 
   Future<Null> _initData() async {
-    int a = 1+1;
-    print(a);
-    /// initial data
-    // getHotItem(0);
-    // getNewestItem(0);
-    // getInterestingItem(0);
-    // getHomeCategory();
-    // getExpireSoon(0);
-    // getStoreList();
     return null;
   }
 
@@ -220,7 +173,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
         backgroundColor: Colors.transparent,
         body: SmartRefresher(
           controller: _refreshController,
-          onRefresh: _initData,
+          onRefresh: (){},
           header: CustomHeader(
             refreshStyle: RefreshStyle.Behind,
             builder: (c, m) {
@@ -238,7 +191,45 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
             },
           ),
           child: ListView(key: PageStorageKey('parentList'), controller: _scrollController, children: <Widget>[
-            _buildHeader(),            
+            _buildHeader(),
+            SizedBox(
+              height: ScreenUtil().setSp(40),
+            )     ,
+            Padding(
+              padding:  EdgeInsets.only(left: ScreenUtil().setSp(15),right: ScreenUtil().setSp(15)),
+              
+              child: Container(
+                 decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              blurRadius: 16.0,
+              color: Colors.black12,
+              offset: Offset(0.0, 10.0),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(16)),
+                height: ScreenUtil().setSp(130),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: <Widget>[
+                    _buildInfo("Ca đã đặt",15,Colors.red),
+                    Container(
+                      height: 1,
+                      padding: EdgeInsets.only(left: 15,right: 15),
+                      color: Color(0xffE7E7E7),
+                    ),
+                    _buildInfo("Ca trống",150,Colors.green),
+                    Container(
+                      height: 1,
+                      padding: EdgeInsets.only(left: 15,right: 15),
+                      color: Color(0xffE7E7E7),
+                    ),
+                    _buildInfo("Doanh thu dự tính","15000000 VNĐ" ,Colors.black),
+                  ],
+                ),
+              ),
+            )
           ]),
         ),
       ),
@@ -263,6 +254,33 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   //   );
   // }
 
+   _buildInfo(title, value,color) {
+    return Padding(
+      padding: EdgeInsets.only(
+          left: ScreenUtil().setSp(30),
+          right: ScreenUtil().setSp(30),
+          top: ScreenUtil().setSp(10),
+          bottom: ScreenUtil().setSp(10)),
+          
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(
+                fontSize: ScreenUtil().setSp(16), color: CommonColor.textBlack),
+          ),
+          Text(
+            value.toString(),
+            style: TextStyle(
+                fontSize: ScreenUtil().setSp(16),
+                fontWeight: FontWeight.bold,
+                color: color),
+          ),
+        ],
+      ),
+    );
+  }
   Widget _buildBalanceInfo() {
     return Container(
       width: ScreenUtil().setWidth(344),

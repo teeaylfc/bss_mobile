@@ -253,8 +253,10 @@ class StadiumManagerState extends State<StadiumManager> {
   }
   _showDatePicker(){
                      DatePicker.showDatePicker(context,
-                      minTime: DateTime.now(),
-                      maxTime: DateTime(2020, 12, 30), onConfirm: (date) {
+                    
+                      minTime:DateTime(2019, 10, 30),
+                      maxTime: DateTime(2020, 12, 30),
+                       onConfirm: (date) {
                     setState(() {
                       datePicker = date.toString().substring(0, 10);
                       if (datePicker ==

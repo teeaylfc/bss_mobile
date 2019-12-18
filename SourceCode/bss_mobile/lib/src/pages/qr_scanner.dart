@@ -96,9 +96,7 @@ class _QRScannerPageState extends State<QRScannerPage> with SingleTickerProvider
               height: MediaQuery.of(context).size.height,
               color: Color.fromRGBO(00, 00, 00, 0.7),
               child: Center(child: _cameraPreviewWidget()),
-            ),
-            'WALLET' == widget.screenType || "CHECK_OUT" == widget.screenType
-                ? Positioned(
+            ),Positioned(
                     top: 30,
                     right: 20,
                     child: IconButton(
@@ -109,23 +107,171 @@ class _QRScannerPageState extends State<QRScannerPage> with SingleTickerProvider
                         onPressed: () {
                           controller?.dispose();
                           Navigator.of(context).pop();
-                        }))
-                : Container(),
-            Center(
-              child: Stack(
+                        })),
+               
+            Container(
+              color: Colors.transparent,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
                 children: <Widget>[
-                  SizedBox(
-                    height: ScreenUtil().setSp(300),
-                    width: ScreenUtil().setSp(300),
+                  Expanded(
+                    flex: 1,
+                    child: Opacity(
+                        opacity: 0.65,
+                        child: Container(
+                          color: Colors.black,
+                        )),
+                  ),
+                  Opacity(
+                    opacity: 1,
                     child: Container(
-                      decoration: BoxDecoration(border: Border.all(color: Color(0xFF1EF929), width: 2.0)),
+                      width: ScreenUtil().setSp(30),
+                      color: Colors.green,
                     ),
                   ),
-                  Positioned(
-                    top: verticalPosition != null ? verticalPosition.value : 0,
-                    left: 25,
-                    child: Container(width: ScreenUtil().setSp(250), height: ScreenUtil().setSp(2), color: Color(0xFF1EF929)),
-                  )
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: Opacity(
+                          opacity: 0.65,
+                          child: Container(
+                            width: ScreenUtil().setSp(40),
+                            height: ScreenUtil().setSp(320),
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      Stack(
+                        children: <Widget>[
+                          SizedBox(
+                            height: ScreenUtil().setSp(320),
+                            width: ScreenUtil().setSp(300),
+                            child: Stack(
+                              children: <Widget>[
+                                Positioned(
+                                  top: 0,
+                                  left: 0,
+                                  child: Container(
+                                    width: ScreenUtil().setSp(20),
+                                    height: ScreenUtil().setSp(20),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                      top: BorderSide(
+                                          color: Colors.white,
+                                          width: ScreenUtil().setSp(4)),
+                                      left: BorderSide(
+                                          color: Colors.white,
+                                          width: ScreenUtil().setSp(4)),
+                                    )),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Container(
+                                    width: ScreenUtil().setSp(20),
+                                    height: ScreenUtil().setSp(20),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                      top: BorderSide(
+                                          color: Colors.white,
+                                          width: ScreenUtil().setSp(4)),
+                                      right: BorderSide(
+                                          color: Colors.white,
+                                          width: ScreenUtil().setSp(4)),
+                                    )),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  child: Container(
+                                    width: ScreenUtil().setSp(20),
+                                    height: ScreenUtil().setSp(20),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                      bottom: BorderSide(
+                                          color: Colors.white,
+                                          width: ScreenUtil().setSp(4)),
+                                      left: BorderSide(
+                                          color: Colors.white,
+                                          width: ScreenUtil().setSp(4)),
+                                    )),
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Container(
+                                    width: ScreenUtil().setSp(20),
+                                    height: ScreenUtil().setSp(20),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                      bottom: BorderSide(
+                                          color: Colors.white,
+                                          width: ScreenUtil().setSp(4)),
+                                      right: BorderSide(
+                                          color: Colors.white,
+                                          width: ScreenUtil().setSp(4)),
+                                    )),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: verticalPosition != null
+                                ? verticalPosition.value
+                                : 0,
+                            left: ScreenUtil().setSp(0),
+                            child: Column(
+                              children: <Widget>[
+                                Opacity(
+                                  opacity: 1,
+                                  child: Container(
+                                    width: ScreenUtil().setSp(320),
+                                    height: ScreenUtil().setSp(30),
+                                    decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                            colors: <Color>[
+                                              Color(0xFFc2f9ff),
+                                              Colors.transparent
+                                            ],
+                                            begin: FractionalOffset.topCenter,
+                                            end: FractionalOffset.bottomCenter,
+                                            stops: const <double>[0.0, 1],
+                                            tileMode: TileMode.clamp)
+                                            ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Opacity(
+                          opacity: 0.65,
+                          child: Container(
+                            width: ScreenUtil().setSp(40),
+                            height: ScreenUtil().setSp(320),
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Opacity(
+                        opacity: 0.65,
+                        child: Container(
+                          color: Colors.black,
+                        )),
+                        
+                  ),
                 ],
               ),
             ),
