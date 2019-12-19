@@ -85,7 +85,7 @@ class _SplashPageState extends State<SplashPage> {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
 
     ApplicationBloc applicationBloc = BlocProvider.of<ApplicationBloc>(context);
-
+     applicationBloc.getCurrentUser();
     ScreenUtil.instance =
         ScreenUtil(width: 375, height: 667, allowFontScaling: true)
           ..init(context);
