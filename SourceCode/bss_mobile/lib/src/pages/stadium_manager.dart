@@ -152,6 +152,7 @@ class StadiumManagerState extends State<StadiumManager> {
                                         children: <Widget>[
                                           Text(shift.shiftDTO.time_start ?? '',
                                               style: TextStyle(
+                                                  color: Colors.blue,
                                                   fontSize: ScreenUtil().setSp(12),
                                                   fontWeight: FontWeight.bold)),
                                           Padding(
@@ -165,6 +166,7 @@ class StadiumManagerState extends State<StadiumManager> {
                                           ),
                                           Text(shift.shiftDTO.time_end ?? '',
                                               style: TextStyle(
+                                                 color: Colors.red,
                                                   fontSize: ScreenUtil().setSp(12),
                                                   fontWeight: FontWeight.bold))
                                         ],

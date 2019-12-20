@@ -52,6 +52,7 @@ class _BrowserPageState extends State<BrowserPage>
         }
         setState(() {
           listConfirm = listConfirm;
+          print(listConfirm);
         });
       });
     }catch(error){

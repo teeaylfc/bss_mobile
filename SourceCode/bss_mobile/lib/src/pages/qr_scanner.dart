@@ -64,10 +64,11 @@ class _QRScannerPageState extends State<QRScannerPage> with SingleTickerProvider
           this.setState(() {});
         });
         animationController.forward();
-        verticalPosition = Tween<double>(begin: 0.0, end: 300.0).animate(CurvedAnimation(parent: animationController, curve: Curves.linear))
+        verticalPosition = Tween<double>(begin: 0.0, end: ScreenUtil().setSp(380)).animate(CurvedAnimation(parent: animationController, curve: Curves.linear))
           ..addStatusListener((state) {
             if (state == AnimationStatus.completed) {
-              animationController.reverse();
+              animationController.forward();
+              animationController.repeat();
             } else if (state == AnimationStatus.dismissed) {
               animationController.forward();
             }
@@ -96,18 +97,7 @@ class _QRScannerPageState extends State<QRScannerPage> with SingleTickerProvider
               height: MediaQuery.of(context).size.height,
               color: Color.fromRGBO(00, 00, 00, 0.7),
               child: Center(child: _cameraPreviewWidget()),
-            ),Positioned(
-                    top: 30,
-                    right: 20,
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.cancel,
-                          color: Color(0xFFE7E7E7),
-                        ),
-                        onPressed: () {
-                          controller?.dispose();
-                          Navigator.of(context).pop();
-                        })),
+            ),
                
             Container(
               color: Colors.transparent,
@@ -329,6 +319,18 @@ class _QRScannerPageState extends State<QRScannerPage> with SingleTickerProvider
 //                    ])
 //                )
             // )
+            Positioned(
+                    top: 60,
+                    right: 20,
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.cancel,
+                          color: Color(0xFFE7E7E7),
+                        ),
+                        onPressed: () {
+                          controller?.dispose();
+                          Navigator.of(context).pop();
+                        })),
           ],
         ),
       ),

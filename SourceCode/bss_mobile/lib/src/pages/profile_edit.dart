@@ -283,27 +283,32 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                             ),
                             Container(
                               width: ScreenUtil().setSp(105),
-                              child: DropdownButtonFormField<String>(
-                                hint: Text(FlutterI18n.translate(context, 'profileEditPage.gender'),),
-                                onChanged: (value) {
-                                  setState(() {
-                                    gender = value;
-                                  });
-                                },
-                                value: gender,
-                                items: genderMaps.map((value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value['key'],
-                                    child: Text(
-                                      value['value'],
-                                      style: TextStyle(
-                                        fontSize: ScreenUtil().setSp(16),
-                                        color: Color(0xFF000000),
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                      canvasColor: Colors.white,
                                     ),
-                                  );
-                                }).toList(),
+                                child: DropdownButtonFormField<String>(
+                                  hint: Text(FlutterI18n.translate(context, 'profileEditPage.gender'),),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      gender = value;
+                                    });
+                                  },
+                                  value: gender,
+                                  items: genderMaps.map((value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value['key'],
+                                      child: Text(
+                                        value['value'],
+                                        style: TextStyle(
+                                          fontSize: ScreenUtil().setSp(16),
+                                          color: Color(0xFF000000),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
                               ),
                             ),
                             SizedBox(

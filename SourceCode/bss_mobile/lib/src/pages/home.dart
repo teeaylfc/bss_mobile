@@ -68,6 +68,12 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   double latitude;
   double longitude;
 
+  int availableShift = 0;
+  int bookedShift = 0;
+  int confirmShift = 0;
+  double profit = 0.0;
+  String date;
+
   List<Store> listStore = List<Store>();
 
   Future<ListItem> hotItemFuture;
@@ -157,8 +163,36 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
   //       print('whenInUse status: $status');
   //     });
   // }
-
+void _onRefresh() async{
+   date = DateTime.now().toString().substring(0, 10);
+    // monitor network fetch
+     await _initData();
+     await Future.delayed(Duration(milliseconds: 1000));
+    _refreshController.refreshCompleted();
+  }
   Future<Null> _initData() async {
+     dataService.getAvailableShift(date).then((data){
+       setState(() {
+         availableShift = data;
+       });
+     });
+     dataService.getStatusShift(1,date).then((data){
+       setState(() {
+         confirmShift = data;
+       });
+     });
+      dataService.getStatusShift(2,date).then((data1){
+       dataService.getStatusShift(3,date).then((data2){
+       setState(() {
+         bookedShift = data1 + data2;
+       });
+     });
+     });
+      dataService.getProfitDay(date).then((data){
+       setState(() {
+         profit = data;
+       });
+     });
     return null;
   }
 
@@ -173,23 +207,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
         backgroundColor: Colors.transparent,
         body: SmartRefresher(
           controller: _refreshController,
-          onRefresh: (){},
-          header: CustomHeader(
-            refreshStyle: RefreshStyle.Behind,
-            builder: (c, m) {
-              return Container(
-                padding: EdgeInsets.only(
-                  top: 40,
-                ),
-                decoration: BoxDecoration(border: Border.all(style: BorderStyle.none), color: CommonColor.backgroundColor),
-                alignment: Alignment.bottomCenter,
-                child: SpinKitFadingCircle(
-                  color: Colors.grey,
-                  size: ScreenUtil().setSp(25),
-                ),
-              );
-            },
-          ),
+          onRefresh: _onRefresh,
           child: ListView(key: PageStorageKey('parentList'), controller: _scrollController, children: <Widget>[
             _buildHeader(),
             SizedBox(
@@ -209,27 +227,39 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
             ),
           ],
           borderRadius: BorderRadius.circular(16)),
-                height: ScreenUtil().setSp(130),
+                constraints: BoxConstraints(
+                  minHeight: ScreenUtil().setSp(150),
+                ),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   children: <Widget>[
-                    _buildInfo("Ca đã đặt",15,Colors.red),
+                    _buildInfo("Ca đã đặt",bookedShift,Colors.red),
                     Container(
                       height: 1,
                       padding: EdgeInsets.only(left: 15,right: 15),
                       color: Color(0xffE7E7E7),
                     ),
-                    _buildInfo("Ca trống",150,Colors.green),
+                    _buildInfo("Ca trống",availableShift,Colors.green),
                     Container(
                       height: 1,
                       padding: EdgeInsets.only(left: 15,right: 15),
                       color: Color(0xffE7E7E7),
                     ),
-                    _buildInfo("Doanh thu dự tính","15000000 VNĐ" ,Colors.black),
+                     _buildInfo("Ca chờ xác nhận",confirmShift,Colors.green),
+                    Container(
+                      height: 1,
+                      padding: EdgeInsets.only(left: 15,right: 15),
+                      color: Color(0xffE7E7E7),
+                    ),
+                    _buildInfo("Doanh thu",profit.toString() + " VNĐ",Colors.black),
                   ],
                 ),
               ),
-            )
+            ),
+            SizedBox(
+              height: ScreenUtil().setSp(50),
+            ),
+            Image.asset("assets/images/loyalty/banner_add.png",fit: BoxFit.cover,)
           ]),
         ),
       ),

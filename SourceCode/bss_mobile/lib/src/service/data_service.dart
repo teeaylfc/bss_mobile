@@ -82,6 +82,24 @@ class DataService {
     return ListAddress.fromJson(response['data']);
   }
 
+
+  Future<int> getAvailableShift(date) async{
+    final response =
+        await httpManager.get('$_baseApiBss' + 'address/statistical/numberStatus/$date', null);
+    return response['data']['statistical']['total'];
+  }
+  Future<int> getStatusShift(status,date) async{
+    final response =
+        await httpManager.get('$_baseApiBss' + 'address/statistical/numberStatus/$status/$date', null);
+    return response['data']['statistical']['total'];
+  }
+  Future<double> getProfitDay(date) async{
+    final response =
+        await httpManager.get('$_baseApiBss' + 'address/statistical/profit/real/$date', null);
+    return response['data']['statistical']['total'];
+  }
+
+
   Future<ListStadium> getDetailAddress(idAdrress, date) async {
     final response = await httpManager.get(
         '$_baseApiBss' + 'stadiums/full/address/$idAdrress/date/$date', null);

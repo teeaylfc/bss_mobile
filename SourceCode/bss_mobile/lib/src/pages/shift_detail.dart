@@ -82,7 +82,7 @@ class ShiftState extends State<ShiftDetailPage> {
             height: ScreenUtil().setSp(76),
             color: Colors.white,
             child: Row(
-              mainAxisAlignment: shift.user != null ? MainAxisAlignment.spaceBetween : MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 shift.user != null ?  Container(
                   width: MediaQuery.of(context).size.width/2.4,
@@ -117,7 +117,7 @@ class ShiftState extends State<ShiftDetailPage> {
                             fontWeight: FontWeight.w500,
                             fontSize: ScreenUtil().setSp(13)),
                       )),
-                ) : Container(),
+                ) :
                 Container(
                   width: MediaQuery.of(context).size.width/2.4,
                   height: ScreenUtil().setSp(35),

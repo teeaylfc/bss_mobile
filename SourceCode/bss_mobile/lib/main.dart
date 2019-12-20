@@ -89,15 +89,15 @@ class _SplashPageState extends State<SplashPage> {
     ScreenUtil.instance =
         ScreenUtil(width: 375, height: 667, allowFontScaling: true)
           ..init(context);
-
+    
     var currentLanguage = applicationBloc.currentLanguageValue.value;
     if (currentLanguage == null) {
-      currentLanguage = LanguageSetting.LANGUAGE_EN;
+      currentLanguage = LanguageSetting.LANGUAGE_VI;
     }
     FlutterI18n.refresh(context, Locale(currentLanguage));
     return Stack(children: <Widget>[
       SplashScreen(
-          seconds: 5,
+          seconds: 3,
           navigateAfterSeconds: hasLogin ? MainPage() : SignInPage(),
           backgroundColor: Colors.white,
           styleTextUnderTheLoader: TextStyle(),
