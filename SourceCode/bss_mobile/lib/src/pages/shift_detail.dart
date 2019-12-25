@@ -11,7 +11,8 @@ import 'package:flutter/widgets.dart';
 class ShiftDetailPage extends StatefulWidget {
   Shift shift;
   String date;
-  ShiftDetailPage(this.shift, this.date);
+  String type;
+  ShiftDetailPage(this.shift, this.date,{this.type});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -22,9 +23,12 @@ class ShiftDetailPage extends StatefulWidget {
 class ShiftState extends State<ShiftDetailPage> {
   DataService dataService = DataService();
   Shift shift;
+  String type;
   @override
   void initState() {
     shift = widget.shift;
+    type = widget.type;
+
     // TODO: implement initState
     super.initState();
   }
@@ -59,6 +63,7 @@ class ShiftState extends State<ShiftDetailPage> {
               _buildInfo("Trạng thái: ", _returnStatus(shift.status)),
               _buildInfo("Thời gian bắt đầu:", shift.shiftDTO.time_start),
               _buildInfo("Thời gian kết thúc:", shift.shiftDTO.time_end),
+              shift.date != null ? _buildInfo("Thời gian:", shift.date) : Container(),
               _buildInfo("Giá thuê:", shift.shiftDTO.cash.toString() + " VNĐ"),
               shift.user != null
                   ? Column(
@@ -75,7 +80,7 @@ class ShiftState extends State<ShiftDetailPage> {
             ],
           ),
         ),
-        bottomNavigationBar: Container(
+        bottomNavigationBar: type == "VIEW" ? Container() : Container(
             padding: EdgeInsets.only(
                 left: ScreenUtil().setSp(22), right: ScreenUtil().setSp(23)),
             width: MediaQuery.of(context).size.width,

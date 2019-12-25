@@ -2,6 +2,7 @@ import 'package:bss_mobile/src/common/constants/constants.dart';
 import 'package:bss_mobile/src/common/flutter_screenutil.dart';
 import 'package:bss_mobile/src/pages/checkout.dart';
 import 'package:bss_mobile/src/pages/redeem_success.dart';
+import 'package:bss_mobile/src/pages/shift_detail.dart';
 import 'package:bss_mobile/src/service/data_service.dart';
 import 'package:bss_mobile/src/widgets/reusable.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
@@ -265,60 +266,6 @@ class _QRScannerPageState extends State<QRScannerPage> with SingleTickerProvider
                 ],
               ),
             ),
-            // Align(
-//                alignment: Alignment.bottomCenter,
-//                child: Container(
-//                    color: Color.fromRGBO(00, 00, 00, 0.7),
-//                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-//                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-//                      RaisedButton(
-//                          color: qrType == QRCODE_TYPE.RECEIPT ? Colors.orange : Colors.grey,
-//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-//                          child: Container(
-//                            width: MediaQuery.of(context).size.width / 4,
-//                            child: Text(
-//                              'RECEIPT',
-//                              textAlign: TextAlign.center,
-//                              style: TextStyle(color: Colors.white),
-//                            ),
-//                          ),
-//                          onPressed: () {
-//                            setState(() {
-//                              qrType = QRCODE_TYPE.RECEIPT;
-//                              controller?.stopScanning();
-//                              controller?.startScanning();
-//                              // _scanReceiptDataCertificatePayAtTable(context, "245004|242502|3|2500|1000|81807*1||7ddfcbff20b762e87b3e946c1114982efa9e6f661d1b807e031dda37d00bc713|0");
-//                              // _payAtTable(context, [19252],
-//                                  // "1566803198746|262002|546|7|HDJ*182*3|57298dcb7bfde0fcef30251cfe070c790fa444f7fab8680d8d0bad86063da81f|1");
-//                              // _scanReceiptDataCertificate(context, '245006|242502|5|10000|0|||d040de9d1986260bb7fec9a62cf423937ba50f10fdeee4d140947c1973be3230|0');
-//                            });
-//                          }),
-//                      SizedBox(
-//                        width: ScreenUtil().setSp(10),
-//                      ),
-//                      RaisedButton(
-//                          color: qrType == QRCODE_TYPE.POS_ID ? Colors.orange : Colors.grey,
-//                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-//                          child: Container(
-//                            width: MediaQuery.of(context).size.width / 4.8,
-//                            child: Text(
-//                              'POS ID',
-//                              textAlign: TextAlign.center,
-//                              style: TextStyle(color: Colors.white),
-//                            ),
-//                          ),
-//                          onPressed: () {
-//                            setState(() {
-//                              qrType = QRCODE_TYPE.POS_ID;
-//                              controller?.stopScanning();
-//                              controller?.startScanning();
-//                            });
-//                            // TODO remove
-//                            // _selectCouponOffline([], context,164602);
-//                          }),
-//                    ])
-//                )
-            // )
             Positioned(
                     top: 60,
                     right: 20,
@@ -362,27 +309,9 @@ class _QRScannerPageState extends State<QRScannerPage> with SingleTickerProvider
       couponIds = widget.couponIds;
     }
     if (qrcode != null) {
-        if (qrcode.toString().endsWith(QRCODE_RECEIPT_TYPE.PAY_AT_COUNTER_OFFLINE)) {
-          setState(() {
-            qrType = QRCODE_TYPE.RECEIPT;
-          });
-          _scanReceiptDataCertificate(context, qrcode.toString());
-        } else if (qrcode.toString().endsWith(QRCODE_RECEIPT_TYPE.PAY_AT_TABLE_CHECK)) {
-           setState(() {
-            qrType = QRCODE_TYPE.RECEIPT;
-          });
-          _payAtTable(context, couponIds, qrcode.toString());
-        } else if (qrcode.toString().endsWith(QRCODE_RECEIPT_TYPE.PAY_AT_TABLE_OFFLINE)) {
-           setState(() {
-            qrType = QRCODE_TYPE.RECEIPT;
-          });
-          _scanReceiptDataCertificatePayAtTable(context, qrcode.toString());
-        } else {
-            setState(() {
-             qrType = QRCODE_TYPE.POS_ID; 
-            });
-          _selectCouponOffline(couponIds, context, qrcode.toString());
-      }
+      dataService.getDetailContract(qrcode).then((data){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ShiftDetailPage(data, '',type: "VIEW",)));
+      });
     }
     // Future.delayed(const Duration(seconds: 10), controller.startScanning);
   }

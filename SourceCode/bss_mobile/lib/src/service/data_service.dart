@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
+import 'package:bss_mobile/src/models/shift_model.dart';
 import 'package:dio/dio.dart';
 import 'package:bss_mobile/src/common/constants/constants.dart';
 import 'package:bss_mobile/src/common/http_client.dart';
@@ -97,8 +98,13 @@ class DataService {
     final response =
         await httpManager.get('$_baseApiBss' + 'address/statistical/profit/real/$date', null);
     return response['data']['statistical']['total'];
-  }
+  } 
 
+  Future<Shift> getDetailContract(id) async{
+    final response =
+        await httpManager.get('$_baseApiBss' + 'statusshift/$id', null);
+    return Shift.fromJson(response['data']['address']);
+  } 
 
   Future<ListStadium> getDetailAddress(idAdrress, date) async {
     final response = await httpManager.get(
@@ -160,6 +166,81 @@ class DataService {
         await httpManager.post('$_baseApiBss' + 'users/register', body);
     return response;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

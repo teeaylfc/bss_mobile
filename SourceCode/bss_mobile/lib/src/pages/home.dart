@@ -1,3 +1,4 @@
+import 'package:bss_mobile/src/pages/shift_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -259,7 +260,15 @@ void _onRefresh() async{
             SizedBox(
               height: ScreenUtil().setSp(50),
             ),
-            Image.asset("assets/images/loyalty/banner_add.png",fit: BoxFit.cover,)
+            GestureDetector(
+              onTap: (){
+                  dataService.getDetailContract(13).then((data){
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ShiftDetailPage(data, '',type: "VIEW",)));
+      });
+              },
+              child: Container(
+                child: Image.asset("assets/images/loyalty/banner_add.png",fit: BoxFit.cover,)),
+            )
           ]),
         ),
       ),
