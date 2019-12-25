@@ -27,6 +27,7 @@ class ShiftState extends State<ShiftDetailPage> {
   @override
   void initState() {
     shift = widget.shift;
+    print(shift.status);
     type = widget.type;
 
     // TODO: implement initState
@@ -63,7 +64,7 @@ class ShiftState extends State<ShiftDetailPage> {
               _buildInfo("Trạng thái: ", _returnStatus(shift.status)),
               _buildInfo("Thời gian bắt đầu:", shift.shiftDTO.time_start),
               _buildInfo("Thời gian kết thúc:", shift.shiftDTO.time_end),
-              shift.date != null ? _buildInfo("Thời gian:", shift.date) : Container(),
+              // shift.date != null ? _buildInfo("Thời gian:", shift.date) : Container(),
               _buildInfo("Giá thuê:", shift.shiftDTO.cash.toString() + " VNĐ"),
               shift.user != null
                   ? Column(
@@ -80,7 +81,7 @@ class ShiftState extends State<ShiftDetailPage> {
             ],
           ),
         ),
-        bottomNavigationBar: type == "VIEW" ? Container() : Container(
+        bottomNavigationBar: (type != null && type == 'VIEW') ? null : Container(
             padding: EdgeInsets.only(
                 left: ScreenUtil().setSp(22), right: ScreenUtil().setSp(23)),
             width: MediaQuery.of(context).size.width,
@@ -149,7 +150,9 @@ class ShiftState extends State<ShiftDetailPage> {
                       )),
                 ),
               ],
-            )));
+            )
+            )
+            );
   }
 
   _buildInfo(title, value) {

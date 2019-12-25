@@ -104,6 +104,7 @@ class DataService {
     final response =
         await httpManager.get('$_baseApiBss' + 'statusshift/$id', null);
     return Shift.fromJson(response['data']['address']);
+    
   } 
 
   Future<ListStadium> getDetailAddress(idAdrress, date) async {

@@ -310,7 +310,8 @@ class _QRScannerPageState extends State<QRScannerPage> with SingleTickerProvider
     }
     if (qrcode != null) {
       dataService.getDetailContract(qrcode).then((data){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ShiftDetailPage(data, '',type: "VIEW",)));
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => ShiftDetailPage(data, '',type: "VIEW",)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>ShiftDetailPage(data,'',type: "VIEW",)));
       });
     }
     // Future.delayed(const Duration(seconds: 10), controller.startScanning);
